@@ -1,0 +1,382 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                    TuTu Network v0.1.0 — MANUAL CHEATSHEET             ║
+║              Phase 0 (Spark): Local-First AI Runtime for Windows       ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ FIRST TIME SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  PREREQUISITE: Go 1.25+ must be installed (https://go.dev/dl/)
+
+  Step 1 — Open PowerShell and navigate to the project:
+     cd "c:\Users\Nautilus\Desktop\TuTU Network\tutu"
+
+  Step 2 — If Go is not recognized, refresh your PATH:
+     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+  Step 3 — Build the binary:
+     go build -o tutu.exe ./cmd/tutu
+
+  Step 4 — Verify it works:
+     .\tutu.exe --help
+
+  Step 5 — (Optional) Add to system PATH so you can run "tutu" anywhere:
+     Copy tutu.exe to a folder in your PATH, or add the tutu\ folder to PATH.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ALL COMMANDS — QUICK REFERENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ┌──────────────────┬─────────────────────────────────────────────────┐
+  │ Command          │ What It Does                                    │
+  ├──────────────────┼─────────────────────────────────────────────────┤
+  │ tutu serve       │ Start the API server (port 11434 by default)    │
+  │ tutu pull MODEL  │ Download a model to your machine                │
+  │ tutu run MODEL   │ Start interactive chat with a model             │
+  │ tutu run M PROMPT│ Single-shot: ask one question, get answer       │
+  │ tutu list        │ Show all locally downloaded models              │
+  │ tutu show MODEL  │ Show detailed info about a specific model       │
+  │ tutu ps          │ Show models currently loaded in memory          │
+  │ tutu stop MODEL  │ Unload a model from memory (frees RAM)         │
+  │ tutu rm MODEL    │ Delete a model from disk permanently            │
+  │ tutu create M -f │ Create a custom model from a TuTufile           │
+  │ tutu --version   │ Show TuTu version                               │
+  │ tutu help        │ Show help for any command                       │
+  └──────────────────┴─────────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ COMMAND DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ ──────────────────────────────────────────────────
+ 1. tutu serve — START THE API SERVER
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe serve [flags]
+
+   FLAGS:
+     --host string    Host to listen on (default: 127.0.0.1)
+     --port int       Port to listen on (default: 11434)
+
+   EXAMPLES:
+     .\tutu.exe serve                      # Default: http://127.0.0.1:11434
+     .\tutu.exe serve --port 8080          # Custom port
+     .\tutu.exe serve --host 0.0.0.0       # Listen on all interfaces
+
+   WHAT IT DOES:
+     Starts the TuTu HTTP server. This exposes two API styles:
+     • OpenAI-compatible: /v1/chat/completions, /v1/models, /v1/embeddings
+     • Ollama-compatible: /api/tags, /api/generate, /api/chat, /api/pull
+     Any tool that works with OpenAI or Ollama APIs can connect to TuTu!
+
+   TO STOP THE SERVER:
+     Press Ctrl+C in the terminal.
+
+   API ENDPOINTS AVAILABLE:
+     GET  /                         → Health check
+     GET  /api/version              → TuTu version
+     GET  /api/tags                 → List models (Ollama style)
+     GET  /api/ps                   → List loaded models
+     POST /api/generate             → Generate text (Ollama style)
+     POST /api/chat                 → Chat (Ollama style)
+     POST /api/pull                 → Pull a model (Ollama style)
+     POST /api/show                 → Show model info
+     DEL  /api/delete               → Delete a model
+     GET  /v1/models                → List models (OpenAI style)
+     POST /v1/chat/completions      → Chat (OpenAI style, supports streaming)
+     POST /v1/embeddings            → Generate embeddings
+
+
+ ──────────────────────────────────────────────────
+ 2. tutu pull MODEL — DOWNLOAD A MODEL
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe pull <model_name>
+
+   EXAMPLES:
+     .\tutu.exe pull llama3
+     .\tutu.exe pull mistral
+     .\tutu.exe pull codellama:7b
+
+   WHAT IT DOES:
+     Downloads a model to ~/.tutu/models/. Shows a progress bar.
+     Models are stored as content-addressed blobs (like Docker layers).
+
+   NOTE (Phase 0):
+     Currently uses a mock backend. In future phases, this will
+     download real model weights from the TuTu registry.
+
+
+ ──────────────────────────────────────────────────
+ 3. tutu run MODEL [PROMPT] — CHAT WITH A MODEL
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe run <model_name>              # Interactive chat
+     .\tutu.exe run <model_name> "question"   # Single-shot question
+
+   EXAMPLES:
+     .\tutu.exe run llama3                    # Opens interactive chat
+     .\tutu.exe run llama3 "What is Go?"      # Ask one question
+
+   INTERACTIVE MODE COMMANDS:
+     Type your message and press Enter to chat.
+     /bye    → Exit the chat
+     /exit   → Exit the chat
+     /quit   → Exit the chat
+
+   WHAT IT DOES:
+     Loads the model into memory and generates responses.
+     If the model isn't downloaded yet, it auto-pulls first.
+
+   NOTE (Phase 0):
+     Uses a mock inference engine that echoes back your prompt.
+     Real inference (llama.cpp) will be added in Phase 1.
+
+
+ ──────────────────────────────────────────────────
+ 4. tutu list (or tutu ls) — LIST LOCAL MODELS
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe list
+
+   EXAMPLE OUTPUT:
+     NAME    SIZE  QUANTIZATION  MODIFIED
+     llama3  30 B                2026-02-09 20:31
+
+   WHAT IT DOES:
+     Shows all models stored locally on your machine.
+
+
+ ──────────────────────────────────────────────────
+ 5. tutu show MODEL — MODEL DETAILS
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe show <model_name>
+
+   EXAMPLE OUTPUT:
+     Name:         llama3
+     Size:         30 B
+     Format:       gguf
+     Family:
+     Parameters:
+     Quantization:
+     Digest:       sha256:683cd2f90c...
+     Modified:     2026-02-09 20:31:29
+
+   WHAT IT DOES:
+     Shows detailed metadata about a specific model.
+
+
+ ──────────────────────────────────────────────────
+ 6. tutu ps — LIST LOADED MODELS (IN MEMORY)
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe ps
+
+   WHAT IT DOES:
+     Shows which models are currently loaded in RAM.
+     Useful to check memory usage before loading more models.
+
+
+ ──────────────────────────────────────────────────
+ 7. tutu stop MODEL — UNLOAD FROM MEMORY
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe stop <model_name>
+
+   WHAT IT DOES:
+     Unloads a model from memory without deleting it from disk.
+     Frees up RAM. The model can be loaded again instantly.
+
+
+ ──────────────────────────────────────────────────
+ 8. tutu rm MODEL — DELETE FROM DISK
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe rm <model_name>
+
+   WHAT IT DOES:
+     Permanently deletes the model files from disk.
+     You'll need to pull again if you want to use it.
+
+   ⚠️  This is permanent! There is no undo.
+
+
+ ──────────────────────────────────────────────────
+ 9. tutu create MODEL -f TUTUFILE — CREATE CUSTOM MODEL
+ ──────────────────────────────────────────────────
+
+   USAGE:
+     .\tutu.exe create <model_name> -f <path_to_TuTufile>
+
+   EXAMPLE:
+     .\tutu.exe create my-assistant -f TuTufile
+
+   TUTUFILE FORMAT (like Dockerfile for AI models):
+     ┌──────────────────────────────────────────┐
+     │ FROM llama3                              │
+     │                                          │
+     │ PARAMETER temperature 0.7                │
+     │ PARAMETER top_p 0.9                      │
+     │ PARAMETER stop "<|eot_id|>"              │
+     │                                          │
+     │ SYSTEM """                               │
+     │ You are a helpful coding assistant.       │
+     │ Always explain your code step by step.    │
+     │ """                                       │
+     │                                          │
+     │ MESSAGE user "What is recursion?"         │
+     │ MESSAGE assistant "Recursion is..."       │
+     └──────────────────────────────────────────┘
+
+   AVAILABLE DIRECTIVES:
+     FROM model          — Base model to extend (required, must be first)
+     PARAMETER key val   — Set inference parameters
+     SYSTEM text         — Set system prompt (supports """ blocks)
+     TEMPLATE text       — Set prompt template (supports """ blocks)
+     ADAPTER path        — Path to LoRA adapter file
+     MESSAGE role text   — Add a conversation example
+     LICENSE text        — Set license text (supports """ blocks)
+
+   WHAT IT DOES:
+     Creates a new custom model based on an existing one,
+     with your own system prompt, parameters, and examples.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ API USAGE EXAMPLES (with curl)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ First, start the server: .\tutu.exe serve
+
+ ── Health Check ──
+   curl.exe http://127.0.0.1:11434/
+   → {"status":"TuTu is running"}
+
+ ── List Models ──
+   curl.exe http://127.0.0.1:11434/api/tags
+   curl.exe http://127.0.0.1:11434/v1/models
+
+ ── Chat (OpenAI style, non-streaming) ──
+   Save this to request.json:
+   {"model":"llama3","messages":[{"role":"user","content":"Hello!"}],"stream":false}
+
+   Then run:
+   curl.exe -X POST http://127.0.0.1:11434/v1/chat/completions -H "Content-Type: application/json" -d "@request.json"
+
+ ── Chat (OpenAI style, streaming SSE) ──
+   Save this to request.json:
+   {"model":"llama3","messages":[{"role":"user","content":"Hello!"}],"stream":true}
+
+   curl.exe -N -X POST http://127.0.0.1:11434/v1/chat/completions -H "Content-Type: application/json" -d "@request.json"
+
+ ── Embeddings ──
+   Save this to request.json:
+   {"model":"llama3","input":["Hello world","How are you?"]}
+
+   curl.exe -X POST http://127.0.0.1:11434/v1/embeddings -H "Content-Type: application/json" -d "@request.json"
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ USING TUTU WITH PYTHON (OpenAI SDK)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   # pip install openai
+   from openai import OpenAI
+
+   client = OpenAI(
+       base_url="http://127.0.0.1:11434/v1",
+       api_key="not-needed"           # TuTu doesn't require API keys
+   )
+
+   response = client.chat.completions.create(
+       model="llama3",
+       messages=[{"role": "user", "content": "Hello!"}]
+   )
+   print(response.choices[0].message.content)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ FILE LOCATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Configuration:  C:\Users\Nautilus\.tutu\config.toml  (auto-created)
+   Database:       C:\Users\Nautilus\.tutu\state.db     (SQLite with WAL)
+   Model blobs:    C:\Users\Nautilus\.tutu\models\blobs\
+   Manifests:      C:\Users\Nautilus\.tutu\models\manifests\
+   Logs:           C:\Users\Nautilus\.tutu\tutu.log
+
+   Override with TUTU_HOME environment variable:
+     $env:TUTU_HOME = "D:\my-tutu-data"
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ DEVELOPMENT COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Build:            go build -o tutu.exe ./cmd/tutu
+   Run tests:        go test ./...
+   Run tests (verbose): go test -v ./...
+   Build + run:      go build -o tutu.exe ./cmd/tutu; .\tutu.exe serve
+   Clean:            Remove-Item tutu.exe
+   Using Makefile:   make build | make test | make clean | make cover
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Problem: "go: The term 'go' is not recognized"
+   Fix:     Refresh PATH in PowerShell:
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+   Problem: "tutu.exe is not recognized"
+   Fix:     Make sure you built it first: go build -o tutu.exe ./cmd/tutu
+            Run from the project directory: .\tutu.exe
+
+   Problem: Server exits immediately / exit code 1
+   Fix:     This is normal! The exit code 1 appears in PowerShell because
+            the server catches Ctrl+C (SIGINT) for graceful shutdown.
+            The server IS running — test with: curl.exe http://127.0.0.1:11434/
+
+   Problem: Port already in use
+   Fix:     Use a different port: .\tutu.exe serve --port 8080
+            Or kill the old process: Stop-Process -Name tutu -Force
+
+   Problem: "mock" responses instead of real AI
+   Fix:     Phase 0 uses a mock inference engine by design.
+            Real AI inference (llama.cpp) will be added in Phase 1.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ PHASE ROADMAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Phase 0 (Spark)   ← YOU ARE HERE
+   └─ Single-node local AI runtime with mock inference
+   └─ CLI + API server + model management
+
+   Phase 1 (Flame)   — Coming Next
+   └─ Real inference engine (llama.cpp / GGUF models)
+   └─ Credit economy, multi-model serving
+
+   Phase 2 (Fire)
+   └─ Multi-node cluster, peer discovery
+
+   Phase 3 (Blaze)
+   └─ Decentralized network, swarm intelligence
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  Built with ❤️  by TuTu Network — The Distributed AI Supercomputer     ║
+╚══════════════════════════════════════════════════════════════════════════╝
