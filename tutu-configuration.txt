@@ -1,0 +1,292 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                     TuTu Network — CONFIGURATION GUIDE                 ║
+║                  All settings, defaults, and how to customize          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CONFIG FILE LOCATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Default:    C:\Users\Nautilus\.tutu\config.toml
+   Override:   Set TUTU_HOME environment variable
+               $env:TUTU_HOME = "D:\my-tutu"
+               → Config will be at D:\my-tutu\config.toml
+
+   If the file doesn't exist, TuTu uses sensible defaults.
+   You don't need a config file to get started!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ FULL CONFIG FILE (config.toml) — WITH ALL DEFAULTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Copy this into C:\Users\Nautilus\.tutu\config.toml and customize:
+
+   ──────────────────────────────────────────────────────────────────
+
+   # ═══════════════════════════════════════════════════════
+   # TuTu Network Configuration — Phase 0 (Spark)
+   # ═══════════════════════════════════════════════════════
+
+   # ─── Node Identity ────────────────────────────────────
+   [node]
+   name = ""                    # Node name (auto-generated if empty)
+   id = ""                      # Node UUID (auto-generated if empty)
+
+   # ─── API Server ───────────────────────────────────────
+   [api]
+   host = "127.0.0.1"           # Bind address (use 0.0.0.0 for all interfaces)
+   port = 11434                  # Port number
+   cors_origins = ["*"]          # Allowed CORS origins
+   max_concurrent = 4            # Max simultaneous requests
+
+   # ─── Model Storage ────────────────────────────────────
+   [models]
+   dir = "C:\\Users\\Nautilus\\.tutu\\models"    # Where models are stored
+   max_storage = "50GB"          # Maximum disk space for models
+   default = "llama3.2"          # Default model for commands
+   auto_pull = true              # Auto-download models when needed
+
+   # ─── Inference Engine ─────────────────────────────────
+   [inference]
+   gpu_layers = -1               # GPU layers (-1 = auto, 0 = CPU only)
+   context_length = 4096         # Context window size (tokens)
+   batch_size = 512              # Batch size for inference
+   threads = 0                   # CPU threads (0 = auto: NumCPU - 2)
+
+   # ─── Logging ──────────────────────────────────────────
+   [logging]
+   level = "info"                # Log level: debug, info, warn, error
+   file = "C:\\Users\\Nautilus\\.tutu\\tutu.log"
+   max_size_mb = 50              # Max log file size before rotation
+   max_files = 5                 # Number of rotated log files to keep
+
+   ──────────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CONFIG SECTIONS EXPLAINED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ ── [node] — Node Identity ──
+
+   name:    A friendly name for this node. Shown in logs and network.
+            Leave empty for auto-generated name.
+
+   id:      Unique identifier (UUID format).
+            Leave empty — TuTu generates one on first run.
+
+
+ ── [api] — HTTP Server ──
+
+   host:    Which network interface to bind to.
+            "127.0.0.1"  → Only local access (default, safe)
+            "0.0.0.0"    → Accept connections from any machine
+            "192.168.1.5" → Bind to specific interface
+
+   port:    TCP port number. Default 11434 (same as Ollama).
+            Change if 11434 is already in use.
+
+   cors_origins:
+            Which web origins can access the API.
+            ["*"]                    → Allow all (development)
+            ["http://localhost:3000"] → Only your frontend
+
+   max_concurrent:
+            Maximum number of requests processed at the same time.
+            Higher = more throughput but more RAM usage.
+
+
+ ── [models] — Model Storage ──
+
+   dir:     Filesystem path where model blobs and manifests are stored.
+            Default: ~/.tutu/models/
+
+   max_storage:
+            Maximum total disk space for models.
+            Examples: "50GB", "1TB", "500MB"
+            When exceeded, oldest unused models are removed.
+
+   default: Default model used when no model is specified.
+
+   auto_pull:
+            When true, running a model that isn't downloaded will
+            automatically start downloading it first.
+
+
+ ── [inference] — Engine Settings ──
+
+   gpu_layers:
+            Number of model layers to offload to GPU.
+            -1  → Auto-detect (use GPU if available)
+            0   → CPU only (no GPU)
+            35  → Offload 35 layers to GPU
+
+   context_length:
+            Maximum tokens in the context window.
+            4096  → Standard (default)
+            8192  → Longer conversations
+            32768 → Very long context (needs more RAM)
+
+   batch_size:
+            How many tokens to process in parallel.
+            512 is a good default. Lower saves memory.
+
+   threads:
+            CPU threads for inference computation.
+            0   → Auto (NumCPU - 2, leaves cores for OS)
+            4   → Use exactly 4 threads
+            Set lower if TuTu uses too much CPU.
+
+
+ ── [logging] — Log Output ──
+
+   level:   Minimum severity to log.
+            "debug" → Everything (verbose, for development)
+            "info"  → Normal operations (default)
+            "warn"  → Only warnings and errors
+            "error" → Only errors
+
+   file:    Path to the log file.
+
+   max_size_mb:
+            When the log file exceeds this size, it's rotated.
+
+   max_files:
+            How many rotated log files to keep.
+            Old logs are deleted after this many rotations.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ COMMON CONFIGURATION SCENARIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ ── Scenario 1: Change the API port ──
+
+   [api]
+   port = 8080
+
+
+ ── Scenario 2: Allow access from other machines on LAN ──
+
+   [api]
+   host = "0.0.0.0"
+
+
+ ── Scenario 3: Store models on a different drive ──
+
+   [models]
+   dir = "D:\\AI-Models\\tutu"
+   max_storage = "500GB"
+
+
+ ── Scenario 4: CPU-only mode (no GPU) ──
+
+   [inference]
+   gpu_layers = 0
+   threads = 8
+
+
+ ── Scenario 5: Maximum GPU offloading ──
+
+   [inference]
+   gpu_layers = -1
+   context_length = 8192
+
+
+ ── Scenario 6: Low-memory machine ──
+
+   [inference]
+   context_length = 2048
+   batch_size = 256
+   threads = 2
+
+   [models]
+   max_storage = "10GB"
+
+
+ ── Scenario 7: Debug mode for development ──
+
+   [logging]
+   level = "debug"
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ENVIRONMENT VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   TUTU_HOME    Override the data directory (default: ~/.tutu/)
+
+   Example (PowerShell):
+     $env:TUTU_HOME = "D:\tutu-data"
+     .\tutu.exe serve
+
+   Example (permanent, PowerShell):
+     [System.Environment]::SetEnvironmentVariable("TUTU_HOME", "D:\tutu-data", "User")
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ DATA DIRECTORY STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   C:\Users\Nautilus\.tutu\
+   ├── config.toml               ← Your configuration file
+   ├── state.db                  ← SQLite database (model metadata)
+   ├── state.db-wal              ← SQLite write-ahead log
+   ├── tutu.log                  ← Application log
+   └── models/
+       ├── blobs/                ← Content-addressed model files
+       │   └── sha256-683cd2...  ← Model weights (by SHA256 hash)
+       └── manifests/            ← Model manifests (JSON)
+           └── llama3/
+               └── latest        ← Manifest for llama3:latest
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ HOW TO CREATE YOUR CONFIG FILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Option 1 — Just run TuTu! It works with defaults, no config needed.
+
+   Option 2 — Create manually:
+     1. Create the directory:  mkdir C:\Users\Nautilus\.tutu
+     2. Create the file:       notepad C:\Users\Nautilus\.tutu\config.toml
+     3. Paste the config from the "FULL CONFIG FILE" section above
+     4. Customize the values you want to change
+     5. Restart TuTu
+
+   Option 3 — Quick PowerShell one-liner:
+     New-Item -ItemType Directory -Force "$env:USERPROFILE\.tutu"
+     @"
+     [api]
+     host = "127.0.0.1"
+     port = 11434
+
+     [models]
+     max_storage = "50GB"
+
+     [inference]
+     gpu_layers = -1
+     context_length = 4096
+     "@ | Out-File -Encoding utf8NoBOM "$env:USERPROFILE\.tutu\config.toml"
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ COMMAND-LINE FLAGS (OVERRIDE CONFIG)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   These flags override config.toml values for a single run:
+
+   .\tutu.exe serve --host 0.0.0.0 --port 8080
+
+   Priority order (highest wins):
+   1. Command-line flags    ← Highest priority
+   2. config.toml values
+   3. Built-in defaults     ← Lowest priority
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  TuTu Network v0.1.0 — Phase 0 (Spark)                                ║
+║  Configuration format: TOML (https://toml.io)                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
