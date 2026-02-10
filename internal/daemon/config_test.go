@@ -19,6 +19,28 @@ func TestDefaultConfig(t *testing.T) {
 	if cfg.Inference.ContextLength != 4096 {
 		t.Errorf("Inference.ContextLength = %d, want %d", cfg.Inference.ContextLength, 4096)
 	}
+
+	// Phase 2: MCP config
+	if !cfg.MCP.Enabled {
+		t.Error("MCP.Enabled should be true by default")
+	}
+	if cfg.MCP.DefaultTier != "standard" {
+		t.Errorf("MCP.DefaultTier = %q, want %q", cfg.MCP.DefaultTier, "standard")
+	}
+	if cfg.MCP.RateLimitRPM != 300 {
+		t.Errorf("MCP.RateLimitRPM = %d, want %d", cfg.MCP.RateLimitRPM, 300)
+	}
+
+	// Phase 2: Agent config
+	if cfg.Agent.Enabled {
+		t.Error("Agent.Enabled should be false by default (opt-in)")
+	}
+	if cfg.Agent.IdleTimeout != "5m" {
+		t.Errorf("Agent.IdleTimeout = %q, want %q", cfg.Agent.IdleTimeout, "5m")
+	}
+	if cfg.Agent.MaxAgents != 4 {
+		t.Errorf("Agent.MaxAgents = %d, want %d", cfg.Agent.MaxAgents, 4)
+	}
 }
 
 func TestParseStorageSize(t *testing.T) {
