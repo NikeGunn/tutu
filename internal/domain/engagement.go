@@ -107,6 +107,9 @@ const (
 	QuestModels    QuestType = "models"
 	QuestAgent     QuestType = "agent"
 	QuestStreak    QuestType = "streak"
+	QuestRAG       QuestType = "rag"
+	QuestRefer     QuestType = "refer"
+	QuestSuccess   QuestType = "success_rate"
 )
 
 // Quest represents a weekly challenge with progress tracking.

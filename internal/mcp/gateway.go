@@ -338,6 +338,8 @@ func (g *Gateway) handleResourcesRead(req Request) Response {
 		return g.readCapacity(req.ID)
 	case "tutu://models":
 		return g.readModels(req.ID)
+	case "tutu://regions/global":
+		return g.readRegions(req.ID)
 	default:
 		return NewInvalidParams(req.ID, fmt.Sprintf("unknown resource: %s", params.URI))
 	}
@@ -377,6 +379,29 @@ func (g *Gateway) readModels(id any) Response {
 	result := resourcesReadResult{
 		Contents: []domain.MCPResourceContent{
 			{URI: "tutu://models", MimeType: "application/json", Text: string(data)},
+		},
+	}
+	resp, err := NewResult(id, result)
+	if err != nil {
+		return NewInternalError(id, err.Error())
+	}
+	return resp
+}
+
+func (g *Gateway) readRegions(id any) Response {
+	// Phase 2 stub — returns synthetic region stats
+	regions := map[string]any{
+		"regions": []map[string]any{
+			{"region": "us-east", "nodes": 0, "vram_gb": 0, "avg_latency_ms": 0},
+			{"region": "eu-west", "nodes": 0, "vram_gb": 0, "avg_latency_ms": 0},
+			{"region": "ap-south", "nodes": 0, "vram_gb": 0, "avg_latency_ms": 0},
+		},
+		"total_regions": 3,
+	}
+	data, _ := json.Marshal(regions)
+	result := resourcesReadResult{
+		Contents: []domain.MCPResourceContent{
+			{URI: "tutu://regions/global", MimeType: "application/json", Text: string(data)},
 		},
 	}
 	resp, err := NewResult(id, result)

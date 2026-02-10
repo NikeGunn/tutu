@@ -55,6 +55,7 @@ type Daemon struct {
 	MCPGateway   *mcp.Gateway
 	MCPTransport *mcp.Transport
 	MCPMeter     *mcp.Meter
+	EarningsHub  *api.EarningsHub
 }
 
 // New creates and initializes a Daemon with all services wired.
@@ -191,6 +192,20 @@ func NewWithConfig(cfg Config) (*Daemon, error) {
 
 	// Mount MCP endpoint on the API server
 	srv.SetMCPHandler(d.MCPTransport)
+
+	// Engagement REST API
+	engAPI := &api.EngagementAPI{
+		Streak:       d.Streak,
+		Level:        d.Level,
+		Achievement:  d.Achievement,
+		Quest:        d.Quest,
+		Notification: d.Notification,
+	}
+	srv.SetEngagement(engAPI)
+
+	// Live earnings SSE hub
+	d.EarningsHub = api.NewEarningsHub()
+	srv.SetEarningsHub(d.EarningsHub)
 
 	return d, nil
 }

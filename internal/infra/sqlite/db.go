@@ -165,6 +165,41 @@ func (d *DB) migrate() error {
 			shown      BOOLEAN DEFAULT 0
 		)`,
 		`CREATE INDEX IF NOT EXISTS idx_notif_created ON notifications(created_at)`,
+
+		// ─── Phase 2: Social & Referral (Architecture Part XIII §7, §10) ──
+
+		// Referral tracking
+		`CREATE TABLE IF NOT EXISTS referrals (
+			code        TEXT PRIMARY KEY,
+			referred_by TEXT DEFAULT '',
+			count       INTEGER DEFAULT 0,
+			created_at  INTEGER NOT NULL
+		)`,
+
+		// Teams
+		`CREATE TABLE IF NOT EXISTS teams (
+			id          TEXT PRIMARY KEY,
+			name        TEXT NOT NULL,
+			description TEXT DEFAULT '',
+			owner_id    TEXT NOT NULL,
+			member_count INTEGER DEFAULT 1,
+			created_at  INTEGER NOT NULL
+		)`,
+
+		// Team memberships
+		`CREATE TABLE IF NOT EXISTS team_members (
+			team_id   TEXT NOT NULL,
+			user_id   TEXT NOT NULL,
+			joined_at INTEGER NOT NULL,
+			role      TEXT DEFAULT 'member',
+			PRIMARY KEY (team_id, user_id)
+		)`,
+
+		// Onboarding progress
+		`CREATE TABLE IF NOT EXISTS onboarding (
+			step         TEXT PRIMARY KEY,
+			completed_at INTEGER NOT NULL
+		)`,
 	}
 
 	for _, m := range migrations {

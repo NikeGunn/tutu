@@ -20,7 +20,9 @@ type Server struct {
 	pool           *engine.Pool
 	models         *registry.Manager
 	metricsEnabled bool
-	mcpHandler     http.Handler // Phase 2: MCP transport handler (nil if not set)
+	mcpHandler     http.Handler      // Phase 2: MCP transport handler (nil if not set)
+	engagement     *EngagementAPI    // Phase 2: Engagement REST API
+	earningsHub    *EarningsHub      // Phase 2: Live earnings SSE feed
 }
 
 // NewServer creates a new API server.
@@ -33,6 +35,15 @@ func (s *Server) EnableMetrics() { s.metricsEnabled = true }
 
 // SetMCPHandler sets the MCP Streamable HTTP transport handler.
 func (s *Server) SetMCPHandler(h http.Handler) { s.mcpHandler = h }
+
+// SetEngagement sets the engagement API services.
+func (s *Server) SetEngagement(e *EngagementAPI) { s.engagement = e }
+
+// SetEarningsHub sets the live earnings SSE hub.
+func (s *Server) SetEarningsHub(h *EarningsHub) { s.earningsHub = h }
+
+// EarningsHub returns the live earnings hub (for broadcasting events).
+func (s *Server) EarningsHub() *EarningsHub { return s.earningsHub }
 
 // Handler returns the chi router with all routes mounted.
 func (s *Server) Handler() http.Handler {
@@ -83,6 +94,24 @@ func (s *Server) Handler() http.Handler {
 	// MCP Streamable HTTP endpoint (Phase 2 — enterprise gateway)
 	if s.mcpHandler != nil {
 		r.Handle("/mcp", s.mcpHandler)
+	}
+
+	// Engagement API (Phase 2 — streaks, levels, achievements, quests, notifications)
+	if s.engagement != nil {
+		r.Route("/api/engagement", func(r chi.Router) {
+			r.Get("/streak", s.engagement.HandleStreak)
+			r.Get("/level", s.engagement.HandleLevel)
+			r.Get("/achievements", s.engagement.HandleAchievements)
+			r.Get("/quests", s.engagement.HandleQuests)
+			r.Get("/notifications", s.engagement.HandleNotifications)
+			r.Post("/notifications/{id}/shown", s.engagement.HandleNotificationShown)
+			r.Get("/summary", s.engagement.HandleSummary)
+		})
+	}
+
+	// Live earnings SSE feed (Phase 2 — Architecture Part XIII #5)
+	if s.earningsHub != nil {
+		r.Get("/api/earnings/live", s.earningsHub.HandleEarningsSSE)
 	}
 
 	return r

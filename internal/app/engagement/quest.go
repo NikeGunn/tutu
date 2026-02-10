@@ -22,15 +22,20 @@ func NewQuestService(db *sqlite.DB) *QuestService {
 }
 
 // questPool is the set of possible quest templates.
+// Architecture Part XIII §6: Weekly quests (v3.0 simplified).
 var questPool = []domain.QuestTemplate{
 	{Type: domain.QuestInference, Target: 50, Description: "Run 50 inferences", RewardXP: 200, RewardCr: 30},
-	{Type: domain.QuestInference, Target: 100, Description: "Run 100 inferences", RewardXP: 350, RewardCr: 60},
+	{Type: domain.QuestInference, Target: 100, Description: "Complete 100 inference tasks", RewardXP: 350, RewardCr: 100},
 	{Type: domain.QuestUptime, Target: 20, Description: "20 hours network uptime", RewardXP: 200, RewardCr: 40},
 	{Type: domain.QuestUptime, Target: 40, Description: "40 hours network uptime", RewardXP: 300, RewardCr: 50},
 	{Type: domain.QuestModels, Target: 2, Description: "Try 2 new models", RewardXP: 150, RewardCr: 20},
 	{Type: domain.QuestModels, Target: 5, Description: "Try 5 new models", RewardXP: 300, RewardCr: 50},
 	{Type: domain.QuestAgent, Target: 3, Description: "Run 3 agent workflows", RewardXP: 250, RewardCr: 40},
 	{Type: domain.QuestStreak, Target: 7, Description: "Maintain 7-day streak", RewardXP: 200, RewardCr: 30},
+	{Type: domain.QuestRAG, Target: 5, Description: "Index 5 documents", RewardXP: 150, RewardCr: 20},
+	{Type: domain.QuestRefer, Target: 1, Description: "Refer a friend who installs TuTu", RewardXP: 300, RewardCr: 500},
+	{Type: domain.QuestSuccess, Target: 99, Description: "Achieve 99% task success rate", RewardXP: 100, RewardCr: 50},
+	{Type: domain.QuestUptime, Target: 120, Description: "Keep node online for 5 straight days", RewardXP: 150, RewardCr: 100},
 }
 
 // GenerateWeeklyQuests creates 3 random quests for the current week.

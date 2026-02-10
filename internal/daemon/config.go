@@ -21,6 +21,8 @@ type Config struct {
 	Resources ResourcesConfig `toml:"resources"`
 	Security  SecurityConfig  `toml:"security"`
 	Telemetry TelemetryConfig `toml:"telemetry"`
+	MCP       MCPConfig       `toml:"mcp"`
+	Agent     AgentConfig     `toml:"agent"`
 }
 
 // NodeConfig identifies this node.
@@ -91,6 +93,23 @@ type TelemetryConfig struct {
 	PrometheusPort int  `toml:"prometheus_port"`
 }
 
+// MCPConfig controls the MCP enterprise gateway (Phase 2).
+type MCPConfig struct {
+	Enabled        bool   `toml:"enabled"`
+	DefaultTier    string `toml:"default_tier"`     // "standard"
+	RateLimitRPM   int    `toml:"rate_limit_rpm"`   // Global rate limit
+	MaxRequestSize string `toml:"max_request_size"` // e.g. "1MB"
+}
+
+// AgentConfig controls the Python agent runtime (Phase 2).
+type AgentConfig struct {
+	Enabled      bool   `toml:"enabled"`
+	PythonPath   string `toml:"python_path"`    // Path to Python binary (auto-detect if empty)
+	IdleTimeout  string `toml:"idle_timeout"`   // Duration before idle agent process exits
+	MaxAgents    int    `toml:"max_agents"`     // Max concurrent agent processes
+	AgentsDir    string `toml:"agents_dir"`     // Directory for agent YAML definitions
+}
+
 // DefaultConfig returns a sensible default configuration.
 func DefaultConfig() Config {
 	homeDir := tutuHome()
@@ -143,6 +162,19 @@ func DefaultConfig() Config {
 			Enabled:        true,
 			Prometheus:     false, // Opt-in: expose /metrics
 			PrometheusPort: 9090,
+		},
+		MCP: MCPConfig{
+			Enabled:        true,
+			DefaultTier:    "standard",
+			RateLimitRPM:   300,
+			MaxRequestSize: "1MB",
+		},
+		Agent: AgentConfig{
+			Enabled:     false, // Opt-in: Python agent runtime
+			PythonPath:  "",    // Auto-detect
+			IdleTimeout: "5m",
+			MaxAgents:   4,
+			AgentsDir:   filepath.Join(homeDir, "agents"),
 		},
 	}
 }
