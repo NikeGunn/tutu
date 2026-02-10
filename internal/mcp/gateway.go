@@ -24,9 +24,9 @@ const (
 
 // Gateway is the MCP server that handles JSON-RPC 2.0 requests.
 type Gateway struct {
-	sla   *SLAEngine
-	meter *Meter
-	tools []domain.MCPTool
+	sla       *SLAEngine
+	meter     *Meter
+	tools     []domain.MCPTool
 	resources []domain.MCPResource
 }
 
@@ -223,8 +223,8 @@ func (g *Gateway) callInference(id any, args json.RawMessage) Response {
 	}
 
 	// Phase 2 stub: simulate inference and meter usage
-	inputToks := len(p.Prompt) / 4  // ~4 chars per token
-	outputToks := 50                  // stub output length
+	inputToks := len(p.Prompt) / 4 // ~4 chars per token
+	outputToks := 50               // stub output length
 	g.meter.Record("stub-client", "tutu_inference", p.Model, inputToks, outputToks, 42, tier)
 
 	text := fmt.Sprintf("Inference accepted: model=%s tokens=%d tier=%s", p.Model, inputToks, tier)
@@ -348,12 +348,12 @@ func (g *Gateway) handleResourcesRead(req Request) Response {
 func (g *Gateway) readCapacity(id any) Response {
 	// Phase 2 stub — returns synthetic capacity data
 	capacity := map[string]any{
-		"total_nodes":     1,
-		"online_nodes":    1,
-		"total_vram_gb":   0,
+		"total_nodes":       1,
+		"online_nodes":      1,
+		"total_vram_gb":     0,
 		"available_vram_gb": 0,
-		"queued_tasks":    0,
-		"active_tasks":    0,
+		"queued_tasks":      0,
+		"active_tasks":      0,
 	}
 	data, _ := json.Marshal(capacity)
 	result := resourcesReadResult{

@@ -20,9 +20,9 @@ type Server struct {
 	pool           *engine.Pool
 	models         *registry.Manager
 	metricsEnabled bool
-	mcpHandler     http.Handler      // Phase 2: MCP transport handler (nil if not set)
-	engagement     *EngagementAPI    // Phase 2: Engagement REST API
-	earningsHub    *EarningsHub      // Phase 2: Live earnings SSE feed
+	mcpHandler     http.Handler   // Phase 2: MCP transport handler (nil if not set)
+	engagement     *EngagementAPI // Phase 2: Engagement REST API
+	earningsHub    *EarningsHub   // Phase 2: Live earnings SSE feed
 }
 
 // NewServer creates a new API server.

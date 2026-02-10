@@ -14,7 +14,7 @@ type Streak struct {
 	CurrentDays   int       `json:"current_days"`
 	LongestDays   int       `json:"longest_days"`
 	LastDate      time.Time `json:"last_date"`
-	FreezeUsed    bool      `json:"freeze_used"`    // 1 free freeze per week
+	FreezeUsed    bool      `json:"freeze_used"`     // 1 free freeze per week
 	FreezeWeekISO string    `json:"freeze_week_iso"` // "2025-W28" — tracks when freeze was used
 }
 
@@ -62,13 +62,13 @@ const (
 
 // AchievementDef defines a single achievement's requirements.
 type AchievementDef struct {
-	ID         string              `json:"id"`
-	Name       string              `json:"name"`
-	Category   AchievementCategory `json:"category"`
-	Icon       string              `json:"icon"`
-	RewardXP   int64               `json:"reward_xp"`
-	RewardCr   int64               `json:"reward_cr"` // 0 if no credit reward
-	Predicate  func(UserStats) bool `json:"-"`         // Check function (not serialized)
+	ID        string               `json:"id"`
+	Name      string               `json:"name"`
+	Category  AchievementCategory  `json:"category"`
+	Icon      string               `json:"icon"`
+	RewardXP  int64                `json:"reward_xp"`
+	RewardCr  int64                `json:"reward_cr"` // 0 if no credit reward
+	Predicate func(UserStats) bool `json:"-"`         // Check function (not serialized)
 }
 
 // UnlockedAchievement records when an achievement was earned.
@@ -80,20 +80,20 @@ type UnlockedAchievement struct {
 
 // UserStats is a snapshot of user state fed to achievement predicates.
 type UserStats struct {
-	TotalInferences  int64   `json:"total_inferences"`
-	ModelsPulled     int     `json:"models_pulled"`
-	ModelsCreated    int     `json:"models_created"`
-	ModelsInstalled  int     `json:"models_installed"`
-	CurrentStreak    int     `json:"current_streak"`
-	LongestStreak    int     `json:"longest_streak"`
-	LifetimeCredits  int64   `json:"lifetime_credits"`
-	OvernightEarnings int64  `json:"overnight_earnings"` // Credits earned 00:00–06:00
-	Referrals        int     `json:"referrals"`
-	AgentRuns        int     `json:"agent_runs"`
-	TasksCompleted   int64   `json:"tasks_completed"`
-	GPUHours         float64 `json:"gpu_hours"`
-	UptimeHours      float64 `json:"uptime_hours"`
-	Level            int     `json:"level"`
+	TotalInferences   int64   `json:"total_inferences"`
+	ModelsPulled      int     `json:"models_pulled"`
+	ModelsCreated     int     `json:"models_created"`
+	ModelsInstalled   int     `json:"models_installed"`
+	CurrentStreak     int     `json:"current_streak"`
+	LongestStreak     int     `json:"longest_streak"`
+	LifetimeCredits   int64   `json:"lifetime_credits"`
+	OvernightEarnings int64   `json:"overnight_earnings"` // Credits earned 00:00–06:00
+	Referrals         int     `json:"referrals"`
+	AgentRuns         int     `json:"agent_runs"`
+	TasksCompleted    int64   `json:"tasks_completed"`
+	GPUHours          float64 `json:"gpu_hours"`
+	UptimeHours       float64 `json:"uptime_hours"`
+	Level             int     `json:"level"`
 }
 
 // ─── Quest Types ────────────────────────────────────────────────────────────
@@ -157,11 +157,11 @@ type QuestTemplate struct {
 type NotificationType string
 
 const (
-	NotifyAchievement    NotificationType = "achievement"
-	NotifyLevelUp        NotificationType = "level_up"
-	NotifyDailySummary   NotificationType = "daily_summary"
-	NotifyQuestComplete  NotificationType = "quest_complete"
-	NotifyMilestone      NotificationType = "milestone"
+	NotifyAchievement   NotificationType = "achievement"
+	NotifyLevelUp       NotificationType = "level_up"
+	NotifyDailySummary  NotificationType = "daily_summary"
+	NotifyQuestComplete NotificationType = "quest_complete"
+	NotifyMilestone     NotificationType = "milestone"
 )
 
 // Notification is a user-facing message.
@@ -177,9 +177,9 @@ type Notification struct {
 // NotificationPolicy governs how often notifications are sent.
 // Architecture Part XIII v3.0: max 1/day, quiet hours respected.
 type NotificationPolicy struct {
-	MaxPerDay  int    `json:"max_per_day"`  // Default: 1
-	QuietStart string `json:"quiet_start"`  // "22:00"
-	QuietEnd   string `json:"quiet_end"`    // "08:00"
+	MaxPerDay  int    `json:"max_per_day"` // Default: 1
+	QuietStart string `json:"quiet_start"` // "22:00"
+	QuietEnd   string `json:"quiet_end"`   // "08:00"
 }
 
 // DefaultNotificationPolicy returns the v3.0 policy.

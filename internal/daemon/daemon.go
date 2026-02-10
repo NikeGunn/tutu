@@ -18,23 +18,23 @@ import (
 	"github.com/tutu-network/tutu/internal/health"
 	"github.com/tutu-network/tutu/internal/infra/engine"
 	"github.com/tutu-network/tutu/internal/infra/gossip"
-	"github.com/tutu-network/tutu/internal/mcp"
 	_ "github.com/tutu-network/tutu/internal/infra/metrics" // Register Prometheus metrics
 	"github.com/tutu-network/tutu/internal/infra/network"
 	"github.com/tutu-network/tutu/internal/infra/registry"
 	"github.com/tutu-network/tutu/internal/infra/resource"
 	"github.com/tutu-network/tutu/internal/infra/sqlite"
+	"github.com/tutu-network/tutu/internal/mcp"
 	"github.com/tutu-network/tutu/internal/security"
 )
 
 // Daemon is the core TuTu runtime. It wires together all services.
 type Daemon struct {
-	Config   Config
-	DB       *sqlite.DB
-	Models   *registry.Manager
-	Pool     *engine.Pool
-	Server   *api.Server
-	cancel   context.CancelFunc
+	Config Config
+	DB     *sqlite.DB
+	Models *registry.Manager
+	Pool   *engine.Pool
+	Server *api.Server
+	cancel context.CancelFunc
 
 	// Phase 1 components
 	Idle     *resource.IdleDetector
@@ -138,10 +138,10 @@ func NewWithConfig(cfg Config) (*Daemon, error) {
 
 	// Resource governor (creates its own idle detector, thermal, battery monitors)
 	govCfg := resource.GovernorConfig{
-		ThermalThrottle:  cfg.Resources.ThermalThrottle,
-		ThermalShutdown:  cfg.Resources.ThermalShutdown,
-		BatteryMinPct:    20, // From architecture spec
-		TickInterval:     5 * time.Second,
+		ThermalThrottle: cfg.Resources.ThermalThrottle,
+		ThermalShutdown: cfg.Resources.ThermalShutdown,
+		BatteryMinPct:   20, // From architecture spec
+		TickInterval:    5 * time.Second,
 	}
 	d.Governor = resource.NewGovernor(govCfg)
 

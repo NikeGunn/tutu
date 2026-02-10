@@ -72,11 +72,11 @@ type NetworkConfig struct {
 
 // ResourcesConfig controls the resource governor (Phase 1).
 type ResourcesConfig struct {
-	MaxCPUPercent   int  `toml:"max_cpu_percent"`
-	MaxMemoryPercent int `toml:"max_memory_percent"`
-	ThermalThrottle int  `toml:"thermal_throttle"`
-	ThermalShutdown int  `toml:"thermal_shutdown"`
-	IdleDetection   bool `toml:"idle_detection"`
+	MaxCPUPercent    int  `toml:"max_cpu_percent"`
+	MaxMemoryPercent int  `toml:"max_memory_percent"`
+	ThermalThrottle  int  `toml:"thermal_throttle"`
+	ThermalShutdown  int  `toml:"thermal_shutdown"`
+	IdleDetection    bool `toml:"idle_detection"`
 }
 
 // SecurityConfig controls security features (Phase 1).
@@ -103,11 +103,11 @@ type MCPConfig struct {
 
 // AgentConfig controls the Python agent runtime (Phase 2).
 type AgentConfig struct {
-	Enabled      bool   `toml:"enabled"`
-	PythonPath   string `toml:"python_path"`    // Path to Python binary (auto-detect if empty)
-	IdleTimeout  string `toml:"idle_timeout"`   // Duration before idle agent process exits
-	MaxAgents    int    `toml:"max_agents"`     // Max concurrent agent processes
-	AgentsDir    string `toml:"agents_dir"`     // Directory for agent YAML definitions
+	Enabled     bool   `toml:"enabled"`
+	PythonPath  string `toml:"python_path"`  // Path to Python binary (auto-detect if empty)
+	IdleTimeout string `toml:"idle_timeout"` // Duration before idle agent process exits
+	MaxAgents   int    `toml:"max_agents"`   // Max concurrent agent processes
+	AgentsDir   string `toml:"agents_dir"`   // Directory for agent YAML definitions
 }
 
 // DefaultConfig returns a sensible default configuration.
@@ -130,7 +130,7 @@ func DefaultConfig() Config {
 			AutoPull:   true,
 		},
 		Inference: InferenceConfig{
-			GPULayers:     -1,   // auto
+			GPULayers:     -1, // auto
 			ContextLength: 4096,
 			BatchSize:     512,
 			Threads:       0, // auto = runtime.NumCPU() - 2
