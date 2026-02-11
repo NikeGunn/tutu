@@ -200,7 +200,12 @@ func (d *DB) migrate() error {
 			step         TEXT PRIMARY KEY,
 			completed_at INTEGER NOT NULL
 		)`,
+
+		// ─── Phase 3: Multi-Region + Advanced Scheduling ──────────────
 	}
+
+	// Append Phase 3 migrations
+	migrations = append(migrations, Phase3Migrations()...)
 
 	for _, m := range migrations {
 		if _, err := d.db.Exec(m); err != nil {
