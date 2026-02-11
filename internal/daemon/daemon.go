@@ -15,13 +15,19 @@ import (
 	"github.com/tutu-network/tutu/internal/app/credit"
 	"github.com/tutu-network/tutu/internal/app/engagement"
 	"github.com/tutu-network/tutu/internal/app/executor"
+	"github.com/tutu-network/tutu/internal/domain"
 	"github.com/tutu-network/tutu/internal/health"
 	"github.com/tutu-network/tutu/internal/infra/engine"
 	"github.com/tutu-network/tutu/internal/infra/gossip"
+	"github.com/tutu-network/tutu/internal/infra/healing"
 	_ "github.com/tutu-network/tutu/internal/infra/metrics" // Register Prometheus metrics
 	"github.com/tutu-network/tutu/internal/infra/network"
+	"github.com/tutu-network/tutu/internal/infra/observability"
+	"github.com/tutu-network/tutu/internal/infra/passive"
+	"github.com/tutu-network/tutu/internal/infra/region"
 	"github.com/tutu-network/tutu/internal/infra/registry"
 	"github.com/tutu-network/tutu/internal/infra/resource"
+	"github.com/tutu-network/tutu/internal/infra/scheduler"
 	"github.com/tutu-network/tutu/internal/infra/sqlite"
 	"github.com/tutu-network/tutu/internal/mcp"
 	"github.com/tutu-network/tutu/internal/security"
@@ -56,6 +62,15 @@ type Daemon struct {
 	MCPTransport *mcp.Transport
 	MCPMeter     *mcp.Meter
 	EarningsHub  *api.EarningsHub
+
+	// Phase 3 components — multi-region, scheduling, self-healing, observability
+	Router     *region.Router
+	Scheduler  *scheduler.Scheduler
+	Tracer     *observability.Tracer
+	Breaker    *healing.CircuitBreaker
+	Quarantine *healing.QuarantineManager
+	Capacity   *passive.CapacityAdvertiser
+	Prefetcher *passive.Prefetcher
 }
 
 // New creates and initializes a Daemon with all services wired.
@@ -206,6 +221,32 @@ func NewWithConfig(cfg Config) (*Daemon, error) {
 	// Live earnings SSE hub
 	d.EarningsHub = api.NewEarningsHub()
 	srv.SetEarningsHub(d.EarningsHub)
+
+	// ─── Phase 3 components ────────────────────────────────────────────
+
+	// Multi-region router — routes tasks to optimal region
+	localRegion := domain.RegionID(cfg.Node.Region)
+	if !localRegion.IsValid() {
+		localRegion = domain.RegionUSEast // default
+	}
+	routerCfg := region.DefaultConfig()
+	routerCfg.LocalRegion = localRegion
+	d.Router = region.NewRouter(routerCfg)
+
+	// Advanced scheduler — work stealing, back-pressure, preemption
+	d.Scheduler = scheduler.NewScheduler(scheduler.DefaultConfig())
+
+	// Distributed tracing (ring buffer)
+	d.Tracer = observability.NewTracer(observability.DefaultTracerConfig())
+
+	// Self-healing — circuit breaker for Cloud Core calls
+	d.Breaker = healing.NewCircuitBreaker("cloud-core", healing.DefaultCircuitBreakerConfig())
+	d.Quarantine = healing.NewQuarantineManager(healing.DefaultQuarantineConfig())
+
+	// Passive income — advertise capacity when idle
+	hwTier := passive.ClassifyHardware(0, 0) // Detect at startup; re-classified when sensors report
+	d.Capacity = passive.NewCapacityAdvertiser(hwTier)
+	d.Prefetcher = passive.NewPrefetcher(5) // Pre-cache top 5 models
 
 	return d, nil
 }
