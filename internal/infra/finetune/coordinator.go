@@ -45,24 +45,24 @@ const (
 type JobStatus string
 
 const (
-	JobPending     JobStatus = "PENDING"    // Waiting for nodes
-	JobSharding    JobStatus = "SHARDING"   // Splitting dataset
-	JobTraining    JobStatus = "TRAINING"   // Nodes training
-	JobAggregating JobStatus = "AGGREGATING"// Merging gradients
-	JobCompleted   JobStatus = "COMPLETED"  // Adapter ready
-	JobFailed      JobStatus = "FAILED"     // Unrecoverable error
+	JobPending     JobStatus = "PENDING"     // Waiting for nodes
+	JobSharding    JobStatus = "SHARDING"    // Splitting dataset
+	JobTraining    JobStatus = "TRAINING"    // Nodes training
+	JobAggregating JobStatus = "AGGREGATING" // Merging gradients
+	JobCompleted   JobStatus = "COMPLETED"   // Adapter ready
+	JobFailed      JobStatus = "FAILED"      // Unrecoverable error
 	JobCancelled   JobStatus = "CANCELLED"
 )
 
 // LoRAConfig holds LoRA-specific hyperparameters.
 type LoRAConfig struct {
-	Rank           int     `json:"rank"`            // LoRA rank r (default: 16)
-	Alpha          float64 `json:"alpha"`           // Scaling factor (default: 32)
-	Dropout        float64 `json:"dropout"`         // Dropout probability (default: 0.05)
-	TargetModules  []string `json:"target_modules"` // Which layers to adapt (default: q_proj, v_proj)
-	LearningRate   float64 `json:"learning_rate"`   // Adam LR (default: 2e-4)
-	BatchSize      int     `json:"batch_size"`      // Per-node batch size (default: 4)
-	GradAccumSteps int     `json:"grad_accum_steps"`// Gradient accumulation (default: 4)
+	Rank           int      `json:"rank"`             // LoRA rank r (default: 16)
+	Alpha          float64  `json:"alpha"`            // Scaling factor (default: 32)
+	Dropout        float64  `json:"dropout"`          // Dropout probability (default: 0.05)
+	TargetModules  []string `json:"target_modules"`   // Which layers to adapt (default: q_proj, v_proj)
+	LearningRate   float64  `json:"learning_rate"`    // Adam LR (default: 2e-4)
+	BatchSize      int      `json:"batch_size"`       // Per-node batch size (default: 4)
+	GradAccumSteps int      `json:"grad_accum_steps"` // Gradient accumulation (default: 4)
 }
 
 // DefaultLoRAConfig returns production defaults from Architecture Part IX.
@@ -81,19 +81,19 @@ func DefaultLoRAConfig() LoRAConfig {
 // FineTuneJob represents a distributed fine-tuning request.
 type FineTuneJob struct {
 	ID          string         `json:"id"`
-	BaseModel   string         `json:"base_model"`    // e.g. "llama3.2"
-	DatasetURI  string         `json:"dataset_uri"`   // URI to training data
+	BaseModel   string         `json:"base_model"`  // e.g. "llama3.2"
+	DatasetURI  string         `json:"dataset_uri"` // URI to training data
 	Method      FineTuneMethod `json:"method"`
 	Config      LoRAConfig     `json:"config"`
-	Epochs      int            `json:"epochs"`         // Total epochs (default: 3)
-	MinNodes    int            `json:"min_nodes"`      // Minimum nodes required
-	MaxNodes    int            `json:"max_nodes"`      // Maximum nodes to use
+	Epochs      int            `json:"epochs"`    // Total epochs (default: 3)
+	MinNodes    int            `json:"min_nodes"` // Minimum nodes required
+	MaxNodes    int            `json:"max_nodes"` // Maximum nodes to use
 	Status      JobStatus      `json:"status"`
 	CreatedAt   time.Time      `json:"created_at"`
 	StartedAt   time.Time      `json:"started_at,omitempty"`
 	CompletedAt time.Time      `json:"completed_at,omitempty"`
 	Error       string         `json:"error,omitempty"`
-	CreditCost  int64          `json:"credit_cost"`    // Total credits consumed
+	CreditCost  int64          `json:"credit_cost"` // Total credits consumed
 }
 
 // Duration returns training wall time.
@@ -121,7 +121,7 @@ type DataShard struct {
 	NodeID      string `json:"node_id"`
 	SampleCount int    `json:"sample_count"` // Number of training samples
 	SizeBytes   int64  `json:"size_bytes"`
-	Digest      string `json:"digest"`       // SHA-256 of shard data
+	Digest      string `json:"digest"` // SHA-256 of shard data
 }
 
 // ─── Gradient Update ────────────────────────────────────────────────────────
@@ -132,8 +132,8 @@ type GradientUpdate struct {
 	NodeID     string    `json:"node_id"`
 	ShardIndex int       `json:"shard_index"`
 	Epoch      int       `json:"epoch"`
-	Loss       float64   `json:"loss"`         // Training loss for this epoch
-	Samples    int       `json:"samples"`      // Samples processed
+	Loss       float64   `json:"loss"`    // Training loss for this epoch
+	Samples    int       `json:"samples"` // Samples processed
 	Timestamp  time.Time `json:"timestamp"`
 }
 
@@ -143,9 +143,9 @@ type GradientUpdate struct {
 type Checkpoint struct {
 	JobID     string    `json:"job_id"`
 	Epoch     int       `json:"epoch"`
-	Loss      float64   `json:"loss"`     // Aggregated loss at this epoch
+	Loss      float64   `json:"loss"` // Aggregated loss at this epoch
 	NodeCount int       `json:"node_count"`
-	Digest    string    `json:"digest"`   // SHA-256 of checkpoint data
+	Digest    string    `json:"digest"` // SHA-256 of checkpoint data
 	CreatedAt time.Time `json:"created_at"`
 }
 

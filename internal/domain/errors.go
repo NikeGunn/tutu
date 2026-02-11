@@ -7,10 +7,10 @@ import "errors"
 
 var (
 	// Model errors
-	ErrModelNotFound    = errors.New("model not found")
-	ErrModelExists      = errors.New("model already exists")
-	ErrModelCorrupted   = errors.New("model integrity check failed")
-	ErrModelTooLarge    = errors.New("insufficient storage for model")
+	ErrModelNotFound  = errors.New("model not found")
+	ErrModelExists    = errors.New("model already exists")
+	ErrModelCorrupted = errors.New("model integrity check failed")
+	ErrModelTooLarge  = errors.New("insufficient storage for model")
 
 	// Inference errors
 	ErrInferenceTimeout = errors.New("inference request timed out")
@@ -23,11 +23,11 @@ var (
 	ErrBaseModelMissing = errors.New("base model specified in FROM not found")
 
 	// Network errors (prepared for Phase 1)
-	ErrOffline          = errors.New("no internet connection available")
-	ErrRegistryDown     = errors.New("model registry is unreachable")
+	ErrOffline      = errors.New("no internet connection available")
+	ErrRegistryDown = errors.New("model registry is unreachable")
 
 	// Pool errors
-	ErrPoolExhausted    = errors.New("model pool memory exhausted — all models in use")
+	ErrPoolExhausted = errors.New("model pool memory exhausted — all models in use")
 
 	// Phase 3: Scheduler back-pressure errors
 	ErrBackPressureSoft   = errors.New("back-pressure: soft limit — spot tasks rejected")
@@ -46,26 +46,26 @@ var (
 	ErrTURNUnavailable    = errors.New("TURN relay server unavailable")
 
 	// Phase 4: Fine-tuning errors
-	ErrFineTuneJobNotFound   = errors.New("fine-tune job not found")
-	ErrFineTuneInProgress    = errors.New("fine-tune job already running")
-	ErrInsufficientNodes     = errors.New("not enough capable nodes for fine-tuning")
-	ErrGradientMismatch      = errors.New("gradient dimensions do not match")
-	ErrCheckpointMissing     = errors.New("checkpoint not available")
-	ErrEpochTimeout          = errors.New("epoch exceeded time limit")
+	ErrFineTuneJobNotFound = errors.New("fine-tune job not found")
+	ErrFineTuneInProgress  = errors.New("fine-tune job already running")
+	ErrInsufficientNodes   = errors.New("not enough capable nodes for fine-tuning")
+	ErrGradientMismatch    = errors.New("gradient dimensions do not match")
+	ErrCheckpointMissing   = errors.New("checkpoint not available")
+	ErrEpochTimeout        = errors.New("epoch exceeded time limit")
 
 	// Phase 4: Marketplace errors
-	ErrListingNotFound    = errors.New("marketplace listing not found")
-	ErrAlreadyPublished   = errors.New("model already published")
-	ErrSelfReview         = errors.New("cannot review your own model")
-	ErrDuplicateReview    = errors.New("already reviewed this model")
-	ErrModelUnverified    = errors.New("model has not passed quality checks")
-	ErrInsufficientFunds  = errors.New("insufficient credits for download")
+	ErrListingNotFound   = errors.New("marketplace listing not found")
+	ErrAlreadyPublished  = errors.New("model already published")
+	ErrSelfReview        = errors.New("cannot review your own model")
+	ErrDuplicateReview   = errors.New("already reviewed this model")
+	ErrModelUnverified   = errors.New("model has not passed quality checks")
+	ErrInsufficientFunds = errors.New("insufficient credits for download")
 
 	// Phase 4: P2P distribution errors
-	ErrChunkCorrupted     = errors.New("chunk integrity check failed")
-	ErrManifestInvalid    = errors.New("manifest signature invalid")
-	ErrNoPeersAvailable   = errors.New("no peers have required chunk")
-	ErrTransferCancelled  = errors.New("transfer was cancelled")
+	ErrChunkCorrupted    = errors.New("chunk integrity check failed")
+	ErrManifestInvalid   = errors.New("manifest signature invalid")
+	ErrNoPeersAvailable  = errors.New("no peers have required chunk")
+	ErrTransferCancelled = errors.New("transfer was cancelled")
 
 	// Phase 5: Federation errors
 	ErrFederationNotFound  = errors.New("federation not found")
@@ -96,9 +96,9 @@ var (
 	ErrMLSchedulerColdStart   = errors.New("ML scheduler: insufficient observations for reliable selection")
 
 	// Phase 6: Predictive scaling errors
-	ErrScalingCooldown     = errors.New("scaling decision blocked by cooldown period")
-	ErrCapacityAtMax       = errors.New("node capacity already at maximum")
-	ErrCapacityAtMin       = errors.New("node capacity already at minimum")
+	ErrScalingCooldown      = errors.New("scaling decision blocked by cooldown period")
+	ErrCapacityAtMax        = errors.New("node capacity already at maximum")
+	ErrCapacityAtMin        = errors.New("node capacity already at minimum")
 	ErrForecastInsufficient = errors.New("insufficient observations for forecast")
 
 	// Phase 6: Self-healing errors
@@ -109,7 +109,7 @@ var (
 	ErrRemediationExhausted  = errors.New("all remediation attempts exhausted — escalated")
 
 	// Phase 6: Network intelligence errors
-	ErrModelNotTracked      = errors.New("model not tracked by intelligence optimizer")
-	ErrNoPlacementData      = errors.New("insufficient data for placement optimization")
-	ErrRetirementProtected  = errors.New("model is pinned and cannot be retired")
+	ErrModelNotTracked     = errors.New("model not tracked by intelligence optimizer")
+	ErrNoPlacementData     = errors.New("insufficient data for placement optimization")
+	ErrRetirementProtected = errors.New("model is pinned and cannot be retired")
 )

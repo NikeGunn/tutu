@@ -215,9 +215,9 @@ var ErrCircuitOpen = fmt.Errorf("circuit breaker open")
 type QuarantineReason string
 
 const (
-	QuarantineTaskFailures    QuarantineReason = "task_failures"     // 3+ task failures
+	QuarantineTaskFailures     QuarantineReason = "task_failures"     // 3+ task failures
 	QuarantineVerificationFail QuarantineReason = "verification_fail" // result verification failed
-	QuarantineAnomaly         QuarantineReason = "anomaly"           // behavioral anomaly detected
+	QuarantineAnomaly          QuarantineReason = "anomaly"           // behavioral anomaly detected
 )
 
 // QuarantineRecord tracks a quarantine period.

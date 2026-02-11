@@ -40,13 +40,13 @@ const (
 type ProposalStatus int
 
 const (
-	PropDraft    ProposalStatus = iota // Created but not yet open
-	PropActive                         // Open for voting
-	PropPassed                         // Quorum met + majority approved
-	PropRejected                       // Quorum met + majority rejected
-	PropExpired                        // Voting period ended without quorum
-	PropExecuted                       // Passed and auto-applied
-	PropCancelled                      // Cancelled by author
+	PropDraft     ProposalStatus = iota // Created but not yet open
+	PropActive                          // Open for voting
+	PropPassed                          // Quorum met + majority approved
+	PropRejected                        // Quorum met + majority rejected
+	PropExpired                         // Voting period ended without quorum
+	PropExecuted                        // Passed and auto-applied
+	PropCancelled                       // Cancelled by author
 )
 
 // String returns a human-readable status.
@@ -75,12 +75,12 @@ func (s ProposalStatus) String() string {
 type ProposalCategory int
 
 const (
-	CatEarningRate   ProposalCategory = iota // Change credit earning rate
-	CatModelPolicy                            // Add/remove model categories
-	CatSLAPricing                             // Adjust SLA tier pricing
-	CatNetworkParam                           // General network parameters
-	CatFederation                             // Federation policy changes
-	CatSecurity                               // Security policy changes
+	CatEarningRate  ProposalCategory = iota // Change credit earning rate
+	CatModelPolicy                          // Add/remove model categories
+	CatSLAPricing                           // Adjust SLA tier pricing
+	CatNetworkParam                         // General network parameters
+	CatFederation                           // Federation policy changes
+	CatSecurity                             // Security policy changes
 )
 
 // String returns the category name.
@@ -118,14 +118,14 @@ type Proposal struct {
 	Title       string           `json:"title"`
 	Description string           `json:"description"`
 	Category    ProposalCategory `json:"category"`
-	Author      string           `json:"author"`       // NodeID that created it
+	Author      string           `json:"author"` // NodeID that created it
 	Status      ProposalStatus   `json:"status"`
-	ParamKey    string           `json:"param_key"`    // Config key to change
-	ParamValue  string           `json:"param_value"`  // New value
+	ParamKey    string           `json:"param_key"`   // Config key to change
+	ParamValue  string           `json:"param_value"` // New value
 	CreatedAt   time.Time        `json:"created_at"`
-	OpenedAt    time.Time        `json:"opened_at"`    // When voting opened
-	ClosedAt    time.Time        `json:"closed_at"`    // When voting closed
-	ExpiresAt   time.Time        `json:"expires_at"`   // Voting deadline
+	OpenedAt    time.Time        `json:"opened_at"`  // When voting opened
+	ClosedAt    time.Time        `json:"closed_at"`  // When voting closed
+	ExpiresAt   time.Time        `json:"expires_at"` // Voting deadline
 }
 
 // Vote records a single node's vote, weighted by their credit balance.
@@ -152,13 +152,13 @@ type VoteTally struct {
 
 // GovernanceStats provides an overview of governance activity.
 type GovernanceStats struct {
-	TotalProposals  int `json:"total_proposals"`
-	ActiveProposals int `json:"active_proposals"`
-	PassedProposals int `json:"passed_proposals"`
+	TotalProposals    int `json:"total_proposals"`
+	ActiveProposals   int `json:"active_proposals"`
+	PassedProposals   int `json:"passed_proposals"`
 	RejectedProposals int `json:"rejected_proposals"`
-	ExpiredProposals int `json:"expired_proposals"`
+	ExpiredProposals  int `json:"expired_proposals"`
 	ExecutedProposals int `json:"executed_proposals"`
-	TotalVotesCast  int `json:"total_votes_cast"`
+	TotalVotesCast    int `json:"total_votes_cast"`
 }
 
 // ─── Configuration ──────────────────────────────────────────────────────────
@@ -184,11 +184,11 @@ func DefaultEngineConfig() EngineConfig {
 // Engine implements the governance system.
 // Thread-safe via RWMutex.
 type Engine struct {
-	mu          sync.RWMutex
-	config      EngineConfig
-	proposals   map[string]*Proposal         // proposalID → Proposal
-	votes       map[string]map[string]*Vote  // proposalID → nodeID → Vote
-	totalCredits int64                        // Total credits in network (for quorum calc)
+	mu           sync.RWMutex
+	config       EngineConfig
+	proposals    map[string]*Proposal        // proposalID → Proposal
+	votes        map[string]map[string]*Vote // proposalID → nodeID → Vote
+	totalCredits int64                       // Total credits in network (for quorum calc)
 
 	// now is a function that returns the current time — injectable for testing.
 	now func() time.Time

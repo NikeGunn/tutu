@@ -44,7 +44,7 @@ const (
 type AnomalyType int
 
 const (
-	AnomalyNone           AnomalyType = iota // No anomaly
+	AnomalyNone            AnomalyType = iota // No anomaly
 	AnomalyDurationOutlier                    // Task took much longer/shorter than expected
 	AnomalyLowCPU                             // Suspiciously low CPU for task type
 	AnomalyHighFailRate                       // Sudden spike in failures
@@ -123,8 +123,8 @@ type NodeProfile struct {
 
 	// Duration statistics (Welford's online algorithm)
 	DurationCount int     `json:"duration_count"`
-	DurationMean  float64 `json:"duration_mean"`  // Running mean in ms
-	DurationM2    float64 `json:"duration_m2"`    // Running variance sum
+	DurationMean  float64 `json:"duration_mean"` // Running mean in ms
+	DurationM2    float64 `json:"duration_m2"`   // Running variance sum
 
 	// Success rate (moving window)
 	SuccessCount int `json:"success_count"`
@@ -175,18 +175,18 @@ func (p *NodeProfile) SuccessRate() float64 {
 
 // ThreatEntry represents a known bad actor in the threat intelligence feed.
 type ThreatEntry struct {
-	NodeID      string    `json:"node_id"`
-	Reason      string    `json:"reason"`
-	ReportedBy  string    `json:"reported_by"`
-	ReportedAt  time.Time `json:"reported_at"`
-	AutoBanned  bool      `json:"auto_banned"`
+	NodeID     string    `json:"node_id"`
+	Reason     string    `json:"reason"`
+	ReportedBy string    `json:"reported_by"`
+	ReportedAt time.Time `json:"reported_at"`
+	AutoBanned bool      `json:"auto_banned"`
 }
 
 // DetectorStats provides an overview of the anomaly detector's state.
 type DetectorStats struct {
-	ProfileCount     int `json:"profile_count"`
-	TotalAnomalies   int `json:"total_anomalies"`
-	ThreatFeedSize   int `json:"threat_feed_size"`
+	ProfileCount      int `json:"profile_count"`
+	TotalAnomalies    int `json:"total_anomalies"`
+	ThreatFeedSize    int `json:"threat_feed_size"`
 	ActiveQuarantines int `json:"active_quarantines"`
 }
 

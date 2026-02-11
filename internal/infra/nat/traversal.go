@@ -2,9 +2,9 @@
 // Architecture Part XIV: Phase 2 (TURN relay) + Phase 3 (ICE punch-through).
 //
 // TuTu uses a 3-level fallback strategy:
-//   1. Cloud-mediated (Phase 1): all traffic through Cloud Core (always works)
-//   2. TURN relay (Phase 2): relay server adds ~20ms, 95% success rate
-//   3. Direct P2P (Phase 3): UDP hole punching, <5ms, ~70% success rate
+//  1. Cloud-mediated (Phase 1): all traffic through Cloud Core (always works)
+//  2. TURN relay (Phase 2): relay server adds ~20ms, 95% success rate
+//  3. Direct P2P (Phase 3): UDP hole punching, <5ms, ~70% success rate
 //
 // This package provides the abstractions for levels 2 and 3.
 package nat
@@ -23,12 +23,12 @@ import (
 type NATType int
 
 const (
-	NATUnknown           NATType = iota
-	NATNone                      // Public IP — no NAT
-	NATFullCone                  // Any external host can reach mapped port
-	NATRestrictedCone            // Only hosts we've sent to can reach us
-	NATPortRestricted            // Only host:port we've sent to can reach us
-	NATSymmetric                 // Different mapping per destination (hardest to traverse)
+	NATUnknown        NATType = iota
+	NATNone                   // Public IP — no NAT
+	NATFullCone               // Any external host can reach mapped port
+	NATRestrictedCone         // Only hosts we've sent to can reach us
+	NATPortRestricted         // Only host:port we've sent to can reach us
+	NATSymmetric              // Different mapping per destination (hardest to traverse)
 )
 
 // String returns a human-readable NAT type name.

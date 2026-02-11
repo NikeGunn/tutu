@@ -8,7 +8,7 @@
 //   - Longevity: how long has the node been active?
 //
 // Overall = 0.30×reliability + 0.25×accuracy + 0.20×availability
-//         + 0.15×speed + 0.10×longevity − penalties
+//   - 0.15×speed + 0.10×longevity − penalties
 //
 // Architecture: Reputation EMA (Part XX §3).
 // Phase 5 spec: "ML-based behavioral analysis, resource abuse patterns."
@@ -74,14 +74,14 @@ type Components struct {
 
 // NodeReputation stores a node's complete reputation state.
 type NodeReputation struct {
-	NodeID       string     `json:"node_id"`
-	Components   Components `json:"components"`
-	Penalties    float64    `json:"penalties"`     // Accumulated penalty score [0, ∞)
-	TaskCount    int        `json:"task_count"`    // Number of tasks evaluated
-	DaysActive   int        `json:"days_active"`   // Calendar days node has been active
-	LastUpdate   time.Time  `json:"last_update"`
-	LastDecay    time.Time  `json:"last_decay"`    // Last weekly decay timestamp
-	JoinedAt     time.Time  `json:"joined_at"`
+	NodeID     string     `json:"node_id"`
+	Components Components `json:"components"`
+	Penalties  float64    `json:"penalties"`   // Accumulated penalty score [0, ∞)
+	TaskCount  int        `json:"task_count"`  // Number of tasks evaluated
+	DaysActive int        `json:"days_active"` // Calendar days node has been active
+	LastUpdate time.Time  `json:"last_update"`
+	LastDecay  time.Time  `json:"last_decay"` // Last weekly decay timestamp
+	JoinedAt   time.Time  `json:"joined_at"`
 }
 
 // Overall computes the weighted reputation score.

@@ -37,11 +37,11 @@ var (
 type ListingStatus string
 
 const (
-	StatusDraft      ListingStatus = "DRAFT"     // Not yet published
-	StatusPending    ListingStatus = "PENDING"   // Awaiting quality check
-	StatusApproved   ListingStatus = "APPROVED"  // Passed checks, visible
-	StatusRejected   ListingStatus = "REJECTED"  // Failed quality checks
-	StatusDelisted   ListingStatus = "DELISTED"  // Removed by creator/admin
+	StatusDraft    ListingStatus = "DRAFT"    // Not yet published
+	StatusPending  ListingStatus = "PENDING"  // Awaiting quality check
+	StatusApproved ListingStatus = "APPROVED" // Passed checks, visible
+	StatusRejected ListingStatus = "REJECTED" // Failed quality checks
+	StatusDelisted ListingStatus = "DELISTED" // Removed by creator/admin
 )
 
 // Category classifies models for browsing.
@@ -59,19 +59,19 @@ const (
 // Listing represents a model published in the marketplace.
 type Listing struct {
 	ID           string        `json:"id"`
-	ModelName    string        `json:"model_name"`     // Human-readable name
-	BaseModel    string        `json:"base_model"`     // What it was fine-tuned from
-	Creator      string        `json:"creator"`        // Publisher's node/user ID
+	ModelName    string        `json:"model_name"` // Human-readable name
+	BaseModel    string        `json:"base_model"` // What it was fine-tuned from
+	Creator      string        `json:"creator"`    // Publisher's node/user ID
 	Description  string        `json:"description"`
 	Category     Category      `json:"category"`
 	Tags         []string      `json:"tags"`
 	Version      string        `json:"version"`
 	SizeBytes    int64         `json:"size_bytes"`
-	Digest       string        `json:"digest"`         // SHA-256 of model file
+	Digest       string        `json:"digest"` // SHA-256 of model file
 	Status       ListingStatus `json:"status"`
-	Price        int64         `json:"price"`          // Credits per download
+	Price        int64         `json:"price"` // Credits per download
 	Downloads    int64         `json:"downloads"`
-	TotalRevenue int64         `json:"total_revenue"`  // Credits earned
+	TotalRevenue int64         `json:"total_revenue"` // Credits earned
 	CreatedAt    time.Time     `json:"created_at"`
 	PublishedAt  time.Time     `json:"published_at,omitempty"`
 	Benchmarks   Benchmarks    `json:"benchmarks"`
@@ -79,13 +79,13 @@ type Listing struct {
 
 // Benchmarks holds verified performance metrics for a listed model.
 type Benchmarks struct {
-	Perplexity     float64 `json:"perplexity,omitempty"`     // Lower is better
-	BLEU           float64 `json:"bleu,omitempty"`           // 0-100, higher better
-	HumanEval      float64 `json:"human_eval,omitempty"`     // Code pass@1
-	TokPerSec      float64 `json:"tok_per_sec,omitempty"`    // Generation speed
-	MemoryMB       int64   `json:"memory_mb,omitempty"`      // VRAM required
-	ContextLength  int     `json:"context_length,omitempty"` // Max tokens
-	Verified       bool    `json:"verified"`                 // Benchmarks independently verified
+	Perplexity    float64 `json:"perplexity,omitempty"`     // Lower is better
+	BLEU          float64 `json:"bleu,omitempty"`           // 0-100, higher better
+	HumanEval     float64 `json:"human_eval,omitempty"`     // Code pass@1
+	TokPerSec     float64 `json:"tok_per_sec,omitempty"`    // Generation speed
+	MemoryMB      int64   `json:"memory_mb,omitempty"`      // VRAM required
+	ContextLength int     `json:"context_length,omitempty"` // Max tokens
+	Verified      bool    `json:"verified"`                 // Benchmarks independently verified
 }
 
 // ─── Review ─────────────────────────────────────────────────────────────────
@@ -94,8 +94,8 @@ type Benchmarks struct {
 type Review struct {
 	ID        string    `json:"id"`
 	ListingID string    `json:"listing_id"`
-	Author    string    `json:"author"`    // Reviewer's node/user ID
-	Rating    int       `json:"rating"`    // 1-5 stars
+	Author    string    `json:"author"` // Reviewer's node/user ID
+	Rating    int       `json:"rating"` // 1-5 stars
 	Comment   string    `json:"comment"`
 	CreatedAt time.Time `json:"created_at"`
 }
@@ -117,11 +117,11 @@ func (r *Review) Validate() error {
 type QualityCheck struct {
 	ListingID   string    `json:"listing_id"`
 	Passed      bool      `json:"passed"`
-	Issues      []string  `json:"issues,omitempty"`  // Reasons for failure
+	Issues      []string  `json:"issues,omitempty"` // Reasons for failure
 	CheckedAt   time.Time `json:"checked_at"`
-	Signatures  bool      `json:"signatures"`   // Digital signature valid
-	NoMalware   bool      `json:"no_malware"`   // No suspicious patterns
-	Benchmarked bool      `json:"benchmarked"`  // Benchmarks reproduced
+	Signatures  bool      `json:"signatures"`  // Digital signature valid
+	NoMalware   bool      `json:"no_malware"`  // No suspicious patterns
+	Benchmarked bool      `json:"benchmarked"` // Benchmarks reproduced
 }
 
 // ─── Marketplace Store ──────────────────────────────────────────────────────
@@ -148,9 +148,9 @@ func DefaultStoreConfig() StoreConfig {
 type Store struct {
 	mu       sync.RWMutex
 	config   StoreConfig
-	listings map[string]*Listing        // id → listing
-	reviews  map[string][]*Review       // listingID → reviews
-	checks   map[string]*QualityCheck   // listingID → latest quality check
+	listings map[string]*Listing      // id → listing
+	reviews  map[string][]*Review     // listingID → reviews
+	checks   map[string]*QualityCheck // listingID → latest quality check
 }
 
 // NewStore creates a marketplace store.

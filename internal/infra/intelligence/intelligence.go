@@ -82,23 +82,23 @@ func DefaultConfig() Config {
 
 // ModelPopularity tracks how popular a model is across the network.
 type ModelPopularity struct {
-	ModelName    string    // model identifier
-	TotalReqs    int64     // total requests served
-	RecentReqs   int64     // requests in the last 24h window
+	ModelName     string    // model identifier
+	TotalReqs     int64     // total requests served
+	RecentReqs    int64     // requests in the last 24h window
 	LastRequested time.Time // most recent request timestamp
-	AvgLatencyMs float64   // average inference latency
+	AvgLatencyMs  float64   // average inference latency
 }
 
 // ─── Node Model Affinity ────────────────────────────────────────────────────
 
 // NodeModelAffinity describes how well a specific model fits on a specific node.
 type NodeModelAffinity struct {
-	NodeID       string  // node identifier
-	ModelName    string  // model identifier
-	CacheHitRate float64 // 0..1 — how often the model is found hot in memory
-	AvgLatencyMs float64 // average inference latency on this node
-	RequestCount int64   // requests served on this node
-	VRAMFitScore float64 // 0..1 — how well the model fits in available VRAM
+	NodeID        string  // node identifier
+	ModelName     string  // model identifier
+	CacheHitRate  float64 // 0..1 — how often the model is found hot in memory
+	AvgLatencyMs  float64 // average inference latency on this node
+	RequestCount  int64   // requests served on this node
+	VRAMFitScore  float64 // 0..1 — how well the model fits in available VRAM
 	AffinityScore float64 // computed composite score 0..1
 }
 
@@ -108,9 +108,9 @@ type NodeModelAffinity struct {
 type RecommendationType int
 
 const (
-	RecommendPlace  RecommendationType = iota // Place model on a new node
-	RecommendEvict                             // Remove model from a node
-	RecommendMove                              // Move model from one node to another
+	RecommendPlace RecommendationType = iota // Place model on a new node
+	RecommendEvict                           // Remove model from a node
+	RecommendMove                            // Move model from one node to another
 )
 
 // String returns a human-readable recommendation type.
@@ -191,7 +191,7 @@ type Optimizer struct {
 	hpFull         bool
 
 	// Optimization cycle tracking.
-	lastOptimization time.Time
+	lastOptimization  time.Time
 	optimizationCount int64
 }
 
@@ -651,12 +651,12 @@ func (o *Optimizer) AggregateHealthInsights() HealthInsight {
 	}
 
 	return HealthInsight{
-		OrgCount:          orgs,
-		AvgFailureRate:    totalFailRate / float64(orgs),
-		AvgMTTRSeconds:    totalMTTR / float64(orgs),
-		TopFailureType:    topType,
-		TotalNodes:        totalNodes,
-		TotalTasks:        totalTasks,
+		OrgCount:       orgs,
+		AvgFailureRate: totalFailRate / float64(orgs),
+		AvgMTTRSeconds: totalMTTR / float64(orgs),
+		TopFailureType: topType,
+		TotalNodes:     totalNodes,
+		TotalTasks:     totalTasks,
 	}
 }
 

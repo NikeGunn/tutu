@@ -38,10 +38,10 @@ const (
 type FederationStatus int
 
 const (
-	FedPending  FederationStatus = iota // Awaiting approval
-	FedActive                           // Fully operational
-	FedSuspended                        // Temporarily suspended
-	FedDissolved                        // Permanently removed
+	FedPending   FederationStatus = iota // Awaiting approval
+	FedActive                            // Fully operational
+	FedSuspended                         // Temporarily suspended
+	FedDissolved                         // Permanently removed
 )
 
 // String returns a human-readable status label.
@@ -85,14 +85,14 @@ func (p SharingPolicy) String() string {
 
 // Federation represents a private sub-network owned by an organization.
 type Federation struct {
-	ID              string           `json:"id"`               // Unique federation ID (e.g. "fed-acme-corp")
-	Name            string           `json:"name"`             // Human-readable name
-	AdminNodeID     string           `json:"admin_node_id"`    // Node that created this federation
-	Status          FederationStatus `json:"status"`           // Lifecycle state
-	SharingPolicy   SharingPolicy    `json:"sharing_policy"`   // How spare capacity is shared
-	RevenueSharePct int              `json:"revenue_share_pct"`// Org revenue share (default 80%)
-	DataSovereignty bool             `json:"data_sovereignty"` // Tasks must stay within federation
-	AllowedRegions  []string         `json:"allowed_regions"`  // Restrict to specific regions
+	ID              string           `json:"id"`                // Unique federation ID (e.g. "fed-acme-corp")
+	Name            string           `json:"name"`              // Human-readable name
+	AdminNodeID     string           `json:"admin_node_id"`     // Node that created this federation
+	Status          FederationStatus `json:"status"`            // Lifecycle state
+	SharingPolicy   SharingPolicy    `json:"sharing_policy"`    // How spare capacity is shared
+	RevenueSharePct int              `json:"revenue_share_pct"` // Org revenue share (default 80%)
+	DataSovereignty bool             `json:"data_sovereignty"`  // Tasks must stay within federation
+	AllowedRegions  []string         `json:"allowed_regions"`   // Restrict to specific regions
 	CreatedAt       time.Time        `json:"created_at"`
 	UpdatedAt       time.Time        `json:"updated_at"`
 }
@@ -101,35 +101,35 @@ type Federation struct {
 type FederationMember struct {
 	NodeID     string    `json:"node_id"`
 	FedID      string    `json:"fed_id"`
-	Role       string    `json:"role"`       // "admin", "member", "observer"
+	Role       string    `json:"role"` // "admin", "member", "observer"
 	JoinedAt   time.Time `json:"joined_at"`
 	LastActive time.Time `json:"last_active"`
 }
 
 // FederationStats aggregates metrics for a federation.
 type FederationStats struct {
-	FedID             string  `json:"fed_id"`
-	MemberCount       int     `json:"member_count"`
-	ActiveMembers     int     `json:"active_members"`
-	TotalCreditsEarned int64  `json:"total_credits_earned"`
-	TasksCompleted    int64   `json:"tasks_completed"`
-	SharedCapacityPct float64 `json:"shared_capacity_pct"` // % of capacity shared to public
+	FedID              string  `json:"fed_id"`
+	MemberCount        int     `json:"member_count"`
+	ActiveMembers      int     `json:"active_members"`
+	TotalCreditsEarned int64   `json:"total_credits_earned"`
+	TasksCompleted     int64   `json:"tasks_completed"`
+	SharedCapacityPct  float64 `json:"shared_capacity_pct"` // % of capacity shared to public
 }
 
 // ─── Configuration ──────────────────────────────────────────────────────────
 
 // RegistryConfig configures the federation registry.
 type RegistryConfig struct {
-	MaxFederations    int // Maximum number of active federations (0 = unlimited)
-	RequireApproval   bool // New federations need admin approval
+	MaxFederations     int  // Maximum number of active federations (0 = unlimited)
+	RequireApproval    bool // New federations need admin approval
 	DefaultSharePolicy SharingPolicy
 }
 
 // DefaultRegistryConfig returns sensible defaults.
 func DefaultRegistryConfig() RegistryConfig {
 	return RegistryConfig{
-		MaxFederations:    1000,
-		RequireApproval:   false,
+		MaxFederations:     1000,
+		RequireApproval:    false,
 		DefaultSharePolicy: ShareSpare,
 	}
 }
@@ -141,9 +141,9 @@ func DefaultRegistryConfig() RegistryConfig {
 type Registry struct {
 	mu          sync.RWMutex
 	config      RegistryConfig
-	federations map[string]*Federation           // fedID → Federation
+	federations map[string]*Federation                  // fedID → Federation
 	members     map[string]map[string]*FederationMember // fedID → nodeID → Member
-	nodeIndex   map[string]string                // nodeID → fedID (quick lookup)
+	nodeIndex   map[string]string                       // nodeID → fedID (quick lookup)
 }
 
 // NewRegistry creates a federation registry.

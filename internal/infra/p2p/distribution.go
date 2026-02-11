@@ -27,20 +27,20 @@ import (
 // ─── Constants ──────────────────────────────────────────────────────────────
 
 const (
-	DefaultChunkSize = 4 * 1024 * 1024 // 4 MB per chunk
+	DefaultChunkSize = 4 * 1024 * 1024  // 4 MB per chunk
 	MaxChunkSize     = 16 * 1024 * 1024 // 16 MB max
-	MinChunkSize     = 256 * 1024        // 256 KB min
+	MinChunkSize     = 256 * 1024       // 256 KB min
 )
 
 // ─── Errors ─────────────────────────────────────────────────────────────────
 
 var (
-	ErrChunkCorrupted     = errors.New("chunk integrity check failed: SHA-256 mismatch")
-	ErrManifestInvalid    = errors.New("chunk manifest signature invalid")
-	ErrNoPeersAvailable   = errors.New("no peers available for chunk download")
-	ErrChunkNotFound      = errors.New("chunk not found on any peer")
-	ErrTransferCancelled  = errors.New("transfer cancelled")
-	ErrInvalidChunkSize   = errors.New("chunk size out of allowed range")
+	ErrChunkCorrupted    = errors.New("chunk integrity check failed: SHA-256 mismatch")
+	ErrManifestInvalid   = errors.New("chunk manifest signature invalid")
+	ErrNoPeersAvailable  = errors.New("no peers available for chunk download")
+	ErrChunkNotFound     = errors.New("chunk not found on any peer")
+	ErrTransferCancelled = errors.New("transfer cancelled")
+	ErrInvalidChunkSize  = errors.New("chunk size out of allowed range")
 )
 
 // ─── Chunk Types ────────────────────────────────────────────────────────────
@@ -50,22 +50,22 @@ type ChunkDigest string
 
 // ChunkInfo describes a single chunk in a model file.
 type ChunkInfo struct {
-	Index  int         `json:"index"`   // 0-based chunk position
-	Offset int64       `json:"offset"`  // Byte offset in the original file
-	Size   int         `json:"size"`    // Chunk size in bytes
-	Digest ChunkDigest `json:"digest"`  // SHA-256 hex of chunk data
+	Index  int         `json:"index"`  // 0-based chunk position
+	Offset int64       `json:"offset"` // Byte offset in the original file
+	Size   int         `json:"size"`   // Chunk size in bytes
+	Digest ChunkDigest `json:"digest"` // SHA-256 hex of chunk data
 }
 
 // ChunkManifest describes a complete model split into chunks.
 // The manifest is signed with the publisher's Ed25519 key.
 type ChunkManifest struct {
 	ModelName    string      `json:"model_name"`
-	ModelDigest  string      `json:"model_digest"`   // SHA-256 of the whole file
-	TotalSize    int64       `json:"total_size"`      // Total model size in bytes
-	ChunkSize    int         `json:"chunk_size"`      // Uniform chunk size (last may be smaller)
+	ModelDigest  string      `json:"model_digest"` // SHA-256 of the whole file
+	TotalSize    int64       `json:"total_size"`   // Total model size in bytes
+	ChunkSize    int         `json:"chunk_size"`   // Uniform chunk size (last may be smaller)
 	Chunks       []ChunkInfo `json:"chunks"`
-	PublisherKey string      `json:"publisher_key"`   // Ed25519 public key hex
-	Signature    string      `json:"signature"`       // Ed25519 signature of manifest body
+	PublisherKey string      `json:"publisher_key"` // Ed25519 public key hex
+	Signature    string      `json:"signature"`     // Ed25519 signature of manifest body
 	CreatedAt    time.Time   `json:"created_at"`
 }
 

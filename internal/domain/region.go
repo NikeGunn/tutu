@@ -59,9 +59,9 @@ func regionPairKey(a, b RegionID) string {
 }
 
 var crossRegionLatency = map[string]int{
-	regionPairKey(RegionUSEast, RegionEUWest):   85,  // transatlantic
-	regionPairKey(RegionUSEast, RegionAPSouth):   180, // US to Asia
-	regionPairKey(RegionEUWest, RegionAPSouth):   120, // Europe to Asia
+	regionPairKey(RegionUSEast, RegionEUWest):  85,  // transatlantic
+	regionPairKey(RegionUSEast, RegionAPSouth): 180, // US to Asia
+	regionPairKey(RegionEUWest, RegionAPSouth): 120, // Europe to Asia
 }
 
 // ─── Region Status ──────────────────────────────────────────────────────────

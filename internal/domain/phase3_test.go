@@ -104,8 +104,8 @@ func TestRegionLatencyMs_UnknownPair(t *testing.T) {
 
 func TestRegionStatus_Load(t *testing.T) {
 	tests := []struct {
-		name       string
-		status     RegionStatus
+		name        string
+		status      RegionStatus
 		wantMinLoad float64
 		wantMaxLoad float64
 	}{

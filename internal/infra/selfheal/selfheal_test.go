@@ -19,11 +19,11 @@ func fixedClock(start time.Time, step time.Duration) func() time.Time {
 func testConfig(start time.Time) Config {
 	return Config{
 		MaxRemediationAttempts: 3,
-		IsolationTimeout:      2 * time.Minute,
-		VerificationTimeout:   1 * time.Minute,
-		IncidentTTL:           24 * time.Hour,
-		MaxActiveIncidents:    100,
-		Now:                   fixedClock(start, 30*time.Second),
+		IsolationTimeout:       2 * time.Minute,
+		VerificationTimeout:    1 * time.Minute,
+		IncidentTTL:            24 * time.Hour,
+		MaxActiveIncidents:     100,
+		Now:                    fixedClock(start, 30*time.Second),
 	}
 }
 

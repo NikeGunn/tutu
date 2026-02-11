@@ -58,9 +58,9 @@ func TestClassifyHardware(t *testing.T) {
 
 func TestEstimatedHourlyCredits(t *testing.T) {
 	tests := []struct {
-		tier       HardwareTier
-		demand     float64
-		wantMin    int64
+		tier    HardwareTier
+		demand  float64
+		wantMin int64
 	}{
 		{TierBasic, 1.0, 5},
 		{TierMid, 1.0, 15},

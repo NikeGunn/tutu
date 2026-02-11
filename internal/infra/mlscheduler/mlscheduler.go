@@ -210,13 +210,13 @@ func HeuristicScore(f Features) float64 {
 
 // Scheduler is the Phase 6 ML-driven scheduler using UCB1 multi-armed bandit.
 type Scheduler struct {
-	mu     sync.RWMutex
-	cfg    Config
-	arms   map[string]*armStats // key → arm statistics
-	total  int                  // total pulls across all arms
-	hist   []Observation        // observation history (ring buffer)
-	hIdx   int                  // next write index in ring buffer
-	hFull  bool                 // whether the ring buffer has wrapped
+	mu    sync.RWMutex
+	cfg   Config
+	arms  map[string]*armStats // key → arm statistics
+	total int                  // total pulls across all arms
+	hist  []Observation        // observation history (ring buffer)
+	hIdx  int                  // next write index in ring buffer
+	hFull bool                 // whether the ring buffer has wrapped
 
 	// Performance tracking: ML vs heuristic.
 	mlLatencySum        float64

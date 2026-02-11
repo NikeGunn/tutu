@@ -96,10 +96,10 @@ func DefaultConfig() Config {
 type Direction int
 
 const (
-	Hold     Direction = iota // No change needed
-	ScaleUp                   // Increase capacity
-	ScaleDown                 // Decrease capacity
-	PreWarm                   // Wake idle nodes proactively
+	Hold      Direction = iota // No change needed
+	ScaleUp                    // Increase capacity
+	ScaleDown                  // Decrease capacity
+	PreWarm                    // Wake idle nodes proactively
 )
 
 // String returns a human-readable direction label.
@@ -157,11 +157,11 @@ type Scaler struct {
 	capacity int
 
 	// Decision tracking.
-	lastDecision  time.Time // for cooldown enforcement
-	decisions     []Decision
-	maxDecisions  int // ring buffer cap
-	dIdx          int
-	dFull         bool
+	lastDecision time.Time // for cooldown enforcement
+	decisions    []Decision
+	maxDecisions int // ring buffer cap
+	dIdx         int
+	dFull        bool
 
 	// Proactiveness tracking (gate check: 90% proactive).
 	totalSpikes     int64 // total demand spikes observed
@@ -449,15 +449,15 @@ func (s *Scaler) Capacity() int {
 
 // ScalerStats exposes auto-scaler metrics.
 type ScalerStats struct {
-	SmoothedLevel    float64         // current smoothed demand level
-	SeasonalIndices  []float64       // one per season bucket
-	CurrentCapacity  int             // current capacity
-	Observations     int             // total observations recorded
-	TotalDecisions   int             // total decisions made
-	TotalSpikes      int64           // total spikes observed
-	ProactiveSpikes  int64           // spikes handled proactively
-	ProactivePct     float64         // proactive / total × 100
-	Confidence       float64         // data maturity confidence 0..1
+	SmoothedLevel   float64   // current smoothed demand level
+	SeasonalIndices []float64 // one per season bucket
+	CurrentCapacity int       // current capacity
+	Observations    int       // total observations recorded
+	TotalDecisions  int       // total decisions made
+	TotalSpikes     int64     // total spikes observed
+	ProactiveSpikes int64     // spikes handled proactively
+	ProactivePct    float64   // proactive / total × 100
+	Confidence      float64   // data maturity confidence 0..1
 }
 
 // Stats returns current scaler statistics.

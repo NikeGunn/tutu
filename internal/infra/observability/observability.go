@@ -50,7 +50,7 @@ type Span struct {
 type SpanStatus int
 
 const (
-	SpanOK    SpanStatus = iota
+	SpanOK SpanStatus = iota
 	SpanError
 )
 

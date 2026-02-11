@@ -22,10 +22,10 @@ import (
 type HardwareTier int
 
 const (
-	TierBasic    HardwareTier = iota // CPU only, ≤8 cores
-	TierMid                          // CPU + basic GPU (4–8GB VRAM)
-	TierHigh                         // High-end GPU (12–24GB VRAM)
-	TierUltra                        // Multi-GPU / server-grade (48GB+ VRAM)
+	TierBasic HardwareTier = iota // CPU only, ≤8 cores
+	TierMid                       // CPU + basic GPU (4–8GB VRAM)
+	TierHigh                      // High-end GPU (12–24GB VRAM)
+	TierUltra                     // Multi-GPU / server-grade (48GB+ VRAM)
 )
 
 // String returns a human-readable hardware tier.
@@ -85,9 +85,9 @@ func EstimatedHourlyCredits(tier HardwareTier, demandMultiplier float64) int64 {
 // When the user is deeply idle (sleeping), we advertise more capacity to
 // attract more tasks and earn more credits.
 type CapacityAdvertiser struct {
-	mu          sync.Mutex
-	tier        HardwareTier
-	idleLevel   domain.IdleLevel
+	mu           sync.Mutex
+	tier         HardwareTier
+	idleLevel    domain.IdleLevel
 	baseCapacity int // percentage (0–100)
 }
 
@@ -132,8 +132,8 @@ func (ca *CapacityAdvertiser) AdvertisedCapacity() int {
 
 // ModelPopularity tracks how often a model is requested across the network.
 type ModelPopularity struct {
-	ModelName    string  `json:"model_name"`
-	RequestCount int64   `json:"request_count"`
+	ModelName     string    `json:"model_name"`
+	RequestCount  int64     `json:"request_count"`
 	LastRequested time.Time `json:"last_requested"`
 }
 

@@ -66,11 +66,11 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		MaxRemediationAttempts: 3,
-		IsolationTimeout:      2 * time.Minute,
-		VerificationTimeout:   1 * time.Minute,
-		IncidentTTL:           24 * time.Hour,
-		MaxActiveIncidents:    100,
-		Now:                   time.Now,
+		IsolationTimeout:       2 * time.Minute,
+		VerificationTimeout:    1 * time.Minute,
+		IncidentTTL:            24 * time.Hour,
+		MaxActiveIncidents:     100,
+		Now:                    time.Now,
 	}
 }
 

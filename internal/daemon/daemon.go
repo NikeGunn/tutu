@@ -93,9 +93,9 @@ type Daemon struct {
 	Anomaly    *anomaly.Detector
 
 	// Phase 6 components — singularity: self-organizing network
-	MLScheduler *mlscheduler.Scheduler
-	AutoScaler  *autoscale.Scaler
-	SelfHeal    *selfheal.Mesh
+	MLScheduler  *mlscheduler.Scheduler
+	AutoScaler   *autoscale.Scaler
+	SelfHeal     *selfheal.Mesh
 	Intelligence *intelligence.Optimizer
 }
 

@@ -32,11 +32,11 @@ func DefaultBloomConfig() BloomConfig {
 
 // BloomFilter is a space-efficient probabilistic set.
 type BloomFilter struct {
-	mu       sync.RWMutex
-	bits     []uint64 // bit array stored as uint64 words
-	numBits  uint     // total bits
-	numHash  uint     // number of hash functions
-	count    int      // elements added
+	mu      sync.RWMutex
+	bits    []uint64 // bit array stored as uint64 words
+	numBits uint     // total bits
+	numHash uint     // number of hash functions
+	count   int      // elements added
 }
 
 // NewBloomFilter creates a Bloom filter sized to achieve the target FP rate.
