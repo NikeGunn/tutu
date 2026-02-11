@@ -207,6 +207,9 @@ func (d *DB) migrate() error {
 	// Append Phase 3 migrations
 	migrations = append(migrations, Phase3Migrations()...)
 
+	// Append Phase 4 migrations
+	migrations = append(migrations, Phase4Migrations()...)
+
 	for _, m := range migrations {
 		if _, err := d.db.Exec(m); err != nil {
 			return fmt.Errorf("migration failed: %w\nSQL: %s", err, m)

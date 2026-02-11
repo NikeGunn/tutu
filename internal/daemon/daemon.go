@@ -18,8 +18,10 @@ import (
 	"github.com/tutu-network/tutu/internal/domain"
 	"github.com/tutu-network/tutu/internal/health"
 	"github.com/tutu-network/tutu/internal/infra/engine"
+	"github.com/tutu-network/tutu/internal/infra/finetune"
 	"github.com/tutu-network/tutu/internal/infra/gossip"
 	"github.com/tutu-network/tutu/internal/infra/healing"
+	"github.com/tutu-network/tutu/internal/infra/marketplace"
 	_ "github.com/tutu-network/tutu/internal/infra/metrics" // Register Prometheus metrics
 	"github.com/tutu-network/tutu/internal/infra/network"
 	"github.com/tutu-network/tutu/internal/infra/observability"
@@ -71,6 +73,10 @@ type Daemon struct {
 	Quarantine *healing.QuarantineManager
 	Capacity   *passive.CapacityAdvertiser
 	Prefetcher *passive.Prefetcher
+
+	// Phase 4 components — planet scale, marketplace, fine-tuning
+	FineTuneCoordinator *finetune.Coordinator
+	Marketplace         *marketplace.Store
 }
 
 // New creates and initializes a Daemon with all services wired.
@@ -247,6 +253,14 @@ func NewWithConfig(cfg Config) (*Daemon, error) {
 	hwTier := passive.ClassifyHardware(0, 0) // Detect at startup; re-classified when sensors report
 	d.Capacity = passive.NewCapacityAdvertiser(hwTier)
 	d.Prefetcher = passive.NewPrefetcher(5) // Pre-cache top 5 models
+
+	// ─── Phase 4 components ────────────────────────────────────────────
+
+	// Distributed fine-tuning coordinator
+	d.FineTuneCoordinator = finetune.NewCoordinator(finetune.DefaultCoordinatorConfig())
+
+	// Model marketplace
+	d.Marketplace = marketplace.NewStore(marketplace.DefaultStoreConfig())
 
 	return d, nil
 }

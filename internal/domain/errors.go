@@ -44,4 +44,26 @@ var (
 	// Phase 3: NAT traversal errors
 	ErrNATTraversalFailed = errors.New("NAT traversal failed — no direct connection possible")
 	ErrTURNUnavailable    = errors.New("TURN relay server unavailable")
+
+	// Phase 4: Fine-tuning errors
+	ErrFineTuneJobNotFound   = errors.New("fine-tune job not found")
+	ErrFineTuneInProgress    = errors.New("fine-tune job already running")
+	ErrInsufficientNodes     = errors.New("not enough capable nodes for fine-tuning")
+	ErrGradientMismatch      = errors.New("gradient dimensions do not match")
+	ErrCheckpointMissing     = errors.New("checkpoint not available")
+	ErrEpochTimeout          = errors.New("epoch exceeded time limit")
+
+	// Phase 4: Marketplace errors
+	ErrListingNotFound    = errors.New("marketplace listing not found")
+	ErrAlreadyPublished   = errors.New("model already published")
+	ErrSelfReview         = errors.New("cannot review your own model")
+	ErrDuplicateReview    = errors.New("already reviewed this model")
+	ErrModelUnverified    = errors.New("model has not passed quality checks")
+	ErrInsufficientFunds  = errors.New("insufficient credits for download")
+
+	// Phase 4: P2P distribution errors
+	ErrChunkCorrupted     = errors.New("chunk integrity check failed")
+	ErrManifestInvalid    = errors.New("manifest signature invalid")
+	ErrNoPeersAvailable   = errors.New("no peers have required chunk")
+	ErrTransferCancelled  = errors.New("transfer was cancelled")
 )
