@@ -180,21 +180,35 @@ func DefaultConfig() Config {
 }
 
 // LoadConfig reads config from ~/.tutu/config.toml, falling back to defaults.
+// Environment variables override config file values (cloud-native friendly).
 func LoadConfig() (Config, error) {
 	cfg := DefaultConfig()
 	path := filepath.Join(tutuHome(), "config.toml")
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		return cfg, nil // No config file yet — use defaults
-	}
-
-	if _, err := toml.DecodeFile(path, &cfg); err != nil {
+		// No config file — use defaults
+	} else if _, err := toml.DecodeFile(path, &cfg); err != nil {
 		return cfg, fmt.Errorf("parse config: %w", err)
 	}
 
 	// Apply auto-detection
 	if cfg.Inference.Threads == 0 {
 		cfg.Inference.Threads = max(1, runtime.NumCPU()-2)
+	}
+
+	// Cloud-native overrides: PORT and HOST env vars (Railway, Render, Fly.io, etc.)
+	if port := os.Getenv("PORT"); port != "" {
+		var p int
+		if _, err := fmt.Sscanf(port, "%d", &p); err == nil && p > 0 {
+			cfg.API.Port = p
+		}
+	}
+	if host := os.Getenv("HOST"); host != "" {
+		cfg.API.Host = host
+	}
+	// In containers, always bind to 0.0.0.0 unless explicitly set
+	if os.Getenv("TUTU_HOME") != "" && cfg.API.Host == "127.0.0.1" {
+		cfg.API.Host = "0.0.0.0"
 	}
 
 	return cfg, nil

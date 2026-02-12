@@ -794,7 +794,8 @@
       <!-- ── UPGRADING ── -->
       <h2 id="upgrading">Upgrading</h2>
       <p>Re-run the install command for your platform. TuTu handles migrations automatically. You can also check the <a
-          href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener">GitHub Releases</a> page for
+          href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener">GitHub Releases</a>
+        page for
         changelogs.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># macOS (Homebrew)</span>
         <span class="prompt">$ </span>brew upgrade tutu
@@ -811,7 +812,8 @@
       <!-- ── CLI REFERENCE ── -->
       <h2 id="cli-overview">CLI Reference</h2>
       <p>TuTu provides a single binary with all commands built in. Run <code>tutu help</code> for a quick overview or
-        <code>tutu &lt;command&gt; --help</code> for details.</p>
+        <code>tutu &lt;command&gt; --help</code> for details.
+      </p>
 
       <div class="docs-table-wrap">
         <table class="docs-table">
@@ -1210,34 +1212,61 @@
 
       <!-- ── MCP SERVER ── -->
       <h2 id="mcp-overview">MCP Server (Model Context Protocol)</h2>
-      <p>TuTu Engine implements a full <strong>MCP Gateway</strong> following the <a href="https://spec.modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol 2025-03-26</a> specification. MCP is an open standard for connecting AI models to external tools, data sources, and services — think of it as <strong>USB-C for AI</strong>.</p>
+      <p>TuTu Engine implements a full <strong>MCP Gateway</strong> following the <a
+          href="https://spec.modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol
+          2025-03-26</a> specification. MCP is an open standard for connecting AI models to external tools, data
+        sources, and services — think of it as <strong>USB-C for AI</strong>.</p>
 
       <h3>How MCP Works</h3>
-      <p>When you run <code>tutu serve</code>, the MCP endpoint is automatically available at <code>/mcp</code>. Any MCP-compatible AI client (Claude, ChatGPT, custom apps) can connect and use the tools and resources TuTu exposes.</p>
+      <p>When you run <code>tutu serve</code>, the MCP endpoint is automatically available at <code>/mcp</code>. Any
+        MCP-compatible AI client (Claude, ChatGPT, custom apps) can connect and use the tools and resources TuTu
+        exposes.</p>
 
       <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># Initialize MCP session</span>
         curl -X POST http://localhost:11434/mcp \
-          -H "Content-Type: application/json" \
-          -d '{
-            "jsonrpc": "2.0",
-            "id": 1,
-            "method": "initialize",
-            "params": {
-              "protocolVersion": "2025-03-26",
-              "clientInfo": {"name": "my-app", "version": "1.0"}
-            }
-          }'
+        -H "Content-Type: application/json" \
+        -d '{
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+        "protocolVersion": "2025-03-26",
+        "clientInfo": {"name": "my-app", "version": "1.0"}
+        }
+        }'
       </div>
 
       <h3>Available MCP Tools</h3>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Tool</th><th>Description</th><th>Parameters</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Description</th>
+              <th>Parameters</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>tutu_run</code></td><td>Run a model with a given prompt</td><td><code>model</code>, <code>prompt</code></td></tr>
-            <tr><td><code>tutu_list</code></td><td>List available local models</td><td>None</td></tr>
-            <tr><td><code>tutu_pull</code></td><td>Download a model from registry</td><td><code>model</code></td></tr>
-            <tr><td><code>tutu_status</code></td><td>Get system and model status</td><td>None</td></tr>
+            <tr>
+              <td><code>tutu_run</code></td>
+              <td>Run a model with a given prompt</td>
+              <td><code>model</code>, <code>prompt</code></td>
+            </tr>
+            <tr>
+              <td><code>tutu_list</code></td>
+              <td>List available local models</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td><code>tutu_pull</code></td>
+              <td>Download a model from registry</td>
+              <td><code>model</code></td>
+            </tr>
+            <tr>
+              <td><code>tutu_status</code></td>
+              <td>Get system and model status</td>
+              <td>None</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1245,11 +1274,25 @@
       <h3>Available MCP Resources</h3>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Resource URI</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Resource URI</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>tutu://models</code></td><td>List of all installed models</td></tr>
-            <tr><td><code>tutu://status</code></td><td>System status and health info</td></tr>
-            <tr><td><code>tutu://credits</code></td><td>Credit balance and earnings</td></tr>
+            <tr>
+              <td><code>tutu://models</code></td>
+              <td>List of all installed models</td>
+            </tr>
+            <tr>
+              <td><code>tutu://status</code></td>
+              <td>System status and health info</td>
+            </tr>
+            <tr>
+              <td><code>tutu://credits</code></td>
+              <td>Credit balance and earnings</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1259,13 +1302,38 @@
 
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Use Case</th><th>How It Works</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Use Case</th>
+              <th>How It Works</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><strong>AI Coding Assistants</strong></td><td>Connect your IDE's AI (Cursor, Copilot, Continue.dev) to local models via MCP tools. AI can run models, check status, and manage models — all through the standard MCP protocol.</td></tr>
-            <tr><td><strong>Customer Support Bots</strong></td><td>Give AI agents access to local inference without cloud API costs. Use MCP resources to monitor model availability and queue depth.</td></tr>
-            <tr><td><strong>Data Analysis Pipelines</strong></td><td>Embed TuTu as the AI layer in your data pipeline. MCP tools let orchestrators (LangChain, AutoGen) call models with structured inputs.</td></tr>
-            <tr><td><strong>DevOps &amp; Automation</strong></td><td>AI agents use MCP to run inference tasks, pull models, and check system health — all with rate limiting and SLA guarantees.</td></tr>
-            <tr><td><strong>Multi-Model Orchestration</strong></td><td>Use the <code>tutu_list</code> and <code>tutu_run</code> tools to dynamically select and route to the best model for each task.</td></tr>
+            <tr>
+              <td><strong>AI Coding Assistants</strong></td>
+              <td>Connect your IDE's AI (Cursor, Copilot, Continue.dev) to local models via MCP tools. AI can run
+                models, check status, and manage models — all through the standard MCP protocol.</td>
+            </tr>
+            <tr>
+              <td><strong>Customer Support Bots</strong></td>
+              <td>Give AI agents access to local inference without cloud API costs. Use MCP resources to monitor model
+                availability and queue depth.</td>
+            </tr>
+            <tr>
+              <td><strong>Data Analysis Pipelines</strong></td>
+              <td>Embed TuTu as the AI layer in your data pipeline. MCP tools let orchestrators (LangChain, AutoGen)
+                call models with structured inputs.</td>
+            </tr>
+            <tr>
+              <td><strong>DevOps &amp; Automation</strong></td>
+              <td>AI agents use MCP to run inference tasks, pull models, and check system health — all with rate
+                limiting and SLA guarantees.</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-Model Orchestration</strong></td>
+              <td>Use the <code>tutu_list</code> and <code>tutu_run</code> tools to dynamically select and route to the
+                best model for each task.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1273,9 +1341,19 @@
       <h2 id="mcp-endpoints">MCP Endpoints</h2>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>POST</code></td><td><code>/mcp</code></td><td>MCP JSON-RPC 2.0 endpoint (Streamable HTTP transport)</td></tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/mcp</code></td>
+              <td>MCP JSON-RPC 2.0 endpoint (Streamable HTTP transport)</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1283,14 +1361,37 @@
       <h3>Supported MCP Methods</h3>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Method</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>initialize</code></td><td>Initialize MCP session, negotiate capabilities</td></tr>
-            <tr><td><code>tools/list</code></td><td>List available MCP tools</td></tr>
-            <tr><td><code>tools/call</code></td><td>Execute an MCP tool</td></tr>
-            <tr><td><code>resources/list</code></td><td>List available MCP resources</td></tr>
-            <tr><td><code>resources/read</code></td><td>Read an MCP resource</td></tr>
-            <tr><td><code>prompts/list</code></td><td>List available prompt templates</td></tr>
+            <tr>
+              <td><code>initialize</code></td>
+              <td>Initialize MCP session, negotiate capabilities</td>
+            </tr>
+            <tr>
+              <td><code>tools/list</code></td>
+              <td>List available MCP tools</td>
+            </tr>
+            <tr>
+              <td><code>tools/call</code></td>
+              <td>Execute an MCP tool</td>
+            </tr>
+            <tr>
+              <td><code>resources/list</code></td>
+              <td>List available MCP resources</td>
+            </tr>
+            <tr>
+              <td><code>resources/read</code></td>
+              <td>Read an MCP resource</td>
+            </tr>
+            <tr>
+              <td><code>prompts/list</code></td>
+              <td>List available prompt templates</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1299,12 +1400,44 @@
       <p>TuTu's MCP Gateway supports 4 SLA tiers for different usage levels:</p>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Tier</th><th>Rate Limit</th><th>Burst</th><th>Latency Target</th><th>Price</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Rate Limit</th>
+              <th>Burst</th>
+              <th>Latency Target</th>
+              <th>Price</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><strong>Free</strong></td><td>10 req/min</td><td>20</td><td>Best effort</td><td>$0</td></tr>
-            <tr><td><strong>Pro</strong></td><td>100 req/min</td><td>200</td><td>&lt; 500ms</td><td>Credits</td></tr>
-            <tr><td><strong>Business</strong></td><td>1,000 req/min</td><td>2,000</td><td>&lt; 200ms</td><td>Credits</td></tr>
-            <tr><td><strong>Enterprise</strong></td><td>10,000 req/min</td><td>20,000</td><td>&lt; 100ms</td><td>Credits</td></tr>
+            <tr>
+              <td><strong>Free</strong></td>
+              <td>10 req/min</td>
+              <td>20</td>
+              <td>Best effort</td>
+              <td>$0</td>
+            </tr>
+            <tr>
+              <td><strong>Pro</strong></td>
+              <td>100 req/min</td>
+              <td>200</td>
+              <td>&lt; 500ms</td>
+              <td>Credits</td>
+            </tr>
+            <tr>
+              <td><strong>Business</strong></td>
+              <td>1,000 req/min</td>
+              <td>2,000</td>
+              <td>&lt; 200ms</td>
+              <td>Credits</td>
+            </tr>
+            <tr>
+              <td><strong>Enterprise</strong></td>
+              <td>10,000 req/min</td>
+              <td>20,000</td>
+              <td>&lt; 100ms</td>
+              <td>Credits</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1313,17 +1446,21 @@
 
       <!-- ── AI FINE-TUNING ── -->
       <h2 id="finetune-local">Local Fine-Tuning</h2>
-      <p>Fine-tune models on your own hardware using TuTufile. Define adapters, system prompts, and training parameters in one declarative file.</p>
+      <p>Fine-tune models on your own hardware using TuTufile. Define adapters, system prompts, and training parameters
+        in one declarative file.</p>
 
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># TuTufile for fine-tuned customer support model</span>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># TuTufile for fine-tuned customer
+          support model</span>
         <span class="kw">FROM</span> llama3
-        <span class="kw">SYSTEM</span> <span class="str">"You are an expert customer support agent for Acme Corp. Be helpful, concise, and professional."</span>
+        <span class="kw">SYSTEM</span> <span class="str">"You are an expert customer support agent for Acme Corp. Be
+          helpful, concise, and professional."</span>
         <span class="kw">ADAPTER</span> ./my-lora-weights
         <span class="kw">PARAMETER</span> temperature <span class="val">0.7</span>
         <span class="kw">PARAMETER</span> top_p <span class="val">0.9</span>
       </div>
 
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create support-bot -f Tutufile
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create
+        support-bot -f Tutufile
         <span class="prompt">$ </span>tutu run support-bot
       </div>
 
@@ -1332,39 +1469,77 @@
       </div>
 
       <h2 id="finetune-distributed">Distributed Fine-Tuning</h2>
-      <p>Submit fine-tuning jobs to the TuTu network. Tasks are distributed across capable peers and you pay with credits.</p>
+      <p>Submit fine-tuning jobs to the TuTu network. Tasks are distributed across capable peers and you pay with
+        credits.</p>
 
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu agent finetune \
-          --base-model llama3 \
-          --dataset ./training-data.jsonl \
-          --method lora \
-          --epochs 3 \
-          --budget 100  <span class="cm"># credits</span>
+        --base-model llama3 \
+        --dataset ./training-data.jsonl \
+        --method lora \
+        --epochs 3 \
+        --budget 100 <span class="cm"># credits</span>
       </div>
 
       <h3>How Distributed Fine-Tuning Works</h3>
       <ul>
-        <li><strong>Submit a Job:</strong> Define your base model, training dataset, method (LoRA/QLoRA), and credit budget.</li>
-        <li><strong>Network Distribution:</strong> TuTu's ML scheduler finds capable peers with the right GPU hardware and distributes training shards.</li>
-        <li><strong>Progress Tracking:</strong> Monitor training progress in real-time via <code>tutu agent status</code>.</li>
-        <li><strong>Result Delivery:</strong> The trained adapter weights are returned to you. Merge them into your model with <code>tutu create</code>.</li>
+        <li><strong>Submit a Job:</strong> Define your base model, training dataset, method (LoRA/QLoRA), and credit
+          budget.</li>
+        <li><strong>Network Distribution:</strong> TuTu's ML scheduler finds capable peers with the right GPU hardware
+          and distributes training shards.</li>
+        <li><strong>Progress Tracking:</strong> Monitor training progress in real-time via
+          <code>tutu agent status</code>.</li>
+        <li><strong>Result Delivery:</strong> The trained adapter weights are returned to you. Merge them into your
+          model with <code>tutu create</code>.</li>
       </ul>
 
       <h2 id="finetune-methods">Fine-Tuning Methods &amp; Costs</h2>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Method</th><th>VRAM Required</th><th>Speed</th><th>Quality</th><th>Credit Cost</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>VRAM Required</th>
+              <th>Speed</th>
+              <th>Quality</th>
+              <th>Credit Cost</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><strong>Full Fine-Tune</strong></td><td>48GB+</td><td>Slow</td><td>Best</td><td>High</td></tr>
-            <tr><td><strong>LoRA</strong></td><td>8GB+</td><td>Fast</td><td>Great</td><td>Medium</td></tr>
-            <tr><td><strong>QLoRA</strong></td><td>4GB+</td><td>Fast</td><td>Good</td><td>Low</td></tr>
-            <tr><td><strong>Adapter Merging</strong></td><td>4GB+</td><td>Instant</td><td>Good</td><td>Free</td></tr>
+            <tr>
+              <td><strong>Full Fine-Tune</strong></td>
+              <td>48GB+</td>
+              <td>Slow</td>
+              <td>Best</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td><strong>LoRA</strong></td>
+              <td>8GB+</td>
+              <td>Fast</td>
+              <td>Great</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><strong>QLoRA</strong></td>
+              <td>4GB+</td>
+              <td>Fast</td>
+              <td>Good</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td><strong>Adapter Merging</strong></td>
+              <td>4GB+</td>
+              <td>Instant</td>
+              <td>Good</td>
+              <td>Free</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <div class="callout">
-        <strong>Tip:</strong> You can <strong>earn credits</strong> by contributing your GPU time for other users' fine-tuning jobs. Run <code>tutu agent join</code> to start earning.
+        <strong>Tip:</strong> You can <strong>earn credits</strong> by contributing your GPU time for other users'
+        fine-tuning jobs. Run <code>tutu agent join</code> to start earning.
       </div>
 
       <hr>
@@ -1376,13 +1551,39 @@
       <h3>Level System (L1–L100)</h3>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Level Range</th><th>Title</th><th>Perks</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Level Range</th>
+              <th>Title</th>
+              <th>Perks</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>1–10</td><td>Newcomer</td><td>Basic access, learning quests</td></tr>
-            <tr><td>11–25</td><td>Contributor</td><td>Priority queue, badge display</td></tr>
-            <tr><td>26–50</td><td>Builder</td><td>Beta features, voting rights</td></tr>
-            <tr><td>51–75</td><td>Expert</td><td>Governance participation, bonus multipliers</td></tr>
-            <tr><td>76–100</td><td>Legend</td><td>Network council, custom badges, max multipliers</td></tr>
+            <tr>
+              <td>1–10</td>
+              <td>Newcomer</td>
+              <td>Basic access, learning quests</td>
+            </tr>
+            <tr>
+              <td>11–25</td>
+              <td>Contributor</td>
+              <td>Priority queue, badge display</td>
+            </tr>
+            <tr>
+              <td>26–50</td>
+              <td>Builder</td>
+              <td>Beta features, voting rights</td>
+            </tr>
+            <tr>
+              <td>51–75</td>
+              <td>Expert</td>
+              <td>Governance participation, bonus multipliers</td>
+            </tr>
+            <tr>
+              <td>76–100</td>
+              <td>Legend</td>
+              <td>Network council, custom badges, max multipliers</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1391,13 +1592,39 @@
       <p>Unlock achievements by hitting milestones. Each achievement rewards credits and XP.</p>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Achievement</th><th>Requirement</th><th>Reward</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Achievement</th>
+              <th>Requirement</th>
+              <th>Reward</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>First Run</td><td>Run your first model</td><td>50 credits</td></tr>
-            <tr><td>Network Pioneer</td><td>Join distributed network</td><td>100 credits</td></tr>
-            <tr><td>Week Warrior</td><td>7-day contribution streak</td><td>200 credits</td></tr>
-            <tr><td>Diamond Contributor</td><td>10,000 GPU hours</td><td>5,000 credits</td></tr>
-            <tr><td>Fine-Tune Master</td><td>Complete 50 fine-tuning jobs</td><td>2,500 credits</td></tr>
+            <tr>
+              <td>First Run</td>
+              <td>Run your first model</td>
+              <td>50 credits</td>
+            </tr>
+            <tr>
+              <td>Network Pioneer</td>
+              <td>Join distributed network</td>
+              <td>100 credits</td>
+            </tr>
+            <tr>
+              <td>Week Warrior</td>
+              <td>7-day contribution streak</td>
+              <td>200 credits</td>
+            </tr>
+            <tr>
+              <td>Diamond Contributor</td>
+              <td>10,000 GPU hours</td>
+              <td>5,000 credits</td>
+            </tr>
+            <tr>
+              <td>Fine-Tune Master</td>
+              <td>Complete 50 fine-tuning jobs</td>
+              <td>2,500 credits</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1405,12 +1632,29 @@
       <h3>Streak Bonuses</h3>
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Streak</th><th>Earning Bonus</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Streak</th>
+              <th>Earning Bonus</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>7 days</td><td>1.1× earnings</td></tr>
-            <tr><td>30 days</td><td>1.25× earnings</td></tr>
-            <tr><td>90 days</td><td>1.5× earnings</td></tr>
-            <tr><td>365 days</td><td>2.0× earnings</td></tr>
+            <tr>
+              <td>7 days</td>
+              <td>1.1× earnings</td>
+            </tr>
+            <tr>
+              <td>30 days</td>
+              <td>1.25× earnings</td>
+            </tr>
+            <tr>
+              <td>90 days</td>
+              <td>1.5× earnings</td>
+            </tr>
+            <tr>
+              <td>365 days</td>
+              <td>2.0× earnings</td>
+            </tr>
           </tbody>
         </table>
       </div>

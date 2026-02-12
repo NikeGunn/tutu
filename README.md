@@ -11,10 +11,10 @@
 </p>
 
 <p align="center">
-  <a href="https://tutuengine.tech">Website</a> · 
-  <a href="https://tutuengine.tech/docs.html">Documentation</a> · 
-  <a href="https://github.com/Tutu-Engine/tutuengine/releases">Releases</a> · 
-  <a href="https://github.com/Tutu-Engine/tutuengine/discussions">Discussions</a> · 
+  <a href="https://tutuengine.tech">Website</a> ·
+  <a href="https://tutuengine.tech/docs.html">Documentation</a> ·
+  <a href="https://github.com/Tutu-Engine/tutuengine/releases">Releases</a> ·
+  <a href="https://github.com/Tutu-Engine/tutuengine/discussions">Discussions</a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 

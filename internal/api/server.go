@@ -62,6 +62,11 @@ func (s *Server) Handler() http.Handler {
 			"status": "TuTu is running",
 		})
 	})
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		writeJSON(w, http.StatusOK, map[string]string{
+			"status": "ok",
+		})
+	})
 	r.Get("/api/version", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, map[string]string{
 			"version": "0.1.0",

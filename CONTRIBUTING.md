@@ -268,13 +268,13 @@ func (p *Pool) ProcessInference(ctx context.Context, req InferenceRequest) (*Inf
     if err := req.Validate(); err != nil {
         return nil, fmt.Errorf("invalid request: %w", err)
     }
-    
+
     proc, err := p.acquire(ctx)
     if err != nil {
         return nil, fmt.Errorf("acquiring process: %w", err)
     }
     defer p.release(proc)
-    
+
     return proc.Run(ctx, req)
 }
 
@@ -507,10 +507,10 @@ Technical approach and key decisions.
 func TestCreditService_Earn(t *testing.T) {
     // Arrange
     svc := credit.NewService(credit.DefaultConfig())
-    
+
     // Act
     earned, err := svc.Earn("user-1", 100, "gpu-contribution")
-    
+
     // Assert
     if err != nil {
         t.Fatalf("unexpected error: %v", err)
@@ -543,7 +543,7 @@ func TestParseModel(t *testing.T) {
         {"with tag", "llama3:7b", Model{Name: "llama3", Tag: "7b"}, false},
         {"empty", "", Model{}, true},
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
             got, err := ParseModel(tt.input)
