@@ -1,0 +1,8 @@
+{
+  "name": "tutu-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve -s . -l ${PORT:-3000}"
+  }
+}
