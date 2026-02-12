@@ -34,9 +34,18 @@ func DownloadLlamaServer(tutuHome string, progress func(status string, pct float
 	}
 	targetPath := filepath.Join(binDir, exe)
 
-	// Already exists?
+	// Check if llama-server exists AND its companion libraries are present.
+	// On Windows, llama-server.exe needs ggml.dll + llama.dll to run.
+	// A previous buggy version extracted only the exe — detect and re-download.
 	if _, err := os.Stat(targetPath); err == nil {
-		return targetPath, nil
+		if !missingCompanionLibs(binDir) {
+			return targetPath, nil
+		}
+		// Companion DLLs/libs missing — re-download the full package
+		if progress != nil {
+			progress("re-downloading llama-server (missing companion libraries)...", 0)
+		}
+		os.Remove(targetPath) // Remove the incomplete install
 	}
 
 	if progress != nil {
@@ -81,6 +90,32 @@ func DownloadLlamaServer(tutuHome string, progress func(status string, pct float
 	}
 
 	return targetPath, nil
+}
+
+// missingCompanionLibs checks whether required companion libraries are present
+// in binDir alongside llama-server. Returns true if any required lib is missing.
+func missingCompanionLibs(binDir string) bool {
+	switch runtime.GOOS {
+	case "windows":
+		// llama-server.exe on Windows requires at minimum ggml.dll
+		for _, dll := range []string{"ggml.dll"} {
+			if _, err := os.Stat(filepath.Join(binDir, dll)); err != nil {
+				return true
+			}
+		}
+	case "darwin":
+		// macOS builds are typically self-contained, but check for libggml
+		for _, lib := range []string{"libggml.dylib"} {
+			if _, err := os.Stat(filepath.Join(binDir, lib)); err != nil {
+				// Not fatal on macOS — may be statically linked
+				return false
+			}
+		}
+	case "linux":
+		// Linux CPU builds are typically statically linked
+		return false
+	}
+	return false
 }
 
 // findLlamaServerAsset queries the GitHub API for the latest llama.cpp release
@@ -284,55 +319,98 @@ func downloadFile(url, dst string, progress func(string, float64)) error {
 	return nil
 }
 
-// extractLlamaServer extracts the llama-server binary from a zip or tar.gz archive.
+// extractLlamaServer extracts the llama-server binary AND all companion files
+// (DLLs, shared libraries) from the archive into the same directory as targetPath.
+// On Windows, llama-server.exe depends on ggml.dll, llama.dll, etc. that ship
+// in the same zip. Without them, it fails with STATUS_DLL_NOT_FOUND (0xc0000135).
 func extractLlamaServer(archivePath, targetPath, archiveName string) error {
+	destDir := filepath.Dir(targetPath)
+
 	if strings.HasSuffix(strings.ToLower(archiveName), ".zip") {
-		return extractFromZip(archivePath, targetPath)
+		return extractAllFromZip(archivePath, destDir)
 	}
 	if strings.HasSuffix(strings.ToLower(archiveName), ".tar.gz") {
-		return extractFromTarGz(archivePath, targetPath)
+		return extractAllFromTarGz(archivePath, destDir)
 	}
 	return fmt.Errorf("unsupported archive format: %s", archiveName)
 }
 
-// extractFromZip extracts llama-server from a zip archive.
-func extractFromZip(archivePath, targetPath string) error {
+// extractAllFromZip extracts all files from a zip archive into destDir.
+// Only regular files are extracted (no directories). Files inside nested
+// directories within the zip are flattened into destDir.
+func extractAllFromZip(archivePath, destDir string) error {
 	r, err := zip.OpenReader(archivePath)
 	if err != nil {
 		return err
 	}
 	defer r.Close()
 
-	targetName := "llama-server"
+	foundServer := false
+	serverName := "llama-server"
 	if runtime.GOOS == "windows" {
-		targetName = "llama-server.exe"
+		serverName = "llama-server.exe"
 	}
 
 	for _, f := range r.File {
+		// Skip directories
+		if f.FileInfo().IsDir() {
+			continue
+		}
+
 		name := filepath.Base(f.Name)
-		if strings.EqualFold(name, targetName) {
-			rc, err := f.Open()
-			if err != nil {
-				return err
-			}
-			defer rc.Close()
+		// Skip empty names and macOS metadata
+		if name == "" || strings.HasPrefix(name, ".") || strings.HasPrefix(f.Name, "__MACOSX") {
+			continue
+		}
 
-			out, err := os.Create(targetPath)
-			if err != nil {
-				return err
-			}
-			defer out.Close()
+		// Only extract binaries, libraries, and config files — skip docs, examples, etc.
+		ext := strings.ToLower(filepath.Ext(name))
+		nameLower := strings.ToLower(name)
+		isRelevant := ext == ".exe" || ext == ".dll" || ext == ".so" || ext == ".dylib" ||
+			ext == ".metal" || ext == ".metallib" || ext == "" || // unix binaries have no extension
+			strings.HasPrefix(nameLower, "llama") || strings.HasPrefix(nameLower, "ggml")
+		if !isRelevant {
+			continue
+		}
 
-			_, err = io.Copy(out, rc)
-			return err
+		if strings.EqualFold(name, serverName) {
+			foundServer = true
+		}
+
+		rc, err := f.Open()
+		if err != nil {
+			return fmt.Errorf("open %s in zip: %w", f.Name, err)
+		}
+
+		outPath := filepath.Join(destDir, name)
+		out, err := os.Create(outPath)
+		if err != nil {
+			rc.Close()
+			return fmt.Errorf("create %s: %w", outPath, err)
+		}
+
+		_, err = io.Copy(out, rc)
+		out.Close()
+		rc.Close()
+		if err != nil {
+			return fmt.Errorf("extract %s: %w", name, err)
+		}
+
+		// Make executable on unix
+		if runtime.GOOS != "windows" {
+			os.Chmod(outPath, 0o755)
 		}
 	}
 
-	return fmt.Errorf("llama-server binary not found in archive (looked for %s)", targetName)
+	if !foundServer {
+		return fmt.Errorf("llama-server binary not found in archive (looked for %s)", serverName)
+	}
+
+	return nil
 }
 
-// extractFromTarGz extracts llama-server from a .tar.gz archive.
-func extractFromTarGz(archivePath, targetPath string) error {
+// extractAllFromTarGz extracts all relevant files from a .tar.gz archive into destDir.
+func extractAllFromTarGz(archivePath, destDir string) error {
 	f, err := os.Open(archivePath)
 	if err != nil {
 		return err
@@ -345,5 +423,5 @@ func extractFromTarGz(archivePath, targetPath string) error {
 	}
 	defer gr.Close()
 
-	return extractFromTar(gr, targetPath)
+	return extractAllFromTar(gr, destDir)
 }

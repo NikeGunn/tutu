@@ -10,14 +10,18 @@ import (
 	"strings"
 )
 
-// extractFromTar extracts the llama-server binary from a tar stream.
-func extractFromTar(r io.Reader, targetPath string) error {
+// extractAllFromTar extracts all relevant files (binaries, shared libs) from a tar stream
+// into destDir. This ensures companion libraries (.so, .dylib) are placed alongside
+// llama-server so it can find them at runtime.
+func extractAllFromTar(r io.Reader, destDir string) error {
 	tr := tar.NewReader(r)
 
-	targetName := "llama-server"
+	serverName := "llama-server"
 	if runtime.GOOS == "windows" {
-		targetName = "llama-server.exe"
+		serverName = "llama-server.exe"
 	}
+
+	foundServer := false
 
 	for {
 		hdr, err := tr.Next()
@@ -28,18 +32,50 @@ func extractFromTar(r io.Reader, targetPath string) error {
 			return err
 		}
 
-		name := filepath.Base(hdr.Name)
-		if strings.EqualFold(name, targetName) && hdr.Typeflag == tar.TypeReg {
-			out, err := os.Create(targetPath)
-			if err != nil {
-				return err
-			}
-			defer out.Close()
+		// Skip non-regular files
+		if hdr.Typeflag != tar.TypeReg {
+			continue
+		}
 
-			_, err = io.Copy(out, tr)
-			return err
+		name := filepath.Base(hdr.Name)
+		if name == "" || strings.HasPrefix(name, ".") {
+			continue
+		}
+
+		// Only extract binaries and libraries
+		ext := strings.ToLower(filepath.Ext(name))
+		nameLower := strings.ToLower(name)
+		isRelevant := ext == ".exe" || ext == ".dll" || ext == ".so" || ext == ".dylib" ||
+			ext == ".metal" || ext == ".metallib" || ext == "" || // unix binaries have no extension
+			strings.HasPrefix(nameLower, "llama") || strings.HasPrefix(nameLower, "ggml")
+		if !isRelevant {
+			continue
+		}
+
+		if strings.EqualFold(name, serverName) {
+			foundServer = true
+		}
+
+		outPath := filepath.Join(destDir, name)
+		out, err := os.Create(outPath)
+		if err != nil {
+			return fmt.Errorf("create %s: %w", outPath, err)
+		}
+
+		_, err = io.Copy(out, tr)
+		out.Close()
+		if err != nil {
+			return fmt.Errorf("extract %s: %w", name, err)
+		}
+
+		if runtime.GOOS != "windows" {
+			os.Chmod(outPath, 0o755)
 		}
 	}
 
-	return fmt.Errorf("llama-server binary not found in tar archive (looked for %s)", targetName)
+	if !foundServer {
+		return fmt.Errorf("llama-server binary not found in tar archive (looked for %s)", serverName)
+	}
+
+	return nil
 }
