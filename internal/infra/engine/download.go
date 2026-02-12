@@ -144,56 +144,70 @@ func findLlamaServerAsset() (url, name string, err error) {
 
 // platformPatterns returns search patterns for the current OS/arch.
 // The patterns are tried in order — first match wins.
+// IMPORTANT: llama.cpp asset naming conventions (as of b4000+):
+//   - Windows: llama-{tag}-bin-win-cpu-x64.zip, llama-{tag}-bin-win-cuda-*.zip
+//   - macOS:   llama-{tag}-bin-macos-arm64.tar.gz, llama-{tag}-bin-macos-x64.tar.gz
+//   - Linux:   llama-{tag}-bin-ubuntu-x64.tar.gz (NOT "linux"!)
+//   - Also:    cudart-llama-bin-win-*.zip (CUDA DLLs only — no llama-server!)
 func platformPatterns() []assetPattern {
+	// Common excludes: cudart (DLL-only packages), hash files, GPU-specific builds
+	noHash := []string{"sha1", "sha256", "sha512", "cudart"}
+
 	switch runtime.GOOS {
 	case "windows":
 		switch runtime.GOARCH {
 		case "amd64":
 			return []assetPattern{
-				// Prefer CUDA builds, then Vulkan, then CPU
-				{mustContain: []string{"win", "x64"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
-				{mustContain: []string{"win", "amd64"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
-				{mustContain: []string{"win"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
+				// Prefer CPU-only build (smallest, most compatible)
+				{mustContain: []string{"win", "cpu", "x64"}, mustNotContain: noHash},
+				// Then try any Windows x64 that isn't CUDA/Vulkan/HIP/SYCL
+				{mustContain: []string{"win", "x64"}, mustNotContain: append(noHash, "cuda", "vulkan", "hip", "sycl", "opencl", "arm")},
 			}
 		case "arm64":
 			return []assetPattern{
-				{mustContain: []string{"win", "arm64"}, mustNotContain: []string{"sha1", "sha256"}},
+				{mustContain: []string{"win", "cpu", "arm64"}, mustNotContain: noHash},
+				{mustContain: []string{"win", "arm64"}, mustNotContain: append(noHash, "cuda", "vulkan", "hip", "sycl", "opencl")},
 			}
 		}
 	case "darwin":
 		switch runtime.GOARCH {
 		case "arm64":
 			return []assetPattern{
-				{mustContain: []string{"macos", "arm64"}, mustNotContain: []string{"sha1", "sha256"}},
-				{mustContain: []string{"darwin", "arm64"}, mustNotContain: []string{"sha1", "sha256"}},
-				{mustContain: []string{"macos"}, mustNotContain: []string{"x86", "x64", "amd64", "sha1", "sha256"}},
+				{mustContain: []string{"macos", "arm64"}, mustNotContain: noHash},
+				{mustContain: []string{"darwin", "arm64"}, mustNotContain: noHash},
 			}
 		case "amd64":
 			return []assetPattern{
-				{mustContain: []string{"macos", "x64"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
-				{mustContain: []string{"darwin", "x86_64"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
-				{mustContain: []string{"macos"}, mustNotContain: []string{"arm", "sha1", "sha256"}},
+				{mustContain: []string{"macos", "x64"}, mustNotContain: append(noHash, "arm")},
+				{mustContain: []string{"darwin", "x64"}, mustNotContain: append(noHash, "arm")},
+				{mustContain: []string{"darwin", "x86_64"}, mustNotContain: append(noHash, "arm")},
 			}
 		}
 	case "linux":
 		switch runtime.GOARCH {
 		case "amd64":
 			return []assetPattern{
-				{mustContain: []string{"linux", "x64"}, mustNotContain: []string{"arm", "sha1", "sha256", "cuda", "vulkan"}},
-				{mustContain: []string{"linux", "amd64"}, mustNotContain: []string{"arm", "sha1", "sha256", "cuda", "vulkan"}},
-				{mustContain: []string{"linux"}, mustNotContain: []string{"arm", "sha1", "sha256", "cuda", "vulkan"}},
+				// llama.cpp uses "ubuntu" not "linux" in asset names
+				{mustContain: []string{"ubuntu", "x64"}, mustNotContain: append(noHash, "arm", "vulkan")},
+				{mustContain: []string{"ubuntu", "amd64"}, mustNotContain: append(noHash, "arm", "vulkan")},
+				// Fallback: try "linux" in case naming changes
+				{mustContain: []string{"linux", "x64"}, mustNotContain: append(noHash, "arm", "cuda", "vulkan")},
 			}
 		case "arm64":
 			return []assetPattern{
-				{mustContain: []string{"linux", "arm64"}, mustNotContain: []string{"sha1", "sha256"}},
-				{mustContain: []string{"linux", "aarch64"}, mustNotContain: []string{"sha1", "sha256"}},
+				{mustContain: []string{"ubuntu", "arm64"}, mustNotContain: noHash},
+				{mustContain: []string{"ubuntu", "aarch64"}, mustNotContain: noHash},
+				{mustContain: []string{"linux", "arm64"}, mustNotContain: noHash},
+				{mustContain: []string{"linux", "aarch64"}, mustNotContain: noHash},
+				// openEuler provides ARM64 builds
+				{mustContain: []string{"openeuler", "aarch64"}, mustNotContain: append(noHash, "aclgraph")},
 			}
 		}
 	}
 
 	// Fallback — try anything with the OS name
 	return []assetPattern{
-		{mustContain: []string{runtime.GOOS}, mustNotContain: []string{"sha1", "sha256"}},
+		{mustContain: []string{runtime.GOOS}, mustNotContain: noHash},
 	}
 }
 

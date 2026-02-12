@@ -4,8 +4,8 @@
 package engine
 
 import (
-	"context"
 	"container/list"
+	"context"
 	"fmt"
 	"sync"
 	"sync/atomic"
@@ -60,13 +60,13 @@ type GenerateParams struct {
 
 // Pool manages loaded models with LRU eviction and reference counting.
 type Pool struct {
-	mu       sync.Mutex
-	models   map[string]*poolEntry
-	lru      *list.List
-	maxMem   uint64
-	usedMem  uint64
-	backend  InferenceBackend
-	resolver func(name string) (string, error) // name → file path
+	mu           sync.Mutex
+	models       map[string]*poolEntry
+	lru          *list.List
+	maxMem       uint64
+	usedMem      uint64
+	backend      InferenceBackend
+	resolver     func(name string) (string, error) // name → file path
 	idleTimeout  time.Duration
 	reapInterval time.Duration
 }
@@ -89,11 +89,11 @@ type PoolHandle struct {
 // NewPool creates a model pool with bounded memory.
 func NewPool(backend InferenceBackend, maxMemBytes uint64, resolver func(string) (string, error)) *Pool {
 	return &Pool{
-		models:      make(map[string]*poolEntry),
-		lru:         list.New(),
-		maxMem:      maxMemBytes,
-		backend:     backend,
-		resolver:    resolver,
+		models:       make(map[string]*poolEntry),
+		lru:          list.New(),
+		maxMem:       maxMemBytes,
+		backend:      backend,
+		resolver:     resolver,
 		idleTimeout:  5 * time.Minute,
 		reapInterval: 30 * time.Second,
 	}

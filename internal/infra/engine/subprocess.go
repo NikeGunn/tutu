@@ -3,12 +3,13 @@
 // (from llama.cpp) as a subprocess and communicates via its HTTP API.
 //
 // Architecture:
-//   Pool.Acquire("llama3") → SubprocessBackend.LoadModel(path)
-//     → starts llama-server with the GGUF file
-//     → returns SubprocessHandle (proxy to llama-server HTTP API)
-//       → Generate() calls POST /completion on llama-server
-//       → Embed()     calls POST /embedding  on llama-server
-//     → Close() kills the subprocess
+//
+//	Pool.Acquire("llama3") → SubprocessBackend.LoadModel(path)
+//	  → starts llama-server with the GGUF file
+//	  → returns SubprocessHandle (proxy to llama-server HTTP API)
+//	    → Generate() calls POST /completion on llama-server
+//	    → Embed()     calls POST /embedding  on llama-server
+//	  → Close() kills the subprocess
 package engine
 
 import (
@@ -203,10 +204,10 @@ func (h *SubprocessHandle) Generate(ctx context.Context, prompt string, params G
 
 	// Build request body for llama-server /completion endpoint
 	body := map[string]interface{}{
-		"prompt":      prompt,
-		"stream":      true,
-		"temperature": params.Temperature,
-		"top_p":       params.TopP,
+		"prompt":       prompt,
+		"stream":       true,
+		"temperature":  params.Temperature,
+		"top_p":        params.TopP,
 		"cache_prompt": true,
 	}
 	if params.MaxTokens > 0 {

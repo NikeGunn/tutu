@@ -68,7 +68,7 @@ if (-not $downloadSuccess) {
   Write-Host "  Build from source instead (requires Go 1.24+):" -ForegroundColor Cyan
   Write-Host ""
   Write-Host "    git clone https://github.com/$repo.git"
-  Write-Host "    cd tutuengine\tutu"
+  Write-Host "    cd tutu"
   Write-Host "    go build -o tutu.exe .\cmd\tutu"
   Write-Host "    Move-Item tutu.exe $installDir\$binary"
   Write-Host ""
@@ -89,7 +89,7 @@ if ($firstText -match "<!DOCTYPE|<html|Not Found") {
   Write-Host "  Build from source instead (requires Go 1.24+):" -ForegroundColor Cyan
   Write-Host ""
   Write-Host "    git clone https://github.com/$repo.git"
-  Write-Host "    cd tutuengine\tutu"
+  Write-Host "    cd tutu"
   Write-Host "    go build -o tutu.exe .\cmd\tutu"
   Write-Host "    Move-Item tutu.exe $installDir\$binary"
   Write-Host ""

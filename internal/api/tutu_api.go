@@ -68,9 +68,9 @@ func (s *Server) handleOllamaShow(w http.ResponseWriter, r *http.Request) {
 		"parameters": "",
 		"template":   "",
 		"details": map[string]interface{}{
-			"format":            info.Format,
-			"family":            info.Family,
-			"parameter_size":    info.Parameters,
+			"format":             info.Format,
+			"family":             info.Family,
+			"parameter_size":     info.Parameters,
 			"quantization_level": info.Quantization,
 		},
 	})
@@ -324,5 +324,3 @@ func (s *Server) handleOllamaPs(w http.ResponseWriter, r *http.Request) {
 		"models": models,
 	})
 }
-
-
