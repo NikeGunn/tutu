@@ -21,10 +21,12 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 # Stage 2: Runtime (distroless for minimal attack surface)
 FROM gcr.io/distroless/static-debian12:nonroot
 
+WORKDIR /home/nonroot
+
 COPY --from=builder /app/tutu /app/tutu
 
-# TuTu data directory (Railway manages volumes separately)
-ENV TUTU_HOME=/data
+# Use /home/nonroot as TuTu data directory (nonroot user has write access)
+ENV TUTU_HOME=/home/nonroot/.tutu
 
 # API server port
 EXPOSE 11434
