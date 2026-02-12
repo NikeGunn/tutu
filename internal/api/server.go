@@ -127,6 +127,30 @@ func (s *Server) Handler() http.Handler {
 
 	// Root route - serve API status for backend subdomain, website for main domain
 	websiteDir := findWebsiteDir()
+
+	// Install script routes — serve install.sh and install.ps1 with correct content type
+	// This ensures `curl -fsSL https://tutuengine.tech/install | sh` works
+	if websiteDir != "" {
+		r.Get("/install", func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.Header().Set("Cache-Control", "no-cache")
+			http.ServeFile(w, req, filepath.Join(websiteDir, "install.sh"))
+		})
+		r.Get("/install.sh", func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.Header().Set("Cache-Control", "no-cache")
+			http.ServeFile(w, req, filepath.Join(websiteDir, "install.sh"))
+		})
+		r.Get("/install.ps1", func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.Header().Set("Cache-Control", "no-cache")
+			http.ServeFile(w, req, filepath.Join(websiteDir, "install.ps1"))
+		})
+		r.Get("/docs", func(w http.ResponseWriter, req *http.Request) {
+			http.ServeFile(w, req, filepath.Join(websiteDir, "docs.html"))
+		})
+	}
+
 	r.Get("/", func(w http.ResponseWriter, req *http.Request) {
 		// Check if request is from backend subdomain
 		host := req.Host
@@ -170,21 +194,25 @@ func isBackendDomain(host string) bool {
 		host = host[:idx]
 	}
 	// Check for backend subdomain
-	return host == "backend.tutuengine.tech" || 
-		   host == "tutu-production-d402.up.railway.app" ||
-		   strings.HasPrefix(host, "backend.")
+	return host == "backend.tutuengine.tech" ||
+		host == "tutu-production-d402.up.railway.app" ||
+		strings.HasPrefix(host, "backend.")
 }
 
 // findWebsiteDir locates the website directory in various contexts.
 func findWebsiteDir() string {
 	// Try common locations
 	candidates := []string{
-		"website",                    // Running from project root
-		"../website",                 // Running from build dir
-		"/app/website",               // Docker container
-		filepath.Join(os.Getenv("TUTU_HOME"), "..", "..", "website"), // Via TUTU_HOME
+		"website",      // Running from project root
+		"../website",   // Running from build dir
+		"/app/website", // Docker container
 	}
-	
+
+	// Only add TUTU_HOME-based path when env var is actually set
+	if tutuHome := os.Getenv("TUTU_HOME"); tutuHome != "" {
+		candidates = append(candidates, filepath.Join(tutuHome, "..", "..", "website"))
+	}
+
 	for _, dir := range candidates {
 		if stat, err := os.Stat(dir); err == nil && stat.IsDir() {
 			// Check if index.html exists

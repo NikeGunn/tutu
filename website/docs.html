@@ -89,6 +89,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 80px;
     }
 
     body {
@@ -739,16 +740,12 @@
       <!-- ── INSTALLATION ── -->
       <h2 id="installation">Installation</h2>
       <h3>macOS</h3>
-      <p>Install via Homebrew (recommended):</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>brew install
-        tutu-network/tap/tutu</div>
-      <p>Or use the install script:</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL
-        https://tutuengine.tech/install | sh</div>
+        https://tutuengine.tech/install.sh | sh</div>
 
       <h3>Linux</h3>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL
-        https://tutuengine.tech/install | sh</div>
+        https://tutuengine.tech/install.sh | sh</div>
       <p>Supports x86_64 and ARM64. The installer auto-detects your architecture.</p>
 
       <h3>Windows</h3>
@@ -760,8 +757,8 @@
 
       <h3>Build from Source</h3>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>git clone
-        https://github.com/Tutu-Engine/tutuengine.git
-        <span class="prompt">$ </span>cd tutuengine
+        https://github.com/NikeGunn/tutu.git
+        <span class="prompt">$ </span>cd tutu
         <span class="prompt">$ </span>go build -o tutu ./cmd/tutu
         <span class="prompt">$ </span>./tutu --version
       </div>
@@ -794,14 +791,14 @@
       <!-- ── UPGRADING ── -->
       <h2 id="upgrading">Upgrading</h2>
       <p>Re-run the install command for your platform. TuTu handles migrations automatically. You can also check the <a
-          href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener">GitHub Releases</a>
+          href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener">GitHub Releases</a>
         page for
         changelogs.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># macOS (Homebrew)</span>
         <span class="prompt">$ </span>brew upgrade tutu
 
         <span class="cm"># Linux / macOS (script)</span>
-        <span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install | sh
+        <span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install.sh | sh
 
         <span class="cm"># Windows (PowerShell)</span>
         <span class="prompt">PS&gt; </span>irm tutuengine.tech/install.ps1 | iex
@@ -1664,9 +1661,9 @@
 
       <!-- FOOTER -->
       <div class="docs-footer">
-        <span>&copy; 2026 TuTu Engine. Open source under MIT License.</span>
-        <span><a href="index.html">Home</a> &middot; <a href="https://github.com/Tutu-Engine/tutuengine" target="_blank"
-            rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/Tutu-Engine/tutuengine/releases"
+        <span>&copy; 2026 TuTu Network, Inc. Open source under MIT License.</span>
+        <span><a href="https://tutuengine.tech">tutuengine.tech</a> &middot; <a href="index.html">Home</a> &middot; <a href="https://github.com/NikeGunn/tutu" target="_blank"
+            rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/NikeGunn/tutu/releases"
             target="_blank" rel="noopener noreferrer">Releases</a></span>
       </div>
     </main>

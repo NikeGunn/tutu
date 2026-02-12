@@ -29,8 +29,13 @@ COPY --chown=nonroot:nonroot website /app/website
 # Use /home/nonroot as TuTu data directory (nonroot user has write access)
 ENV TUTU_HOME=/home/nonroot/.tutu
 
-# API server port
-EXPOSE 11434
+# Railway/Render/Fly.io inject PORT at runtime; default to 8080 for production
+# The app reads PORT env var in config.go and binds to 0.0.0.0 when TUTU_HOME is set
+ENV PORT=8080
+ENV HOST=0.0.0.0
+
+# Expose the default port (informational — overridden by PORT at runtime)
+EXPOSE 8080
 
 # Health check endpoint
 # Note: distroless doesn't have curl; Railway uses HTTP healthcheck
