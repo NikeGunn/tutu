@@ -203,10 +203,10 @@ func TestDefaultTierQuotas(t *testing.T) {
 
 func TestTierUsage_RemainingInferences(t *testing.T) {
 	tests := []struct {
-		name    string
-		used    int64
-		limit   int64
-		want    int64
+		name  string
+		used  int64
+		limit int64
+		want  int64
 	}{
 		{"fresh user", 0, 100, 100},
 		{"half used", 50, 100, 50},
@@ -430,8 +430,8 @@ func TestCouncilElection_TurnoutPct(t *testing.T) {
 }
 
 func TestCouncilElection_IsValidElection(t *testing.T) {
-	valid := CouncilElection{TotalVotes: 15, EligibleVoters: 100}   // 15%
-	invalid := CouncilElection{TotalVotes: 5, EligibleVoters: 100}  // 5%
+	valid := CouncilElection{TotalVotes: 15, EligibleVoters: 100}  // 15%
+	invalid := CouncilElection{TotalVotes: 5, EligibleVoters: 100} // 5%
 	empty := CouncilElection{TotalVotes: 0, EligibleVoters: 0}
 
 	if !valid.IsValidElection() {

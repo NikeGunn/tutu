@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documentation — TuTu Engine</title>
-  <meta name="description" content="Complete documentation for TuTu Engine — installation, CLI reference, API, TuTufiles, configuration, and network architecture.">
+  <meta name="description"
+    content="Complete documentation for TuTu Engine — installation, CLI reference, API, TuTufiles, configuration, and network architecture.">
   <meta name="theme-color" content="#7C3AED">
 
   <meta http-equiv="Content-Security-Policy"
@@ -16,13 +17,21 @@
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237C3AED'/><stop offset='100%25' stop-color='%2306B6D4'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='url(%23g)'/><text x='50' y='68' font-size='48' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>T</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
 
   <style>
     /* ════════════════════════════════════════════════════════════════════════
        DESIGN TOKENS (shared with index.html)
        ════════════════════════════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --violet-600: #7C3AED;
@@ -59,9 +68,17 @@
       --text-2xl: 1.5rem;
       --text-3xl: 2rem;
 
-      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
-      --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
-      --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 28px;
+      --sp-8: 32px;
+      --sp-10: 40px;
+      --sp-12: 48px;
+      --sp-16: 64px;
 
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -70,7 +87,9 @@
       --sidebar-width: 272px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: var(--font-sans);
@@ -83,51 +102,120 @@
       overflow-x: hidden;
     }
 
-    a { color: var(--violet-400); text-decoration: none; transition: color 0.2s ease; }
-    a:hover { color: var(--cyan-400); }
-    code { font-family: var(--font-mono); }
+    a {
+      color: var(--violet-400);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--cyan-400);
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
 
     /* ════════════════════════════════════════════════════════════════════════
        NAVIGATION
        ════════════════════════════════════════════════════════════════════════ */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
       background: rgba(5, 5, 16, 0.88);
       backdrop-filter: blur(24px) saturate(1.2);
       -webkit-backdrop-filter: blur(24px) saturate(1.2);
       border-bottom: 1px solid var(--border-subtle);
       height: 64px;
     }
+
     .nav-inner {
-      max-width: 1400px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; padding: 0 var(--sp-6);
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 var(--sp-6);
     }
+
     .nav-brand {
-      display: flex; align-items: center; gap: var(--sp-3);
-      font-weight: 800; font-size: var(--text-lg);
-      color: var(--text-primary); letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-weight: 800;
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
     }
-    .nav-brand svg { width: 28px; height: 28px; flex-shrink: 0; }
-    .nav-links { display: flex; align-items: center; gap: var(--sp-6); }
-    .nav-links a { color: var(--text-muted); font-size: var(--text-sm); font-weight: 500; transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-brand svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-6);
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
     .nav-cta {
-      padding: var(--sp-2) var(--sp-5); border-radius: var(--radius-sm);
-      font-weight: 600; font-size: var(--text-sm);
-      background: var(--gradient-brand); color: white !important;
-      display: inline-flex; align-items: center;
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      background: var(--gradient-brand);
+      color: white !important;
+      display: inline-flex;
+      align-items: center;
     }
-    .hamburger { display: none; background: none; border: none; color: var(--text-primary); cursor: pointer; padding: var(--sp-1); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: var(--sp-1);
+    }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
       .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 64px; left: 0; right: 0;
-        background: rgba(5,5,16,0.96); backdrop-filter: blur(24px);
-        border-bottom: 1px solid var(--border); padding: var(--sp-6); gap: var(--sp-4);
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(5, 5, 16, 0.96);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--border);
+        padding: var(--sp-6);
+        gap: var(--sp-4);
       }
     }
 
@@ -135,176 +223,416 @@
        LAYOUT
        ════════════════════════════════════════════════════════════════════════ */
     .docs-layout {
-      display: flex; min-height: 100vh; padding-top: 64px;
+      display: flex;
+      min-height: 100vh;
+      padding-top: 64px;
     }
 
     /* ── Sidebar ── */
     .sidebar {
-      position: fixed; top: 64px; left: 0; bottom: 0;
-      width: var(--sidebar-width); padding: var(--sp-6) var(--sp-5);
-      background: var(--bg-elevated); border-right: 1px solid var(--border);
-      overflow-y: auto; z-index: 50;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      padding: var(--sp-6) var(--sp-5);
+      background: var(--bg-elevated);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      z-index: 50;
     }
-    .sidebar::-webkit-scrollbar { width: 4px; }
-    .sidebar::-webkit-scrollbar-track { background: transparent; }
-    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-    .sidebar-group { margin-bottom: var(--sp-6); }
+    .sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .sidebar-group {
+      margin-bottom: var(--sp-6);
+    }
+
     .sidebar-label {
-      font-size: var(--text-xs); font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--text-dim); margin-bottom: var(--sp-3); padding-left: var(--sp-3);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      margin-bottom: var(--sp-3);
+      padding-left: var(--sp-3);
     }
+
     .sidebar-link {
-      display: block; padding: var(--sp-2) var(--sp-3);
-      font-size: var(--text-sm); color: var(--text-muted); font-weight: 500;
-      border-radius: 6px; transition: all 0.15s ease; margin-bottom: 2px;
+      display: block;
+      padding: var(--sp-2) var(--sp-3);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      font-weight: 500;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      margin-bottom: 2px;
     }
-    .sidebar-link:hover { color: var(--text-primary); background: rgba(124,58,237,0.08); }
-    .sidebar-link.active { color: var(--violet-400); background: var(--violet-dim); font-weight: 600; }
+
+    .sidebar-link:hover {
+      color: var(--text-primary);
+      background: rgba(124, 58, 237, 0.08);
+    }
+
+    .sidebar-link.active {
+      color: var(--violet-400);
+      background: var(--violet-dim);
+      font-weight: 600;
+    }
 
     .sidebar-toggle {
-      display: none; position: fixed; bottom: var(--sp-6); right: var(--sp-6);
-      z-index: 200; width: 48px; height: 48px; border-radius: 50%;
-      background: var(--gradient-brand); border: none; color: white;
-      cursor: pointer; box-shadow: 0 4px 20px rgba(124,58,237,0.4);
-      align-items: center; justify-content: center;
+      display: none;
+      position: fixed;
+      bottom: var(--sp-6);
+      right: var(--sp-6);
+      z-index: 200;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient-brand);
+      border: none;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+      align-items: center;
+      justify-content: center;
     }
 
     @media (max-width: 900px) {
-      .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
-      .sidebar.open { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.4); }
-      .sidebar-toggle { display: flex; }
-      .sidebar-overlay { display: none; position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,0.5); }
-      .sidebar-overlay.open { display: block; }
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .sidebar-toggle {
+        display: flex;
+      }
+
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
     }
 
     /* ── Main Content ── */
     .docs-main {
-      flex: 1; margin-left: var(--sidebar-width);
-      padding: var(--sp-12) var(--sp-10); max-width: 860px;
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: var(--sp-12) var(--sp-10);
+      max-width: 860px;
     }
-    @media (max-width: 900px) { .docs-main { margin-left: 0; padding: var(--sp-8) var(--sp-5); } }
-    @media (min-width: 1200px) { .docs-main { padding: var(--sp-12) var(--sp-16); } }
+
+    @media (max-width: 900px) {
+      .docs-main {
+        margin-left: 0;
+        padding: var(--sp-8) var(--sp-5);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .docs-main {
+        padding: var(--sp-12) var(--sp-16);
+      }
+    }
 
     /* ════════════════════════════════════════════════════════════════════════
        CONTENT TYPOGRAPHY
        ════════════════════════════════════════════════════════════════════════ */
     .docs-main h1 {
-      font-size: var(--text-3xl); font-weight: 800;
-      letter-spacing: -0.025em; color: var(--text-primary);
-      margin-bottom: var(--sp-3); line-height: 1.15;
-    }
-    .docs-main h2 {
-      font-size: var(--text-2xl); font-weight: 700;
-      color: var(--text-primary); margin-top: var(--sp-16);
-      margin-bottom: var(--sp-4); letter-spacing: -0.015em;
-      padding-bottom: var(--sp-3); border-bottom: 1px solid var(--border-subtle);
-    }
-    .docs-main h2:first-of-type { margin-top: var(--sp-10); }
-    .docs-main h3 {
-      font-size: var(--text-xl); font-weight: 700; color: var(--text-primary);
-      margin-top: var(--sp-10); margin-bottom: var(--sp-3);
-    }
-    .docs-main p {
-      margin-bottom: var(--sp-4); line-height: 1.75; color: var(--text-secondary);
-    }
-    .docs-main p.lead {
-      font-size: var(--text-lg); color: var(--text-muted); margin-bottom: var(--sp-8); line-height: 1.7;
-    }
-    .docs-main ul, .docs-main ol {
-      margin-bottom: var(--sp-5); padding-left: var(--sp-6);
-    }
-    .docs-main li {
-      margin-bottom: var(--sp-2); line-height: 1.65; color: var(--text-secondary);
-    }
-    .docs-main li code, .docs-main p code {
-      font-size: var(--text-sm); background: var(--violet-dim);
-      padding: 2px 7px; border-radius: 4px; color: var(--violet-400);
-      font-weight: 500; border: 1px solid rgba(124,58,237,0.15);
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-3);
+      line-height: 1.15;
     }
 
-    .docs-main strong { color: var(--text-primary); font-weight: 600; }
+    .docs-main h2 {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: var(--sp-16);
+      margin-bottom: var(--sp-4);
+      letter-spacing: -0.015em;
+      padding-bottom: var(--sp-3);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .docs-main h2:first-of-type {
+      margin-top: var(--sp-10);
+    }
+
+    .docs-main h3 {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: var(--sp-10);
+      margin-bottom: var(--sp-3);
+    }
+
+    .docs-main p {
+      margin-bottom: var(--sp-4);
+      line-height: 1.75;
+      color: var(--text-secondary);
+    }
+
+    .docs-main p.lead {
+      font-size: var(--text-lg);
+      color: var(--text-muted);
+      margin-bottom: var(--sp-8);
+      line-height: 1.7;
+    }
+
+    .docs-main ul,
+    .docs-main ol {
+      margin-bottom: var(--sp-5);
+      padding-left: var(--sp-6);
+    }
+
+    .docs-main li {
+      margin-bottom: var(--sp-2);
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .docs-main li code,
+    .docs-main p code {
+      font-size: var(--text-sm);
+      background: var(--violet-dim);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--violet-400);
+      font-weight: 500;
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+
+    .docs-main strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
 
     .docs-main hr {
-      border: none; border-top: 1px solid var(--border-subtle);
+      border: none;
+      border-top: 1px solid var(--border-subtle);
       margin: var(--sp-10) 0;
     }
 
     /* ── Code Blocks ── */
     .code-block {
-      position: relative; background: var(--bg-terminal);
-      border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: var(--sp-5) var(--sp-6); padding-right: 80px;
-      font-family: var(--font-mono); font-size: var(--text-sm);
-      line-height: 1.75; color: var(--text-muted);
-      overflow-x: auto; margin-bottom: var(--sp-5);
-      white-space: pre; tab-size: 2;
+      position: relative;
+      background: var(--bg-terminal);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-5) var(--sp-6);
+      padding-right: 80px;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.75;
+      color: var(--text-muted);
+      overflow-x: auto;
+      margin-bottom: var(--sp-5);
+      white-space: pre;
+      tab-size: 2;
     }
-    .code-block .kw { color: var(--violet-400); }
-    .code-block .str { color: var(--green-500); }
-    .code-block .cm { color: var(--text-dim); font-style: italic; }
-    .code-block .flag { color: var(--cyan-400); }
-    .code-block .val { color: var(--amber-500); }
-    .code-block .prompt { color: var(--violet-400); user-select: none; }
-    .code-block .output { color: var(--text-dim); }
+
+    .code-block .kw {
+      color: var(--violet-400);
+    }
+
+    .code-block .str {
+      color: var(--green-500);
+    }
+
+    .code-block .cm {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .code-block .flag {
+      color: var(--cyan-400);
+    }
+
+    .code-block .val {
+      color: var(--amber-500);
+    }
+
+    .code-block .prompt {
+      color: var(--violet-400);
+      user-select: none;
+    }
+
+    .code-block .output {
+      color: var(--text-dim);
+    }
 
     .copy-btn {
-      position: absolute; top: var(--sp-3); right: var(--sp-3);
-      background: rgba(26,26,58,0.8); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text-muted);
-      padding: var(--sp-1) var(--sp-3); font-size: var(--text-xs); font-weight: 500;
-      cursor: pointer; font-family: var(--font-sans);
-      transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;
+      position: absolute;
+      top: var(--sp-3);
+      right: var(--sp-3);
+      background: rgba(26, 26, 58, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      padding: var(--sp-1) var(--sp-3);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .copy-btn:hover { color: var(--text-primary); border-color: var(--violet-600); }
-    .copy-btn.copied { color: var(--green-500); border-color: var(--green-500); }
+
+    .copy-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--violet-600);
+    }
+
+    .copy-btn.copied {
+      color: var(--green-500);
+      border-color: var(--green-500);
+    }
 
     /* ── Tables ── */
-    .docs-table { width: 100%; border-collapse: collapse; margin-bottom: var(--sp-6); font-size: var(--text-sm); }
-    .docs-table th {
-      text-align: left; padding: var(--sp-3) var(--sp-4);
-      background: var(--bg-elevated); border-bottom: 2px solid var(--border);
-      color: var(--text-primary); font-weight: 700; font-size: var(--text-xs);
-      text-transform: uppercase; letter-spacing: 1px;
+    .docs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: var(--sp-6);
+      font-size: var(--text-sm);
     }
+
+    .docs-table th {
+      text-align: left;
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--bg-elevated);
+      border-bottom: 2px solid var(--border);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     .docs-table td {
       padding: var(--sp-3) var(--sp-4);
-      border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
     }
-    .docs-table tr:hover td { background: rgba(124,58,237,0.04); }
-    .docs-table code { font-size: var(--text-xs); background: var(--violet-dim); padding: 1px 5px; border-radius: 3px; color: var(--violet-400); }
 
-    .docs-table-wrap { overflow-x: auto; margin-bottom: var(--sp-5); border-radius: var(--radius-sm); border: 1px solid var(--border); }
-    .docs-table-wrap .docs-table { margin-bottom: 0; }
+    .docs-table tr:hover td {
+      background: rgba(124, 58, 237, 0.04);
+    }
+
+    .docs-table code {
+      font-size: var(--text-xs);
+      background: var(--violet-dim);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--violet-400);
+    }
+
+    .docs-table-wrap {
+      overflow-x: auto;
+      margin-bottom: var(--sp-5);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .docs-table-wrap .docs-table {
+      margin-bottom: 0;
+    }
 
     /* ── Callout ── */
     .callout {
-      background: var(--violet-dim); border: 1px solid rgba(124,58,237,0.2);
-      border-left: 3px solid var(--violet-600); border-radius: var(--radius-sm);
-      padding: var(--sp-4) var(--sp-5); margin-bottom: var(--sp-5);
-      font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.65;
+      background: var(--violet-dim);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-left: 3px solid var(--violet-600);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-4) var(--sp-5);
+      margin-bottom: var(--sp-5);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: 1.65;
     }
-    .callout strong { color: var(--violet-400); }
-    .callout.callout--info { background: rgba(6,182,212,0.06); border-left-color: var(--cyan-500); }
-    .callout.callout--info strong { color: var(--cyan-400); }
+
+    .callout strong {
+      color: var(--violet-400);
+    }
+
+    .callout.callout--info {
+      background: rgba(6, 182, 212, 0.06);
+      border-left-color: var(--cyan-500);
+    }
+
+    .callout.callout--info strong {
+      color: var(--cyan-400);
+    }
 
     /* ── Footer ── */
     .docs-footer {
-      margin-top: var(--sp-16); padding-top: var(--sp-8);
+      margin-top: var(--sp-16);
+      padding-top: var(--sp-8);
       border-top: 1px solid var(--border-subtle);
-      font-size: var(--text-sm); color: var(--text-dim);
-      display: flex; justify-content: space-between; align-items: center;
+      font-size: var(--text-sm);
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    @media (max-width: 640px) { .docs-footer { flex-direction: column; gap: var(--sp-2); text-align: center; } }
+
+    @media (max-width: 640px) {
+      .docs-footer {
+        flex-direction: column;
+        gap: var(--sp-2);
+        text-align: center;
+      }
+    }
 
     /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-body); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--violet-600); }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-body);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--violet-600);
+    }
   </style>
 </head>
+
 <body>
 
   <!-- NAV -->
@@ -312,8 +640,14 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-brand" aria-label="TuTu Engine Home">
         <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs>
-          <circle cx="90" cy="90" r="36" fill="url(#ng)"/><text x="90" y="102" font-size="36" font-weight="bold" fill="white" text-anchor="middle" font-family="system-ui">T</text>
+          <defs>
+            <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7C3AED" />
+              <stop offset="100%" stop-color="#06B6D4" />
+            </linearGradient>
+          </defs>
+          <circle cx="90" cy="90" r="36" fill="url(#ng)" /><text x="90" y="102" font-size="36" font-weight="bold"
+            fill="white" text-anchor="middle" font-family="system-ui">T</text>
         </svg>
         TuTu Docs
       </a>
@@ -326,7 +660,9 @@
         <a href="index.html#install" class="nav-cta">Get Started</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
       </button>
     </div>
   </nav>
@@ -375,250 +711,401 @@
         <a href="#network" class="sidebar-link">Distributed Computing</a>
         <a href="#credits" class="sidebar-link">Credit System</a>
       </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">MCP Server</div>
+        <a href="#mcp-overview" class="sidebar-link">MCP Overview</a>
+        <a href="#mcp-enterprise" class="sidebar-link">Enterprise Use Cases</a>
+        <a href="#mcp-endpoints" class="sidebar-link">MCP Endpoints</a>
+        <a href="#mcp-sla" class="sidebar-link">SLA Tiers</a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">AI Fine-Tuning</div>
+        <a href="#finetune-local" class="sidebar-link">Local Fine-Tuning</a>
+        <a href="#finetune-distributed" class="sidebar-link">Distributed Fine-Tuning</a>
+        <a href="#finetune-methods" class="sidebar-link">Methods &amp; Costs</a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">Engagement</div>
+        <a href="#engagement" class="sidebar-link">Levels &amp; Achievements</a>
+      </div>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="docs-main">
       <h1>TuTu Engine Documentation</h1>
-      <p class="lead">Everything you need to run AI locally and participate in the TuTu distributed supercomputer network.</p>
+      <p class="lead">Everything you need to run AI locally and participate in the TuTu distributed supercomputer
+        network.</p>
 
       <!-- ── INSTALLATION ── -->
       <h2 id="installation">Installation</h2>
       <h3>macOS</h3>
       <p>Install via Homebrew (recommended):</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>brew install tutu-network/tap/tutu</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>brew install
+        tutu-network/tap/tutu</div>
       <p>Or use the install script:</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install | sh</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL
+        https://tutuengine.tech/install | sh</div>
 
       <h3>Linux</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install | sh</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>curl -fsSL
+        https://tutuengine.tech/install | sh</div>
       <p>Supports x86_64 and ARM64. The installer auto-detects your architecture.</p>
 
       <h3>Windows</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">PS&gt; </span>irm tutuengine.tech/install.ps1 | iex</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">PS&gt; </span>irm
+        tutuengine.tech/install.ps1 | iex</div>
       <p>Or install via WinGet:</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">PS&gt; </span>winget install tutu-network.tutu</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">PS&gt; </span>winget install
+        tutu-network.tutu</div>
 
       <h3>Build from Source</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>git clone https://github.com/NikeGunn/tutu.git
-<span class="prompt">$ </span>cd tutu
-<span class="prompt">$ </span>go build -o tutu ./cmd/tutu
-<span class="prompt">$ </span>./tutu --version</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>git clone
+        https://github.com/Tutu-Engine/tutuengine.git
+        <span class="prompt">$ </span>cd tutuengine
+        <span class="prompt">$ </span>go build -o tutu ./cmd/tutu
+        <span class="prompt">$ </span>./tutu --version
+      </div>
       <p>Requires <strong>Go 1.22+</strong>. No CGO dependencies.</p>
 
       <h3>Verify Installation</h3>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu --version
-<span class="output">tutu version 1.0.0 (go1.22.0 linux/amd64)</span></div>
+        <span class="output">tutu version 1.0.0 (go1.22.0 linux/amd64)</span>
+      </div>
 
       <!-- ── QUICK START ── -->
       <h2 id="quickstart">Quick Start</h2>
       <p>Run your first AI model in 30 seconds:</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># Start the TuTu daemon</span>
-<span class="prompt">$ </span>tutu serve
+        <span class="prompt">$ </span>tutu serve
 
-<span class="cm"># Run a model (auto-downloads if needed)</span>
-<span class="prompt">$ </span>tutu run llama3.2
+        <span class="cm"># Run a model (auto-downloads if needed)</span>
+        <span class="prompt">$ </span>tutu run llama3.2
 
-<span class="cm"># Chat!</span>
-<span class="output">&gt;&gt;&gt; What is the capital of France?</span>
-<span class="output">The capital of France is Paris.</span></div>
+        <span class="cm"># Chat!</span>
+        <span class="output">&gt;&gt;&gt; What is the capital of France?</span>
+        <span class="output">The capital of France is Paris.</span>
+      </div>
 
       <div class="callout">
-        <strong>Tip:</strong> TuTu automatically downloads models on first use. Run <code>tutu pull llama3.2</code> to pre-download without starting a session.
+        <strong>Tip:</strong> TuTu automatically downloads models on first use. Run <code>tutu pull llama3.2</code> to
+        pre-download without starting a session.
       </div>
 
       <!-- ── UPGRADING ── -->
       <h2 id="upgrading">Upgrading</h2>
-      <p>Re-run the install command for your platform. TuTu handles migrations automatically. You can also check the <a href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener">GitHub Releases</a> page for changelogs.</p>
+      <p>Re-run the install command for your platform. TuTu handles migrations automatically. You can also check the <a
+          href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener">GitHub Releases</a> page for
+        changelogs.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># macOS (Homebrew)</span>
-<span class="prompt">$ </span>brew upgrade tutu
+        <span class="prompt">$ </span>brew upgrade tutu
 
-<span class="cm"># Linux / macOS (script)</span>
-<span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install | sh
+        <span class="cm"># Linux / macOS (script)</span>
+        <span class="prompt">$ </span>curl -fsSL https://tutuengine.tech/install | sh
 
-<span class="cm"># Windows (PowerShell)</span>
-<span class="prompt">PS&gt; </span>irm tutuengine.tech/install.ps1 | iex</div>
+        <span class="cm"># Windows (PowerShell)</span>
+        <span class="prompt">PS&gt; </span>irm tutuengine.tech/install.ps1 | iex
+      </div>
 
       <hr>
 
       <!-- ── CLI REFERENCE ── -->
       <h2 id="cli-overview">CLI Reference</h2>
-      <p>TuTu provides a single binary with all commands built in. Run <code>tutu help</code> for a quick overview or <code>tutu &lt;command&gt; --help</code> for details.</p>
+      <p>TuTu provides a single binary with all commands built in. Run <code>tutu help</code> for a quick overview or
+        <code>tutu &lt;command&gt; --help</code> for details.</p>
 
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Command</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>tutu run</code></td><td>Run a model interactively</td></tr>
-            <tr><td><code>tutu pull</code></td><td>Download a model without running</td></tr>
-            <tr><td><code>tutu list</code></td><td>List downloaded models</td></tr>
-            <tr><td><code>tutu create</code></td><td>Create a model from a TuTufile</td></tr>
-            <tr><td><code>tutu show</code></td><td>Show model details &amp; metadata</td></tr>
-            <tr><td><code>tutu rm</code></td><td>Remove a downloaded model</td></tr>
-            <tr><td><code>tutu serve</code></td><td>Start the API server daemon</td></tr>
-            <tr><td><code>tutu ps</code></td><td>List running models</td></tr>
-            <tr><td><code>tutu stop</code></td><td>Stop a running model</td></tr>
+            <tr>
+              <td><code>tutu run</code></td>
+              <td>Run a model interactively</td>
+            </tr>
+            <tr>
+              <td><code>tutu pull</code></td>
+              <td>Download a model without running</td>
+            </tr>
+            <tr>
+              <td><code>tutu list</code></td>
+              <td>List downloaded models</td>
+            </tr>
+            <tr>
+              <td><code>tutu create</code></td>
+              <td>Create a model from a TuTufile</td>
+            </tr>
+            <tr>
+              <td><code>tutu show</code></td>
+              <td>Show model details &amp; metadata</td>
+            </tr>
+            <tr>
+              <td><code>tutu rm</code></td>
+              <td>Remove a downloaded model</td>
+            </tr>
+            <tr>
+              <td><code>tutu serve</code></td>
+              <td>Start the API server daemon</td>
+            </tr>
+            <tr>
+              <td><code>tutu ps</code></td>
+              <td>List running models</td>
+            </tr>
+            <tr>
+              <td><code>tutu stop</code></td>
+              <td>Stop a running model</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <h3 id="cli-run">tutu run</h3>
       <p>Run a model interactively. Downloads automatically if not present locally.</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu run &lt;model&gt; [<span class="flag">flags</span>]
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu run &lt;model&gt;
+        [<span class="flag">flags</span>]
 
-<span class="cm"># Examples</span>
-<span class="prompt">$ </span>tutu run llama3.2                <span class="cm"># interactive chat</span>
-<span class="prompt">$ </span>tutu run llama3.2 <span class="flag">--verbose</span>     <span class="cm"># show debug output</span>
-<span class="prompt">$ </span>tutu run phi3 <span class="flag">--nowordwrap</span>       <span class="cm"># disable word wrap</span></div>
+        <span class="cm"># Examples</span>
+        <span class="prompt">$ </span>tutu run llama3.2 <span class="cm"># interactive chat</span>
+        <span class="prompt">$ </span>tutu run llama3.2 <span class="flag">--verbose</span> <span class="cm"># show
+          debug output</span>
+        <span class="prompt">$ </span>tutu run phi3 <span class="flag">--nowordwrap</span> <span class="cm"># disable
+          word wrap</span>
+      </div>
 
       <h3 id="cli-pull">tutu pull</h3>
       <p>Download a model from the TuTu registry without starting a session.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu pull llama3.2
-<span class="output">pulling manifest... done</span>
-<span class="output">pulling 8934d96d3f08... 100% ████████████ 750 MB</span>
-<span class="output">success</span></div>
+        <span class="output">pulling manifest... done</span>
+        <span class="output">pulling 8934d96d3f08... 100% ████████████ 750 MB</span>
+        <span class="output">success</span>
+      </div>
 
       <h3 id="cli-list">tutu list</h3>
       <p>List all locally downloaded models.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu list
-<span class="output">NAME             SIZE      MODIFIED</span>
-<span class="output">llama3.2:latest  4.7 GB    2 hours ago</span>
-<span class="output">phi3:latest      2.3 GB    1 day ago</span>
-<span class="output">mistral:latest   4.1 GB    3 days ago</span></div>
+        <span class="output">NAME SIZE MODIFIED</span>
+        <span class="output">llama3.2:latest 4.7 GB 2 hours ago</span>
+        <span class="output">phi3:latest 2.3 GB 1 day ago</span>
+        <span class="output">mistral:latest 4.1 GB 3 days ago</span>
+      </div>
 
       <h3 id="cli-create">tutu create</h3>
       <p>Create a custom model from a TuTufile.</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create my-assistant -f ./TuTufile
-<span class="output">transferring model data...</span>
-<span class="output">creating model layer... done</span>
-<span class="output">success</span></div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create
+        my-assistant -f ./TuTufile
+        <span class="output">transferring model data...</span>
+        <span class="output">creating model layer... done</span>
+        <span class="output">success</span>
+      </div>
 
       <h3 id="cli-show">tutu show</h3>
       <p>Display model details including parameters, system prompt, and template.</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu show llama3.2</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu show llama3.2
+      </div>
 
       <h3 id="cli-rm">tutu rm</h3>
       <p>Remove a downloaded model and free disk space.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu rm llama3.2
-<span class="output">deleted 'llama3.2'</span></div>
+        <span class="output">deleted 'llama3.2'</span>
+      </div>
 
       <h3 id="cli-serve">tutu serve</h3>
       <p>Start the TuTu API server. This runs as a background daemon.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu serve
-<span class="output">TuTu is running on http://localhost:11434</span></div>
+        <span class="output">TuTu is running on http://localhost:11434</span>
+      </div>
 
       <h3 id="cli-ps">tutu ps</h3>
       <p>List all currently running models.</p>
       <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu ps
-<span class="output">NAME             SIZE      PROCESSOR   UNTIL</span>
-<span class="output">llama3.2:latest  4.7 GB    100% GPU    4 minutes from now</span></div>
+        <span class="output">NAME SIZE PROCESSOR UNTIL</span>
+        <span class="output">llama3.2:latest 4.7 GB 100% GPU 4 minutes from now</span>
+      </div>
 
       <h3 id="cli-stop">tutu stop</h3>
       <p>Stop a running model and release resources.</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu stop llama3.2</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu stop llama3.2
+      </div>
 
       <hr>
 
       <!-- ── API ── -->
       <h2 id="api-overview">REST API</h2>
-      <p>TuTu exposes a REST API on <code>http://localhost:11434</code> when the server is running. All endpoints accept and return JSON.</p>
+      <p>TuTu exposes a REST API on <code>http://localhost:11434</code> when the server is running. All endpoints accept
+        and return JSON.</p>
 
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>POST</code></td><td><code>/api/generate</code></td><td>Generate a completion</td></tr>
-            <tr><td><code>POST</code></td><td><code>/api/chat</code></td><td>Chat with a model</td></tr>
-            <tr><td><code>POST</code></td><td><code>/api/embeddings</code></td><td>Generate embeddings</td></tr>
-            <tr><td><code>POST</code></td><td><code>/api/create</code></td><td>Create a model</td></tr>
-            <tr><td><code>GET</code></td><td><code>/api/tags</code></td><td>List local models</td></tr>
-            <tr><td><code>POST</code></td><td><code>/api/pull</code></td><td>Pull a model</td></tr>
-            <tr><td><code>DELETE</code></td><td><code>/api/delete</code></td><td>Delete a model</td></tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/generate</code></td>
+              <td>Generate a completion</td>
+            </tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/chat</code></td>
+              <td>Chat with a model</td>
+            </tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/embeddings</code></td>
+              <td>Generate embeddings</td>
+            </tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/create</code></td>
+              <td>Create a model</td>
+            </tr>
+            <tr>
+              <td><code>GET</code></td>
+              <td><code>/api/tags</code></td>
+              <td>List local models</td>
+            </tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/pull</code></td>
+              <td>Pull a model</td>
+            </tr>
+            <tr>
+              <td><code>DELETE</code></td>
+              <td><code>/api/delete</code></td>
+              <td>Delete a model</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <h3>Generate Completion</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button>curl http://localhost:11434/api/generate -d <span class="str">'{
-  "model": "llama3.2",
-  "prompt": "Why is the sky blue?",
-  "stream": false
-}'</span></div>
+      <div class="code-block"><button class="copy-btn">Copy</button>curl http://localhost:11434/api/generate -d <span
+          class="str">'{
+          "model": "llama3.2",
+          "prompt": "Why is the sky blue?",
+          "stream": false
+          }'</span></div>
 
       <h3>Chat</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button>curl http://localhost:11434/api/chat -d <span class="str">'{
-  "model": "llama3.2",
-  "messages": [
-    { "role": "user", "content": "Hello!" }
-  ],
-  "stream": false
-}'</span></div>
+      <div class="code-block"><button class="copy-btn">Copy</button>curl http://localhost:11434/api/chat -d <span
+          class="str">'{
+          "model": "llama3.2",
+          "messages": [
+          { "role": "user", "content": "Hello!" }
+          ],
+          "stream": false
+          }'</span></div>
 
       <h2 id="api-openai">OpenAI Compatibility</h2>
-      <p>TuTu provides an OpenAI-compatible API at <code>/v1/</code> so every SDK and tool that works with OpenAI works with TuTu — just change the base URL.</p>
+      <p>TuTu provides an OpenAI-compatible API at <code>/v1/</code> so every SDK and tool that works with OpenAI works
+        with TuTu — just change the base URL.</p>
 
       <h3>Python (OpenAI SDK)</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="kw">from</span> openai <span
+          class="kw">import</span> OpenAI
 
-client = OpenAI(
-    base_url=<span class="str">"http://localhost:11434/v1"</span>,
-    api_key=<span class="str">"tutu"</span>  <span class="cm"># any string works</span>
-)
+        client = OpenAI(
+        base_url=<span class="str">"http://localhost:11434/v1"</span>,
+        api_key=<span class="str">"tutu"</span> <span class="cm"># any string works</span>
+        )
 
-resp = client.chat.completions.create(
-    model=<span class="str">"llama3.2"</span>,
-    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Hello!"</span>}]
-)
-<span class="kw">print</span>(resp.choices[<span class="val">0</span>].message.content)</div>
+        resp = client.chat.completions.create(
+        model=<span class="str">"llama3.2"</span>,
+        messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>:
+        <span class="str">"Hello!"</span>}]
+        )
+        <span class="kw">print</span>(resp.choices[<span class="val">0</span>].message.content)
+      </div>
 
       <h3>JavaScript (fetch)</h3>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="kw">const</span> resp = <span class="kw">await</span> fetch(<span class="str">"http://localhost:11434/v1/chat/completions"</span>, {
-  method: <span class="str">"POST"</span>,
-  headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
-  body: JSON.stringify({
-    model: <span class="str">"llama3.2"</span>,
-    messages: [{ role: <span class="str">"user"</span>, content: <span class="str">"Hello!"</span> }]
-  })
-});
-<span class="kw">const</span> data = <span class="kw">await</span> resp.json();
-console.log(data.choices[<span class="val">0</span>].message.content);</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="kw">const</span> resp = <span
+          class="kw">await</span> fetch(<span class="str">"http://localhost:11434/v1/chat/completions"</span>, {
+        method: <span class="str">"POST"</span>,
+        headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
+        body: JSON.stringify({
+        model: <span class="str">"llama3.2"</span>,
+        messages: [{ role: <span class="str">"user"</span>, content: <span class="str">"Hello!"</span> }]
+        })
+        });
+        <span class="kw">const</span> data = <span class="kw">await</span> resp.json();
+        console.log(data.choices[<span class="val">0</span>].message.content);
+      </div>
 
       <hr>
 
       <!-- ── TUTUFILE ── -->
       <h2 id="tutufile">TuTufile Syntax</h2>
-      <p>A TuTufile defines a custom model — think of it as a Dockerfile for AI models. It lets you set a base model, system prompt, parameters, and more.</p>
+      <p>A TuTufile defines a custom model — think of it as a Dockerfile for AI models. It lets you set a base model,
+        system prompt, parameters, and more.</p>
 
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># TuTufile — Custom coding assistant</span>
-<span class="kw">FROM</span> llama3.2
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># TuTufile — Custom coding
+          assistant</span>
+        <span class="kw">FROM</span> llama3.2
 
-<span class="kw">SYSTEM</span> <span class="str">"""
-You are a senior software engineer. You write clean,
-well-documented code. You explain your reasoning step by step.
-"""</span>
+        <span class="kw">SYSTEM</span> <span class="str">"""
+          You are a senior software engineer. You write clean,
+          well-documented code. You explain your reasoning step by step.
+          """</span>
 
-<span class="kw">PARAMETER</span> temperature <span class="val">0.7</span>
-<span class="kw">PARAMETER</span> top_p <span class="val">0.9</span>
-<span class="kw">PARAMETER</span> num_ctx <span class="val">4096</span></div>
+        <span class="kw">PARAMETER</span> temperature <span class="val">0.7</span>
+        <span class="kw">PARAMETER</span> top_p <span class="val">0.9</span>
+        <span class="kw">PARAMETER</span> num_ctx <span class="val">4096</span>
+      </div>
 
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Instruction</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Instruction</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>FROM</code></td><td>Base model to build from (required)</td></tr>
-            <tr><td><code>SYSTEM</code></td><td>Set the system prompt</td></tr>
-            <tr><td><code>PARAMETER</code></td><td>Set model parameters (temperature, top_p, etc.)</td></tr>
-            <tr><td><code>TEMPLATE</code></td><td>Custom prompt template (Go template syntax)</td></tr>
-            <tr><td><code>ADAPTER</code></td><td>Path to a LoRA adapter file</td></tr>
-            <tr><td><code>LICENSE</code></td><td>Specify the model license</td></tr>
-            <tr><td><code>MESSAGE</code></td><td>Add few-shot example messages</td></tr>
+            <tr>
+              <td><code>FROM</code></td>
+              <td>Base model to build from (required)</td>
+            </tr>
+            <tr>
+              <td><code>SYSTEM</code></td>
+              <td>Set the system prompt</td>
+            </tr>
+            <tr>
+              <td><code>PARAMETER</code></td>
+              <td>Set model parameters (temperature, top_p, etc.)</td>
+            </tr>
+            <tr>
+              <td><code>TEMPLATE</code></td>
+              <td>Custom prompt template (Go template syntax)</td>
+            </tr>
+            <tr>
+              <td><code>ADAPTER</code></td>
+              <td>Path to a LoRA adapter file</td>
+            </tr>
+            <tr>
+              <td><code>LICENSE</code></td>
+              <td>Specify the model license</td>
+            </tr>
+            <tr>
+              <td><code>MESSAGE</code></td>
+              <td>Add few-shot example messages</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <p>Build and run your custom model:</p>
-      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create my-coder -f ./TuTufile
-<span class="prompt">$ </span>tutu run my-coder</div>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create my-coder
+        -f ./TuTufile
+        <span class="prompt">$ </span>tutu run my-coder
+      </div>
 
       <hr>
 
@@ -628,35 +1115,79 @@ well-documented code. You explain your reasoning step by step.
 
       <div class="docs-table-wrap">
         <table class="docs-table">
-          <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>TUTU_HOST</code></td><td><code>127.0.0.1</code></td><td>API server bind address</td></tr>
-            <tr><td><code>TUTU_PORT</code></td><td><code>11434</code></td><td>API server port</td></tr>
-            <tr><td><code>TUTU_MODELS</code></td><td><code>~/.tutu/models</code></td><td>Model storage directory</td></tr>
-            <tr><td><code>TUTU_GPU_LAYERS</code></td><td><code>auto</code></td><td>Number of GPU layers (auto-detects)</td></tr>
-            <tr><td><code>TUTU_NUM_PARALLEL</code></td><td><code>1</code></td><td>Max parallel requests</td></tr>
-            <tr><td><code>TUTU_MAX_LOADED</code></td><td><code>1</code></td><td>Max models loaded simultaneously</td></tr>
-            <tr><td><code>TUTU_KEEP_ALIVE</code></td><td><code>5m</code></td><td>Idle model unload timeout</td></tr>
-            <tr><td><code>TUTU_DEBUG</code></td><td><code>false</code></td><td>Enable debug logging</td></tr>
+            <tr>
+              <td><code>TUTU_HOST</code></td>
+              <td><code>127.0.0.1</code></td>
+              <td>API server bind address</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_PORT</code></td>
+              <td><code>11434</code></td>
+              <td>API server port</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_MODELS</code></td>
+              <td><code>~/.tutu/models</code></td>
+              <td>Model storage directory</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_GPU_LAYERS</code></td>
+              <td><code>auto</code></td>
+              <td>Number of GPU layers (auto-detects)</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_NUM_PARALLEL</code></td>
+              <td><code>1</code></td>
+              <td>Max parallel requests</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_MAX_LOADED</code></td>
+              <td><code>1</code></td>
+              <td>Max models loaded simultaneously</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_KEEP_ALIVE</code></td>
+              <td><code>5m</code></td>
+              <td>Idle model unload timeout</td>
+            </tr>
+            <tr>
+              <td><code>TUTU_DEBUG</code></td>
+              <td><code>false</code></td>
+              <td>Enable debug logging</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <div class="callout callout--info">
-        <strong>Note:</strong> When running in production, set <code>TUTU_HOST=0.0.0.0</code> to allow external connections. Be sure to configure your firewall appropriately.
+        <strong>Note:</strong> When running in production, set <code>TUTU_HOST=0.0.0.0</code> to allow external
+        connections. Be sure to configure your firewall appropriately.
       </div>
 
       <hr>
 
       <!-- ── NETWORK ── -->
       <h2 id="network">Distributed Computing Network</h2>
-      <p>When your machine is idle, TuTu can optionally contribute compute to the global TuTu Network — the world's first truly distributed AI supercomputer. Every participating node makes AI inference faster and cheaper for the entire network.</p>
+      <p>When your machine is idle, TuTu can optionally contribute compute to the global TuTu Network — the world's
+        first truly distributed AI supercomputer. Every participating node makes AI inference faster and cheaper for the
+        entire network.</p>
 
       <h3>How It Works</h3>
       <ul>
-        <li><strong>Idle Detection:</strong> TuTu monitors your system and only uses compute when your machine is genuinely idle.</li>
-        <li><strong>Privacy:</strong> Your data never leaves your machine. Network tasks are sandboxed and isolated.</li>
-        <li><strong>Opt-in:</strong> Network participation is completely optional. Local AI works perfectly without it.</li>
+        <li><strong>Idle Detection:</strong> TuTu monitors your system and only uses compute when your machine is
+          genuinely idle.</li>
+        <li><strong>Privacy:</strong> Your data never leaves your machine. Network tasks are sandboxed and isolated.
+        </li>
+        <li><strong>Opt-in:</strong> Network participation is completely optional. Local AI works perfectly without it.
+        </li>
         <li><strong>Reward:</strong> You earn credits for every compute cycle you contribute.</li>
       </ul>
 
@@ -665,48 +1196,267 @@ well-documented code. You explain your reasoning step by step.
       <ul>
         <li><strong>Earn credits</strong> by contributing idle GPU time to the network.</li>
         <li><strong>Spend credits</strong> to access more powerful models or faster inference on the network.</li>
-        <li><strong>500 free credits</strong> are given to every new user, plus 30 days before any prompt to contribute.</li>
+        <li><strong>500 free credits</strong> are given to every new user, plus 30 days before any prompt to contribute.
+        </li>
         <li><strong>Local AI is always free</strong> — credits only apply to network-powered features.</li>
       </ul>
 
       <div class="callout">
-        <strong>Coming Soon:</strong> The credit system and distributed network features are under active development. Local AI functionality is fully available today.
+        <strong>Coming Soon:</strong> The credit system and distributed network features are under active development.
+        Local AI functionality is fully available today.
       </div>
+
+      <hr>
+
+      <!-- ── MCP SERVER ── -->
+      <h2 id="mcp-overview">MCP Server (Model Context Protocol)</h2>
+      <p>TuTu Engine implements a full <strong>MCP Gateway</strong> following the <a href="https://spec.modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol 2025-03-26</a> specification. MCP is an open standard for connecting AI models to external tools, data sources, and services — think of it as <strong>USB-C for AI</strong>.</p>
+
+      <h3>How MCP Works</h3>
+      <p>When you run <code>tutu serve</code>, the MCP endpoint is automatically available at <code>/mcp</code>. Any MCP-compatible AI client (Claude, ChatGPT, custom apps) can connect and use the tools and resources TuTu exposes.</p>
+
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># Initialize MCP session</span>
+        curl -X POST http://localhost:11434/mcp \
+          -H "Content-Type: application/json" \
+          -d '{
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+              "protocolVersion": "2025-03-26",
+              "clientInfo": {"name": "my-app", "version": "1.0"}
+            }
+          }'
+      </div>
+
+      <h3>Available MCP Tools</h3>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Tool</th><th>Description</th><th>Parameters</th></tr></thead>
+          <tbody>
+            <tr><td><code>tutu_run</code></td><td>Run a model with a given prompt</td><td><code>model</code>, <code>prompt</code></td></tr>
+            <tr><td><code>tutu_list</code></td><td>List available local models</td><td>None</td></tr>
+            <tr><td><code>tutu_pull</code></td><td>Download a model from registry</td><td><code>model</code></td></tr>
+            <tr><td><code>tutu_status</code></td><td>Get system and model status</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Available MCP Resources</h3>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Resource URI</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>tutu://models</code></td><td>List of all installed models</td></tr>
+            <tr><td><code>tutu://status</code></td><td>System status and health info</td></tr>
+            <tr><td><code>tutu://credits</code></td><td>Credit balance and earnings</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="mcp-enterprise">Enterprise MCP Use Cases</h2>
+      <p>TuTu's MCP Gateway enables powerful enterprise AI integrations:</p>
+
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Use Case</th><th>How It Works</th></tr></thead>
+          <tbody>
+            <tr><td><strong>AI Coding Assistants</strong></td><td>Connect your IDE's AI (Cursor, Copilot, Continue.dev) to local models via MCP tools. AI can run models, check status, and manage models — all through the standard MCP protocol.</td></tr>
+            <tr><td><strong>Customer Support Bots</strong></td><td>Give AI agents access to local inference without cloud API costs. Use MCP resources to monitor model availability and queue depth.</td></tr>
+            <tr><td><strong>Data Analysis Pipelines</strong></td><td>Embed TuTu as the AI layer in your data pipeline. MCP tools let orchestrators (LangChain, AutoGen) call models with structured inputs.</td></tr>
+            <tr><td><strong>DevOps &amp; Automation</strong></td><td>AI agents use MCP to run inference tasks, pull models, and check system health — all with rate limiting and SLA guarantees.</td></tr>
+            <tr><td><strong>Multi-Model Orchestration</strong></td><td>Use the <code>tutu_list</code> and <code>tutu_run</code> tools to dynamically select and route to the best model for each task.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="mcp-endpoints">MCP Endpoints</h2>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>POST</code></td><td><code>/mcp</code></td><td>MCP JSON-RPC 2.0 endpoint (Streamable HTTP transport)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Supported MCP Methods</h3>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Method</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>initialize</code></td><td>Initialize MCP session, negotiate capabilities</td></tr>
+            <tr><td><code>tools/list</code></td><td>List available MCP tools</td></tr>
+            <tr><td><code>tools/call</code></td><td>Execute an MCP tool</td></tr>
+            <tr><td><code>resources/list</code></td><td>List available MCP resources</td></tr>
+            <tr><td><code>resources/read</code></td><td>Read an MCP resource</td></tr>
+            <tr><td><code>prompts/list</code></td><td>List available prompt templates</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="mcp-sla">SLA Tiers</h2>
+      <p>TuTu's MCP Gateway supports 4 SLA tiers for different usage levels:</p>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Tier</th><th>Rate Limit</th><th>Burst</th><th>Latency Target</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Free</strong></td><td>10 req/min</td><td>20</td><td>Best effort</td><td>$0</td></tr>
+            <tr><td><strong>Pro</strong></td><td>100 req/min</td><td>200</td><td>&lt; 500ms</td><td>Credits</td></tr>
+            <tr><td><strong>Business</strong></td><td>1,000 req/min</td><td>2,000</td><td>&lt; 200ms</td><td>Credits</td></tr>
+            <tr><td><strong>Enterprise</strong></td><td>10,000 req/min</td><td>20,000</td><td>&lt; 100ms</td><td>Credits</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <!-- ── AI FINE-TUNING ── -->
+      <h2 id="finetune-local">Local Fine-Tuning</h2>
+      <p>Fine-tune models on your own hardware using TuTufile. Define adapters, system prompts, and training parameters in one declarative file.</p>
+
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="cm"># TuTufile for fine-tuned customer support model</span>
+        <span class="kw">FROM</span> llama3
+        <span class="kw">SYSTEM</span> <span class="str">"You are an expert customer support agent for Acme Corp. Be helpful, concise, and professional."</span>
+        <span class="kw">ADAPTER</span> ./my-lora-weights
+        <span class="kw">PARAMETER</span> temperature <span class="val">0.7</span>
+        <span class="kw">PARAMETER</span> top_p <span class="val">0.9</span>
+      </div>
+
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu create support-bot -f Tutufile
+        <span class="prompt">$ </span>tutu run support-bot
+      </div>
+
+      <div class="callout callout--info">
+        <strong>Cost:</strong> Local fine-tuning is completely free. You use your own hardware and compute.
+      </div>
+
+      <h2 id="finetune-distributed">Distributed Fine-Tuning</h2>
+      <p>Submit fine-tuning jobs to the TuTu network. Tasks are distributed across capable peers and you pay with credits.</p>
+
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu agent finetune \
+          --base-model llama3 \
+          --dataset ./training-data.jsonl \
+          --method lora \
+          --epochs 3 \
+          --budget 100  <span class="cm"># credits</span>
+      </div>
+
+      <h3>How Distributed Fine-Tuning Works</h3>
+      <ul>
+        <li><strong>Submit a Job:</strong> Define your base model, training dataset, method (LoRA/QLoRA), and credit budget.</li>
+        <li><strong>Network Distribution:</strong> TuTu's ML scheduler finds capable peers with the right GPU hardware and distributes training shards.</li>
+        <li><strong>Progress Tracking:</strong> Monitor training progress in real-time via <code>tutu agent status</code>.</li>
+        <li><strong>Result Delivery:</strong> The trained adapter weights are returned to you. Merge them into your model with <code>tutu create</code>.</li>
+      </ul>
+
+      <h2 id="finetune-methods">Fine-Tuning Methods &amp; Costs</h2>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Method</th><th>VRAM Required</th><th>Speed</th><th>Quality</th><th>Credit Cost</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Full Fine-Tune</strong></td><td>48GB+</td><td>Slow</td><td>Best</td><td>High</td></tr>
+            <tr><td><strong>LoRA</strong></td><td>8GB+</td><td>Fast</td><td>Great</td><td>Medium</td></tr>
+            <tr><td><strong>QLoRA</strong></td><td>4GB+</td><td>Fast</td><td>Good</td><td>Low</td></tr>
+            <tr><td><strong>Adapter Merging</strong></td><td>4GB+</td><td>Instant</td><td>Good</td><td>Free</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> You can <strong>earn credits</strong> by contributing your GPU time for other users' fine-tuning jobs. Run <code>tutu agent join</code> to start earning.
+      </div>
+
+      <hr>
+
+      <!-- ── ENGAGEMENT ── -->
+      <h2 id="engagement">Engagement System</h2>
+      <p>TuTu Engine includes a full gamification system to reward and retain contributors.</p>
+
+      <h3>Level System (L1–L100)</h3>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Level Range</th><th>Title</th><th>Perks</th></tr></thead>
+          <tbody>
+            <tr><td>1–10</td><td>Newcomer</td><td>Basic access, learning quests</td></tr>
+            <tr><td>11–25</td><td>Contributor</td><td>Priority queue, badge display</td></tr>
+            <tr><td>26–50</td><td>Builder</td><td>Beta features, voting rights</td></tr>
+            <tr><td>51–75</td><td>Expert</td><td>Governance participation, bonus multipliers</td></tr>
+            <tr><td>76–100</td><td>Legend</td><td>Network council, custom badges, max multipliers</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Achievements (25+)</h3>
+      <p>Unlock achievements by hitting milestones. Each achievement rewards credits and XP.</p>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Achievement</th><th>Requirement</th><th>Reward</th></tr></thead>
+          <tbody>
+            <tr><td>First Run</td><td>Run your first model</td><td>50 credits</td></tr>
+            <tr><td>Network Pioneer</td><td>Join distributed network</td><td>100 credits</td></tr>
+            <tr><td>Week Warrior</td><td>7-day contribution streak</td><td>200 credits</td></tr>
+            <tr><td>Diamond Contributor</td><td>10,000 GPU hours</td><td>5,000 credits</td></tr>
+            <tr><td>Fine-Tune Master</td><td>Complete 50 fine-tuning jobs</td><td>2,500 credits</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Streak Bonuses</h3>
+      <div class="docs-table-wrap">
+        <table class="docs-table">
+          <thead><tr><th>Streak</th><th>Earning Bonus</th></tr></thead>
+          <tbody>
+            <tr><td>7 days</td><td>1.1× earnings</td></tr>
+            <tr><td>30 days</td><td>1.25× earnings</td></tr>
+            <tr><td>90 days</td><td>1.5× earnings</td></tr>
+            <tr><td>365 days</td><td>2.0× earnings</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Check your progress anytime:</p>
+      <div class="code-block"><button class="copy-btn">Copy</button><span class="prompt">$ </span>tutu progress</div>
 
       <!-- FOOTER -->
       <div class="docs-footer">
-        <span>&copy; 2026 TuTu Network, Inc.</span>
-        <span><a href="index.html">Home</a> &middot; <a href="https://github.com/NikeGunn/tutu" target="_blank" rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener noreferrer">Releases</a></span>
+        <span>&copy; 2026 TuTu Engine. Open source under MIT License.</span>
+        <span><a href="index.html">Home</a> &middot; <a href="https://github.com/Tutu-Engine/tutuengine" target="_blank"
+            rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/Tutu-Engine/tutuengine/releases"
+            target="_blank" rel="noopener noreferrer">Releases</a></span>
       </div>
     </main>
   </div>
 
   <!-- SIDEBAR TOGGLE (mobile) -->
   <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle documentation sidebar">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
   </button>
 
   <!-- JS -->
   <script>
     /* Mobile nav */
-    document.getElementById('hamburger').addEventListener('click',function(){var l=document.getElementById('navLinks');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o?'true':'false')});
+    document.getElementById('hamburger').addEventListener('click', function () { var l = document.getElementById('navLinks'); var o = l.classList.toggle('open'); this.setAttribute('aria-expanded', o ? 'true' : 'false') });
 
     /* Sidebar toggle (mobile) */
-    var sidebar=document.getElementById('sidebar');var overlay=document.getElementById('sidebarOverlay');
-    document.getElementById('sidebarToggle').addEventListener('click',function(){sidebar.classList.toggle('open');overlay.classList.toggle('open')});
-    overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open')});
+    var sidebar = document.getElementById('sidebar'); var overlay = document.getElementById('sidebarOverlay');
+    document.getElementById('sidebarToggle').addEventListener('click', function () { sidebar.classList.toggle('open'); overlay.classList.toggle('open') });
+    overlay.addEventListener('click', function () { sidebar.classList.remove('open'); overlay.classList.remove('open') });
 
     /* Active sidebar link on scroll */
-    var links=document.querySelectorAll('.sidebar-link');var sections=[];
-    links.forEach(function(l){var h=l.getAttribute('href');if(h&&h.startsWith('#')){var el=document.getElementById(h.slice(1));if(el)sections.push({el:el,link:l})}});
-    function updateActive(){var st=window.scrollY||window.pageYOffset;var cur=null;for(var i=0;i<sections.length;i++){if(sections[i].el.offsetTop-120<=st)cur=sections[i]}links.forEach(function(l){l.classList.remove('active')});if(cur)cur.link.classList.add('active')}
-    window.addEventListener('scroll',updateActive,{passive:true});updateActive();
+    var links = document.querySelectorAll('.sidebar-link'); var sections = [];
+    links.forEach(function (l) { var h = l.getAttribute('href'); if (h && h.startsWith('#')) { var el = document.getElementById(h.slice(1)); if (el) sections.push({ el: el, link: l }) } });
+    function updateActive() { var st = window.scrollY || window.pageYOffset; var cur = null; for (var i = 0; i < sections.length; i++) { if (sections[i].el.offsetTop - 120 <= st) cur = sections[i] } links.forEach(function (l) { l.classList.remove('active') }); if (cur) cur.link.classList.add('active') }
+    window.addEventListener('scroll', updateActive, { passive: true }); updateActive();
 
     /* Close sidebar on link click (mobile) */
-    links.forEach(function(l){l.addEventListener('click',function(){if(window.innerWidth<=900){sidebar.classList.remove('open');overlay.classList.remove('open')}})});
+    links.forEach(function (l) { l.addEventListener('click', function () { if (window.innerWidth <= 900) { sidebar.classList.remove('open'); overlay.classList.remove('open') } }) });
 
     /* Copy buttons */
-    document.querySelectorAll('.copy-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var block=this.parentElement;var text=block.textContent.replace(/Copy|Copied!/g,'').trim();if(navigator.clipboard&&navigator.clipboard.writeText){var b=this;navigator.clipboard.writeText(text).then(function(){b.textContent='Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Copy';b.classList.remove('copied')},2000)})}})});
+    document.querySelectorAll('.copy-btn').forEach(function (btn) { btn.addEventListener('click', function (e) { e.stopPropagation(); var block = this.parentElement; var text = block.textContent.replace(/Copy|Copied!/g, '').trim(); if (navigator.clipboard && navigator.clipboard.writeText) { var b = this; navigator.clipboard.writeText(text).then(function () { b.textContent = 'Copied!'; b.classList.add('copied'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('copied') }, 2000) }) } }) });
   </script>
 </body>
+
 </html>

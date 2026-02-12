@@ -261,16 +261,16 @@ func (am *AccessManager) ResetDailyQuotas() {
 
 // Stats returns aggregate access statistics.
 type Stats struct {
-	TotalUsers               int   `json:"total_users"`
-	FreeUsers                int   `json:"free_users"`
-	EducationUsers           int   `json:"education_users"`
-	ProUsers                 int   `json:"pro_users"`
-	EnterpriseUsers          int   `json:"enterprise_users"`
-	TotalFreeInferences      int64 `json:"total_free_inferences"`
-	TotalEducationInferences int64 `json:"total_education_inferences"`
-	TotalProInferences       int64 `json:"total_pro_inferences"`
+	TotalUsers                int   `json:"total_users"`
+	FreeUsers                 int   `json:"free_users"`
+	EducationUsers            int   `json:"education_users"`
+	ProUsers                  int   `json:"pro_users"`
+	EnterpriseUsers           int   `json:"enterprise_users"`
+	TotalFreeInferences       int64 `json:"total_free_inferences"`
+	TotalEducationInferences  int64 `json:"total_education_inferences"`
+	TotalProInferences        int64 `json:"total_pro_inferences"`
 	TotalEnterpriseInferences int64 `json:"total_enterprise_inferences"`
-	FreeTierEnabled          bool  `json:"free_tier_enabled"`
+	FreeTierEnabled           bool  `json:"free_tier_enabled"`
 }
 
 // GetStats returns current access statistics.

@@ -120,19 +120,19 @@ var (
 	ErrRoutingLoopDetected  = errors.New("routing loop detected in continental mesh")
 
 	// Phase 7: Universal access tier errors
-	ErrFreeTierExhausted   = errors.New("free tier daily quota exhausted — resets at midnight UTC")
-	ErrEduTierUnverified   = errors.New("education tier requires verified student/researcher status")
-	ErrTierDowngrade       = errors.New("cannot downgrade tier while active tasks are pending")
-	ErrQuotaExceeded       = errors.New("access tier quota exceeded")
+	ErrFreeTierExhausted = errors.New("free tier daily quota exhausted — resets at midnight UTC")
+	ErrEduTierUnverified = errors.New("education tier requires verified student/researcher status")
+	ErrTierDowngrade     = errors.New("cannot downgrade tier while active tasks are pending")
+	ErrQuotaExceeded     = errors.New("access tier quota exceeded")
 
 	// Phase 7: Economic flywheel errors
-	ErrEconomyUnsustainable   = errors.New("economic flywheel health below sustainability threshold")
-	ErrNetworkEffectStalled   = errors.New("network effect growth has stalled below minimum rate")
-	ErrContributionDeficit    = errors.New("global contribution deficit — more consumption than supply")
+	ErrEconomyUnsustainable = errors.New("economic flywheel health below sustainability threshold")
+	ErrNetworkEffectStalled = errors.New("network effect growth has stalled below minimum rate")
+	ErrContributionDeficit  = errors.New("global contribution deficit — more consumption than supply")
 
 	// Phase 7: AI democracy errors
-	ErrDemocracyQuorumFailed    = errors.New("democratic quorum not reached for global parameter change")
-	ErrCouncilElectionInvalid   = errors.New("council election invalid — insufficient voter turnout")
-	ErrParameterProtected       = errors.New("parameter is protected — requires supermajority (67%+)")
-	ErrOpenSourceViolation      = errors.New("proposed change violates open-source compliance policy")
+	ErrDemocracyQuorumFailed  = errors.New("democratic quorum not reached for global parameter change")
+	ErrCouncilElectionInvalid = errors.New("council election invalid — insufficient voter turnout")
+	ErrParameterProtected     = errors.New("parameter is protected — requires supermajority (67%+)")
+	ErrOpenSourceViolation    = errors.New("proposed change violates open-source compliance policy")
 )

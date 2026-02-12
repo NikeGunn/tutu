@@ -1,0 +1,24 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile",
+    "watchPatterns": [
+      "cmd/**",
+      "internal/**",
+      "go.mod",
+      "go.sum",
+      "Dockerfile"
+    ]
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "startCommand": "/app/tutu serve",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 30,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10,
+    "sleepApplication": false,
+    "region": "us-west1"
+  }
+}

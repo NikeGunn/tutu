@@ -73,9 +73,9 @@ func (c ContinentID) String() string {
 type PlanetaryRegion struct {
 	Region    RegionID    `json:"region"`
 	Continent ContinentID `json:"continent"`
-	Zone      string      `json:"zone"`      // e.g., "us-east-1a"
-	Country   string      `json:"country"`   // ISO 3166-1 alpha-2: "US", "DE", "JP"
-	City      string      `json:"city"`      // Nearest city for latency estimation
+	Zone      string      `json:"zone"`    // e.g., "us-east-1a"
+	Country   string      `json:"country"` // ISO 3166-1 alpha-2: "US", "DE", "JP"
+	City      string      `json:"city"`    // Nearest city for latency estimation
 	NodeCount int64       `json:"node_count"`
 	Healthy   bool        `json:"healthy"`
 	LatencyMs float64     `json:"latency_ms"` // Avg intra-region latency
@@ -93,11 +93,11 @@ func (pr PlanetaryRegion) Load(activeTasks int64) float64 {
 // ContinentMesh represents the inter-continent routing topology.
 // Each continent has a "gateway" region that routes to other continents.
 type ContinentMesh struct {
-	Continent ContinentID        `json:"continent"`
-	Gateway   RegionID           `json:"gateway"`    // Primary gateway region
-	Regions   []PlanetaryRegion  `json:"regions"`
-	Links     []ContinentLink    `json:"links"`      // Links to other continents
-	UpdatedAt time.Time          `json:"updated_at"`
+	Continent ContinentID       `json:"continent"`
+	Gateway   RegionID          `json:"gateway"` // Primary gateway region
+	Regions   []PlanetaryRegion `json:"regions"`
+	Links     []ContinentLink   `json:"links"` // Links to other continents
+	UpdatedAt time.Time         `json:"updated_at"`
 }
 
 // TotalNodes returns the sum of nodes across all regions in this continent.
@@ -125,17 +125,17 @@ type ContinentLink struct {
 	From      ContinentID `json:"from"`
 	To        ContinentID `json:"to"`
 	LatencyMs int         `json:"latency_ms"` // Round-trip
-	Bandwidth float64     `json:"bandwidth"`   // Gbps estimate
+	Bandwidth float64     `json:"bandwidth"`  // Gbps estimate
 	Healthy   bool        `json:"healthy"`
 }
 
 // PlanetaryTopology is the full global view of the network.
 type PlanetaryTopology struct {
 	Continents   map[ContinentID]*ContinentMesh `json:"continents"`
-	TotalNodes   int64                           `json:"total_nodes"`
-	TotalRegions int                             `json:"total_regions"`
-	GlobalHealth float64                         `json:"global_health"` // 0.0 = dead, 1.0 = perfect
-	UpdatedAt    time.Time                       `json:"updated_at"`
+	TotalNodes   int64                          `json:"total_nodes"`
+	TotalRegions int                            `json:"total_regions"`
+	GlobalHealth float64                        `json:"global_health"` // 0.0 = dead, 1.0 = perfect
+	UpdatedAt    time.Time                      `json:"updated_at"`
 }
 
 // IsQuorumHealthy reports whether a majority of continents are reachable.
@@ -153,11 +153,11 @@ func (pt PlanetaryTopology) IsQuorumHealthy() bool {
 
 // ModelDistributionStats tracks exabyte-scale model distribution.
 type ModelDistributionStats struct {
-	TotalModelsDistributed int64   `json:"total_models_distributed"`
-	TotalBytesDistributed  int64   `json:"total_bytes_distributed"`  // Across all nodes
-	P2PShareRatio          float64 `json:"p2p_share_ratio"`          // % of downloads via P2P
-	CDNCostSavings         float64 `json:"cdn_cost_savings_percent"` // % saved vs pure CDN
-	AvgDistributionTimeSec float64 `json:"avg_distribution_time_sec"`
+	TotalModelsDistributed int64                   `json:"total_models_distributed"`
+	TotalBytesDistributed  int64                   `json:"total_bytes_distributed"`  // Across all nodes
+	P2PShareRatio          float64                 `json:"p2p_share_ratio"`          // % of downloads via P2P
+	CDNCostSavings         float64                 `json:"cdn_cost_savings_percent"` // % saved vs pure CDN
+	AvgDistributionTimeSec float64                 `json:"avg_distribution_time_sec"`
 	ContinentCoverage      map[ContinentID]float64 `json:"continent_coverage"` // % of popular models cached
 }
 
@@ -195,12 +195,12 @@ func (t AccessTier) IsValid() bool {
 
 // TierQuota defines the daily inference limits for an access tier.
 type TierQuota struct {
-	Tier               AccessTier `json:"tier"`
-	MaxInferencesPerDay int64     `json:"max_inferences_per_day"` // -1 = unlimited
-	MaxTokensPerRequest int       `json:"max_tokens_per_request"`
-	MaxModels           int       `json:"max_models"`             // Concurrent model slots
-	Priority            int       `json:"priority"`               // Higher = faster scheduling
-	RateLimitPerMin     int       `json:"rate_limit_per_min"`
+	Tier                AccessTier `json:"tier"`
+	MaxInferencesPerDay int64      `json:"max_inferences_per_day"` // -1 = unlimited
+	MaxTokensPerRequest int        `json:"max_tokens_per_request"`
+	MaxModels           int        `json:"max_models"` // Concurrent model slots
+	Priority            int        `json:"priority"`   // Higher = faster scheduling
+	RateLimitPerMin     int        `json:"rate_limit_per_min"`
 }
 
 // DefaultTierQuotas returns the architecture-defined tier limits.
@@ -273,12 +273,12 @@ func (u TierUsage) IsExhausted(quota TierQuota) bool {
 
 // EducationVerification represents a student/researcher verification request.
 type EducationVerification struct {
-	UserID       string    `json:"user_id"`
-	Institution  string    `json:"institution"`
-	Email        string    `json:"email"`         // Must be .edu or recognized academic domain
-	Status       string    `json:"status"`        // "pending", "verified", "rejected"
-	VerifiedAt   time.Time `json:"verified_at,omitempty"`
-	ExpiresAt    time.Time `json:"expires_at,omitempty"` // Yearly re-verification
+	UserID      string    `json:"user_id"`
+	Institution string    `json:"institution"`
+	Email       string    `json:"email"`  // Must be .edu or recognized academic domain
+	Status      string    `json:"status"` // "pending", "verified", "rejected"
+	VerifiedAt  time.Time `json:"verified_at,omitempty"`
+	ExpiresAt   time.Time `json:"expires_at,omitempty"` // Yearly re-verification
 }
 
 // IsVerified reports whether the education verification is currently active.
@@ -296,16 +296,16 @@ func (ev EducationVerification) IsVerified() bool {
 type FlywheelHealth struct {
 	// Supply side — contributors
 	TotalContributors    int64   `json:"total_contributors"`
-	ActiveContributors   int64   `json:"active_contributors"`   // Active in last 24h
+	ActiveContributors   int64   `json:"active_contributors"`    // Active in last 24h
 	AvgContributionHours float64 `json:"avg_contribution_hours"` // Per day per node
 	TotalComputeHours    float64 `json:"total_compute_hours"`    // Global 24h
 	SupplyGrowthRate     float64 `json:"supply_growth_rate"`     // % growth/week
 
 	// Demand side — consumers
-	TotalConsumers      int64   `json:"total_consumers"`
-	ActiveConsumers     int64   `json:"active_consumers"` // Active in last 24h
-	InferencesPerDay    int64   `json:"inferences_per_day"`
-	DemandGrowthRate    float64 `json:"demand_growth_rate"` // % growth/week
+	TotalConsumers   int64   `json:"total_consumers"`
+	ActiveConsumers  int64   `json:"active_consumers"` // Active in last 24h
+	InferencesPerDay int64   `json:"inferences_per_day"`
+	DemandGrowthRate float64 `json:"demand_growth_rate"` // % growth/week
 
 	// Economy balance
 	CreditsInCirculation int64   `json:"credits_in_circulation"`
@@ -351,12 +351,12 @@ func (fh FlywheelHealth) GrowthStatus() string {
 
 // FlywheelSnapshot is a time-series data point for economic tracking.
 type FlywheelSnapshot struct {
-	Timestamp    time.Time `json:"timestamp"`
-	Nodes        int64     `json:"nodes"`
-	Inferences   int64     `json:"inferences"`
-	Credits      int64     `json:"credits"`
-	Revenue      int64     `json:"revenue"`
-	HealthIndex  float64   `json:"health_index"`
+	Timestamp   time.Time `json:"timestamp"`
+	Nodes       int64     `json:"nodes"`
+	Inferences  int64     `json:"inferences"`
+	Credits     int64     `json:"credits"`
+	Revenue     int64     `json:"revenue"`
+	HealthIndex float64   `json:"health_index"`
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -367,13 +367,13 @@ type FlywheelSnapshot struct {
 // Phase 5 governance handled proposals; Phase 7 extends to ALL parameters
 // with a formal category system and protection levels.
 type GovernableParam struct {
-	Key          string         `json:"key"`          // e.g., "free_tier_daily_limit"
-	Category     ParamCategory  `json:"category"`
-	CurrentValue string         `json:"current_value"`
-	Description  string         `json:"description"`
+	Key          string          `json:"key"` // e.g., "free_tier_daily_limit"
+	Category     ParamCategory   `json:"category"`
+	CurrentValue string          `json:"current_value"`
+	Description  string          `json:"description"`
 	Protection   ProtectionLevel `json:"protection"`
-	LastChanged  time.Time      `json:"last_changed"`
-	ChangedBy    string         `json:"changed_by"` // Proposal ID that changed it
+	LastChanged  time.Time       `json:"last_changed"`
+	ChangedBy    string          `json:"changed_by"` // Proposal ID that changed it
 }
 
 // ParamCategory groups governable parameters.
@@ -381,20 +381,20 @@ type ParamCategory string
 
 const (
 	ParamCategoryEconomic  ParamCategory = "economic"  // Credit rates, earning caps
-	ParamCategoryAccess    ParamCategory = "access"     // Tier limits, quotas
-	ParamCategoryTechnical ParamCategory = "technical"  // Timeouts, thresholds
-	ParamCategorySecurity  ParamCategory = "security"   // Security policies
-	ParamCategoryNetwork   ParamCategory = "network"    // Routing, replication
+	ParamCategoryAccess    ParamCategory = "access"    // Tier limits, quotas
+	ParamCategoryTechnical ParamCategory = "technical" // Timeouts, thresholds
+	ParamCategorySecurity  ParamCategory = "security"  // Security policies
+	ParamCategoryNetwork   ParamCategory = "network"   // Routing, replication
 )
 
 // ProtectionLevel determines the voting threshold needed to change a parameter.
 type ProtectionLevel int
 
 const (
-	ProtectionNormal      ProtectionLevel = iota // Simple majority (>50%)
-	ProtectionElevated                           // Supermajority (>60%)
-	ProtectionCritical                           // Supermajority (>67%)
-	ProtectionImmutable                          // Cannot be changed by vote
+	ProtectionNormal    ProtectionLevel = iota // Simple majority (>50%)
+	ProtectionElevated                         // Supermajority (>60%)
+	ProtectionCritical                         // Supermajority (>67%)
+	ProtectionImmutable                        // Cannot be changed by vote
 )
 
 // RequiredMajority returns the vote percentage required for this protection level.
@@ -439,21 +439,21 @@ func (cm CouncilMember) IsTermActive() bool {
 
 // CouncilElection tracks a community council election.
 type CouncilElection struct {
-	ID           string                  `json:"id"`
-	Continent    ContinentID             `json:"continent"`
-	Candidates   []CouncilCandidate      `json:"candidates"`
-	TotalVotes   int64                   `json:"total_votes"`
-	EligibleVoters int64                 `json:"eligible_voters"`
-	Status       string                  `json:"status"` // "open", "closed", "certified"
-	OpensAt      time.Time               `json:"opens_at"`
-	ClosesAt     time.Time               `json:"closes_at"`
+	ID             string             `json:"id"`
+	Continent      ContinentID        `json:"continent"`
+	Candidates     []CouncilCandidate `json:"candidates"`
+	TotalVotes     int64              `json:"total_votes"`
+	EligibleVoters int64              `json:"eligible_voters"`
+	Status         string             `json:"status"` // "open", "closed", "certified"
+	OpensAt        time.Time          `json:"opens_at"`
+	ClosesAt       time.Time          `json:"closes_at"`
 }
 
 // CouncilCandidate is a node running for council.
 type CouncilCandidate struct {
-	NodeID    string `json:"node_id"`
-	Platform  string `json:"platform"` // Short statement of intent
-	VotesFor  int64  `json:"votes_for"`
+	NodeID   string `json:"node_id"`
+	Platform string `json:"platform"` // Short statement of intent
+	VotesFor int64  `json:"votes_for"`
 }
 
 // TurnoutPct returns the voter turnout percentage.
@@ -471,11 +471,11 @@ func (ce CouncilElection) IsValidElection() bool {
 
 // OpenSourceCompliance checks that the network remains open-source.
 type OpenSourceCompliance struct {
-	AllCoreCodeMIT      bool   `json:"all_core_code_mit"`
-	NoProprietaryDeps   bool   `json:"no_proprietary_deps"`
-	CommunityGoverned   bool   `json:"community_governed"`
-	TransparencyLogURL  string `json:"transparency_log_url"`
-	LastAuditDate       time.Time `json:"last_audit_date"`
+	AllCoreCodeMIT     bool      `json:"all_core_code_mit"`
+	NoProprietaryDeps  bool      `json:"no_proprietary_deps"`
+	CommunityGoverned  bool      `json:"community_governed"`
+	TransparencyLogURL string    `json:"transparency_log_url"`
+	LastAuditDate      time.Time `json:"last_audit_date"`
 }
 
 // IsCompliant reports whether the network passes open-source compliance checks.
@@ -498,14 +498,14 @@ func (osc OpenSourceCompliance) IsCompliant() bool {
 //   - Sub-second inference for all model sizes
 //   - Billions of inferences per day
 type Phase7GateCheck struct {
-	TotalNodes             int64   `json:"total_nodes"`
-	CountriesReached       int     `json:"countries_reached"`
-	FreeTierOperational    bool    `json:"free_tier_operational"`
-	EconomySustainable     bool    `json:"economy_sustainable"`
-	OpenSourceCompliant    bool    `json:"open_source_compliant"`
-	UptimePct              float64 `json:"uptime_pct"` // Target: 99.99
-	P99InferenceLatencyMs  float64 `json:"p99_inference_latency_ms"`
-	InferencesPerDay       int64   `json:"inferences_per_day"`
+	TotalNodes            int64   `json:"total_nodes"`
+	CountriesReached      int     `json:"countries_reached"`
+	FreeTierOperational   bool    `json:"free_tier_operational"`
+	EconomySustainable    bool    `json:"economy_sustainable"`
+	OpenSourceCompliant   bool    `json:"open_source_compliant"`
+	UptimePct             float64 `json:"uptime_pct"` // Target: 99.99
+	P99InferenceLatencyMs float64 `json:"p99_inference_latency_ms"`
+	InferencesPerDay      int64   `json:"inferences_per_day"`
 }
 
 // Passed reports whether all Phase 7 gate checks pass.

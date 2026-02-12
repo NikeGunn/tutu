@@ -103,10 +103,10 @@ type Daemon struct {
 	Intelligence *intelligence.Optimizer
 
 	// Phase 7 components — event horizon: world's largest
-	Planetary  *planetary.TopologyManager
-	Access     *universal.AccessManager
-	Flywheel   *flywheel.Tracker
-	Democracy  *democracy.Engine
+	Planetary *planetary.TopologyManager
+	Access    *universal.AccessManager
+	Flywheel  *flywheel.Tracker
+	Democracy *democracy.Engine
 }
 
 // New creates and initializes a Daemon with all services wired.

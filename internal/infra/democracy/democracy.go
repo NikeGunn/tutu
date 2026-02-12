@@ -49,9 +49,9 @@ type Config struct {
 func DefaultConfig() Config {
 	return Config{
 		CouncilTermMonths:       6,
-		MinElectionTurnout:      10.0,  // 10% minimum
-		ElectionDurationDays:    14,    // 2 weeks
-		ParameterChangeQuorum:   30.0,  // 30% of credit weight
+		MinElectionTurnout:      10.0, // 10% minimum
+		ElectionDurationDays:    14,   // 2 weeks
+		ParameterChangeQuorum:   30.0, // 30% of credit weight
 		ComplianceCheckInterval: 24 * time.Hour,
 	}
 }

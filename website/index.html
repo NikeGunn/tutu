@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TuTu Engine — Run AI Locally. Power a Global Supercomputer.</title>
+  <title>TuTu Engine â€” Run AI Locally. Power a Global Supercomputer.</title>
   <meta name="description"
     content="TuTu is the easiest way to run AI locally. One command, zero accounts, zero network. Your idle GPU silently powers the world's largest distributed AI supercomputer.">
   <meta name="theme-color" content="#7C3AED">
@@ -19,7 +19,7 @@
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="TuTu Engine — The Local AI Runtime">
+  <meta property="og:title" content="TuTu Engine â€” The Local AI Runtime">
   <meta property="og:description"
     content="Run AI locally in 30 seconds. Zero network, zero accounts, zero config. Your idle GPU powers the world's largest distributed AI supercomputer.">
   <meta property="og:type" content="website">
@@ -31,13 +31,21 @@
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237C3AED'/><stop offset='100%25' stop-color='%2306B6D4'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='url(%23g)'/><text x='50' y='68' font-size='48' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>T</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
 
   <style>
-    /* ════════════════════════════════════════════════════════════════════════
-       DESIGN SYSTEM — 8px Grid / Type Scale / Color Tokens
-       ════════════════════════════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       DESIGN SYSTEM â€” 8px Grid / Type Scale / Color Tokens
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --violet-600: #7C3AED;
@@ -76,10 +84,21 @@
       --text-4xl: 2.5rem;
       --text-5xl: 3.25rem;
 
-      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
-      --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
-      --sp-10: 40px; --sp-12: 48px; --sp-14: 56px; --sp-16: 64px;
-      --sp-20: 80px; --sp-24: 96px; --sp-32: 128px;
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 28px;
+      --sp-8: 32px;
+      --sp-10: 40px;
+      --sp-12: 48px;
+      --sp-14: 56px;
+      --sp-16: 64px;
+      --sp-20: 80px;
+      --sp-24: 96px;
+      --sp-32: 128px;
 
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -87,11 +106,13 @@
       --radius-xl: 20px;
       --radius-full: 9999px;
 
-      --shadow-glow: 0 0 60px rgba(124,58,237,0.12), 0 0 120px rgba(6,182,212,0.06);
-      --shadow-glow-lg: 0 0 80px rgba(124,58,237,0.2), 0 0 160px rgba(6,182,212,0.1);
+      --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.12), 0 0 120px rgba(6, 182, 212, 0.06);
+      --shadow-glow-lg: 0 0 80px rgba(124, 58, 237, 0.2), 0 0 160px rgba(6, 182, 212, 0.1);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: var(--font-sans);
@@ -104,675 +125,1705 @@
       overflow-x: hidden;
     }
 
-    a { color: var(--violet-400); text-decoration: none; transition: color 0.2s ease; }
-    a:hover { color: var(--cyan-400); }
-    img { max-width: 100%; display: block; }
-    code { font-family: var(--font-mono); }
+    a {
+      color: var(--violet-400);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-    /* ── Starfield ── */
+    a:hover {
+      color: var(--cyan-400);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
+
+    /* â”€â”€ Starfield â”€â”€ */
     .starfield {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
       background:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 20% 50%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 40% 10%, rgba(167,139,250,0.6), transparent),
-        radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 70% 70%, rgba(34,211,238,0.5), transparent),
-        radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1px 1px at 90% 90%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 25% 15%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.2px 1.2px at 35% 55%, rgba(167,139,250,0.4), transparent),
-        radial-gradient(1px 1px at 55% 35%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 65% 5%, rgba(34,211,238,0.4), transparent),
-        radial-gradient(1px 1px at 85% 25%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.3px 1.3px at 95% 55%, rgba(167,139,250,0.35), transparent),
-        radial-gradient(1px 1px at 5% 75%, rgba(255,255,255,0.3), transparent);
+        radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 20% 50%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 40% 10%, rgba(167, 139, 250, 0.6), transparent),
+        radial-gradient(1px 1px at 50% 60%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 70% 70%, rgba(34, 211, 238, 0.5), transparent),
+        radial-gradient(1px 1px at 80% 40%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 25% 15%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.2px 1.2px at 35% 55%, rgba(167, 139, 250, 0.4), transparent),
+        radial-gradient(1px 1px at 55% 35%, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(1px 1px at 65% 5%, rgba(34, 211, 238, 0.4), transparent),
+        radial-gradient(1px 1px at 85% 25%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.3px 1.3px at 95% 55%, rgba(167, 139, 250, 0.35), transparent),
+        radial-gradient(1px 1px at 5% 75%, rgba(255, 255, 255, 0.3), transparent);
       animation: starPulse 8s ease-in-out infinite alternate;
     }
-    @keyframes starPulse { 0% { opacity: 0.5; } 100% { opacity: 0.9; } }
 
-    /* ── Layout ── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--sp-6); position: relative; z-index: 1; }
-    section { padding: var(--sp-24) 0; position: relative; z-index: 1; }
+    @keyframes starPulse {
+      0% {
+        opacity: 0.5;
+      }
 
-    /* ════════════════════════════════════════════════════════════════════════
+      100% {
+        opacity: 0.9;
+      }
+    }
+
+    /* â”€â”€ Layout â”€â”€ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--sp-6);
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: var(--sp-24) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        NAVIGATION
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
       background: rgba(5, 5, 16, 0.72);
       backdrop-filter: blur(24px) saturate(1.2);
       -webkit-backdrop-filter: blur(24px) saturate(1.2);
       border-bottom: 1px solid var(--border-subtle);
       transition: background 0.3s ease;
     }
+
     .nav-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; padding: 0 var(--sp-6);
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 var(--sp-6);
     }
+
     .nav-brand {
-      display: flex; align-items: center; gap: var(--sp-3);
-      font-weight: 800; font-size: var(--text-lg);
-      color: var(--text-primary); letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-weight: 800;
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
     }
-    .nav-brand svg { width: 32px; height: 32px; flex-shrink: 0; }
-    .nav-links { display: flex; align-items: center; gap: var(--sp-7); }
-    .nav-links a { color: var(--text-muted); font-size: var(--text-sm); font-weight: 500; transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-brand svg {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-7);
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
     .nav-cta {
-      padding: var(--sp-2) var(--sp-5); border-radius: var(--radius-sm);
-      font-weight: 600; font-size: var(--text-sm);
-      background: var(--gradient-brand); color: white !important;
-      border: none; cursor: pointer; display: inline-flex; align-items: center;
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      background: var(--gradient-brand);
+      color: white !important;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
-    .mobile-toggle { display: none; background: none; border: none; color: var(--text-primary); cursor: pointer; padding: var(--sp-1); }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: var(--sp-1);
+    }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .mobile-toggle { display: block; }
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
       .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 64px; left: 0; right: 0;
-        background: rgba(5,5,16,0.96); backdrop-filter: blur(24px);
-        border-bottom: 1px solid var(--border); padding: var(--sp-6); gap: var(--sp-4);
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(5, 5, 16, 0.96);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--border);
+        padding: var(--sp-6);
+        gap: var(--sp-4);
       }
     }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        HERO
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center;
-      padding: var(--sp-32) var(--sp-6) var(--sp-16); position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--sp-32) var(--sp-6) var(--sp-16);
+      position: relative;
     }
+
     .hero::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(124,58,237,0.10), transparent),
-        radial-gradient(ellipse 50% 40% at 30% 60%, rgba(6,182,212,0.06), transparent);
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(124, 58, 237, 0.10), transparent),
+        radial-gradient(ellipse 50% 40% at 30% 60%, rgba(6, 182, 212, 0.06), transparent);
     }
 
     .hero-logo {
-      width: 160px; height: 160px; margin-bottom: var(--sp-8);
-      position: relative; z-index: 1; animation: logoFloat 6s ease-in-out infinite;
+      width: 160px;
+      height: 160px;
+      margin-bottom: var(--sp-8);
+      position: relative;
+      z-index: 1;
+      animation: logoFloat 6s ease-in-out infinite;
     }
-    @keyframes logoFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    @keyframes logoFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
     .logo-glow {
-      position: absolute; inset: -24px;
-      background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, rgba(6,182,212,0.12) 40%, transparent 70%);
-      border-radius: 50%; animation: glowPulse 4s ease-in-out infinite; pointer-events: none;
+      position: absolute;
+      inset: -24px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, rgba(6, 182, 212, 0.12) 40%, transparent 70%);
+      border-radius: 50%;
+      animation: glowPulse 4s ease-in-out infinite;
+      pointer-events: none;
     }
-    @keyframes glowPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
-    .logo-ring-outer { animation: ringRotate 20s linear infinite; transform-origin: 90px 90px; }
-    .logo-ring-inner { animation: ringRotate 15s linear infinite reverse; transform-origin: 90px 90px; }
-    .logo-node { animation: nodePulse 3s ease-in-out infinite; }
-    .logo-node:nth-child(2) { animation-delay: 0.5s; }
-    .logo-node:nth-child(3) { animation-delay: 1s; }
-    .logo-node:nth-child(4) { animation-delay: 1.5s; }
-    .logo-node:nth-child(5) { animation-delay: 2s; }
-    .logo-node:nth-child(6) { animation-delay: 2.5s; }
-    @keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes nodePulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
-    .logo-connection { animation: connPulse 2s ease-in-out infinite alternate; }
-    .logo-connection:nth-child(2) { animation-delay: 0.3s; }
-    .logo-connection:nth-child(3) { animation-delay: 0.6s; }
-    .logo-connection:nth-child(4) { animation-delay: 0.9s; }
-    @keyframes connPulse { 0% { opacity: 0.15; } 100% { opacity: 0.55; } }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+    }
+
+    .logo-ring-outer {
+      animation: ringRotate 20s linear infinite;
+      transform-origin: 90px 90px;
+    }
+
+    .logo-ring-inner {
+      animation: ringRotate 15s linear infinite reverse;
+      transform-origin: 90px 90px;
+    }
+
+    .logo-node {
+      animation: nodePulse 3s ease-in-out infinite;
+    }
+
+    .logo-node:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .logo-node:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    .logo-node:nth-child(4) {
+      animation-delay: 1.5s;
+    }
+
+    .logo-node:nth-child(5) {
+      animation-delay: 2s;
+    }
+
+    .logo-node:nth-child(6) {
+      animation-delay: 2.5s;
+    }
+
+    @keyframes ringRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes nodePulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .logo-connection {
+      animation: connPulse 2s ease-in-out infinite alternate;
+    }
+
+    .logo-connection:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .logo-connection:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .logo-connection:nth-child(4) {
+      animation-delay: 0.9s;
+    }
+
+    @keyframes connPulse {
+      0% {
+        opacity: 0.15;
+      }
+
+      100% {
+        opacity: 0.55;
+      }
+    }
 
     .hero-badge {
-      display: inline-flex; align-items: center; gap: var(--sp-3);
-      padding: var(--sp-2) var(--sp-5); border-radius: var(--radius-full);
-      background: var(--violet-dim); border: 1px solid rgba(124,58,237,0.25);
-      font-size: var(--text-sm); color: var(--violet-400);
-      margin-bottom: var(--sp-6); font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: var(--radius-full);
+      background: var(--violet-dim);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      font-size: var(--text-sm);
+      color: var(--violet-400);
+      margin-bottom: var(--sp-6);
+      font-weight: 500;
     }
+
     .badge-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--green-500);
-      animation: dotPulse 2s infinite; flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-500);
+      animation: dotPulse 2s infinite;
+      flex-shrink: 0;
     }
+
     @keyframes dotPulse {
-      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+      }
+
+      50% {
+        opacity: 0.7;
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+      }
     }
 
     .hero h1 {
       font-size: clamp(var(--text-4xl), 6vw, var(--text-5xl));
-      font-weight: 900; line-height: 1.08; margin-bottom: var(--sp-5);
-      max-width: 780px; letter-spacing: -0.025em; color: var(--text-primary);
+      font-weight: 900;
+      line-height: 1.08;
+      margin-bottom: var(--sp-5);
+      max-width: 780px;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
     }
+
     .hero h1 .grad {
       background: var(--gradient-text);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
     .hero-sub {
       font-size: clamp(var(--text-base), 2vw, var(--text-xl));
-      color: var(--text-muted); max-width: 560px; margin-bottom: var(--sp-12); line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: var(--sp-12);
+      line-height: 1.7;
     }
 
-    /* ── OS Tabs ── */
+    /* â”€â”€ OS Tabs â”€â”€ */
     .os-tabs {
-      display: inline-flex; gap: 2px; margin-bottom: var(--sp-5);
-      background: var(--bg-elevated); border-radius: var(--radius-md);
-      padding: 3px; border: 1px solid var(--border);
+      display: inline-flex;
+      gap: 2px;
+      margin-bottom: var(--sp-5);
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+      padding: 3px;
+      border: 1px solid var(--border);
     }
+
     .os-tab {
-      padding: var(--sp-2) var(--sp-5); border-radius: var(--radius-sm);
-      background: transparent; border: none; color: var(--text-muted);
-      font-family: var(--font-sans); font-size: var(--text-sm); font-weight: 500;
-      cursor: pointer; transition: all 0.2s ease;
-      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
     }
-    .os-tab.active { background: var(--violet-600); color: white; box-shadow: 0 2px 12px rgba(124,58,237,0.35); }
-    .os-tab:hover:not(.active) { color: var(--text-primary); background: rgba(255,255,255,0.04); }
-    .os-tab svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    /* ── Terminal ── */
+    .os-tab.active {
+      background: var(--violet-600);
+      color: white;
+      box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35);
+    }
+
+    .os-tab:hover:not(.active) {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .os-tab svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    /* â”€â”€ Terminal â”€â”€ */
     .terminal-widget {
-      background: var(--bg-terminal); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); overflow: hidden;
-      max-width: 620px; width: 100%; text-align: left;
-      box-shadow: var(--shadow-glow-lg), 0 24px 64px rgba(0,0,0,0.5);
+      background: var(--bg-terminal);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      max-width: 620px;
+      width: 100%;
+      text-align: left;
+      box-shadow: var(--shadow-glow-lg), 0 24px 64px rgba(0, 0, 0, 0.5);
     }
+
     .terminal-header {
-      display: flex; align-items: center; padding: var(--sp-3) var(--sp-4);
-      background: rgba(16,16,42,0.5); border-bottom: 1px solid var(--border-subtle); gap: var(--sp-2);
+      display: flex;
+      align-items: center;
+      padding: var(--sp-3) var(--sp-4);
+      background: rgba(16, 16, 42, 0.5);
+      border-bottom: 1px solid var(--border-subtle);
+      gap: var(--sp-2);
     }
-    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-    .terminal-dot--red { background: #FF5F57; }
-    .terminal-dot--yellow { background: #FFBD2E; }
-    .terminal-dot--green { background: #28CA41; }
-    .terminal-title { flex: 1; text-align: center; font-size: var(--text-xs); color: var(--text-dim); font-weight: 500; }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .terminal-dot--red {
+      background: #FF5F57;
+    }
+
+    .terminal-dot--yellow {
+      background: #FFBD2E;
+    }
+
+    .terminal-dot--green {
+      background: #28CA41;
+    }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: var(--text-xs);
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
     .terminal-body {
-      padding: var(--sp-5) var(--sp-6); font-family: var(--font-mono);
-      font-size: var(--text-sm); line-height: 1.9; min-height: 220px;
+      padding: var(--sp-5) var(--sp-6);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.9;
+      min-height: 220px;
     }
-    .terminal-line { white-space: nowrap; }
-    .terminal-line--blank { height: var(--sp-4); }
-    .t-prompt { color: var(--violet-400); margin-right: var(--sp-2); user-select: none; }
-    .t-cmd { color: var(--text-primary); font-weight: 500; }
-    .t-comment { color: var(--text-dim); font-style: italic; }
-    .t-output { color: var(--text-muted); }
-    .t-success { color: var(--green-500); font-weight: 600; }
-    .install-panel { display: none; }
-    .install-panel.active { display: block; }
 
-    /* ── Stats ── */
+    .terminal-line {
+      white-space: nowrap;
+    }
+
+    .terminal-line--blank {
+      height: var(--sp-4);
+    }
+
+    .t-prompt {
+      color: var(--violet-400);
+      margin-right: var(--sp-2);
+      user-select: none;
+    }
+
+    .t-cmd {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .t-comment {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .t-output {
+      color: var(--text-muted);
+    }
+
+    .t-success {
+      color: var(--green-500);
+      font-weight: 600;
+    }
+
+    .install-panel {
+      display: none;
+    }
+
+    .install-panel.active {
+      display: block;
+    }
+
+    /* â”€â”€ Stats â”€â”€ */
     .stats-bar {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: var(--sp-14); padding: var(--sp-12) 0;
-      margin-top: var(--sp-16); border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--sp-14);
+      padding: var(--sp-12) 0;
+      margin-top: var(--sp-16);
+      border-top: 1px solid var(--border-subtle);
     }
-    .stat { text-align: center; }
-    .stat-value {
-      font-size: var(--text-3xl); font-weight: 800;
-      background: var(--gradient-text);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .stat-label { font-size: var(--text-xs); color: var(--text-dim); margin-top: var(--sp-1); font-weight: 500; letter-spacing: 0.02em; }
 
-    /* ════════════════════════════════════════════════════════════════════════
-       SECTION HEADERS
-       ════════════════════════════════════════════════════════════════════════ */
-    .section-header { text-align: center; max-width: 680px; margin: 0 auto var(--sp-16); }
-    .section-label {
-      display: inline-block; font-size: var(--text-xs); font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2.5px;
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: var(--text-3xl);
+      font-weight: 800;
       background: var(--gradient-text);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: var(--text-xs);
+      color: var(--text-dim);
+      margin-top: var(--sp-1);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       SECTION HEADERS
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto var(--sp-16);
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: var(--sp-3);
     }
+
     .section-header h2 {
       font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
-      font-weight: 800; margin-bottom: var(--sp-4);
-      letter-spacing: -0.02em; color: var(--text-primary);
+      font-weight: 800;
+      margin-bottom: var(--sp-4);
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
     }
-    .section-header p { color: var(--text-muted); font-size: var(--text-lg); line-height: 1.7; }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .section-header p {
+      color: var(--text-muted);
+      font-size: var(--text-lg);
+      line-height: 1.7;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        FEATURES
-       ════════════════════════════════════════════════════════════════════════ */
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
-    @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .features-grid { grid-template-columns: 1fr; } }
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .feature-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: var(--sp-8);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-8);
       transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       backdrop-filter: blur(8px);
     }
+
     .feature-card:hover {
-      border-color: rgba(124,58,237,0.45); transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(124,58,237,0.08);
+      border-color: rgba(124, 58, 237, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(124, 58, 237, 0.08);
     }
+
     .feature-icon {
-      width: 48px; height: 48px; border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: var(--sp-4); font-size: var(--text-2xl); background: var(--violet-dim);
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--sp-4);
+      font-size: var(--text-2xl);
+      background: var(--violet-dim);
     }
-    .feature-card h3 { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--sp-2); color: var(--text-primary); }
-    .feature-card p { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.65; }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .feature-card h3 {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: var(--sp-2);
+      color: var(--text-primary);
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      line-height: 1.65;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        HOW IT WORKS
-       ════════════════════════════════════════════════════════════════════════ */
-    .section--subtle { background: rgba(124,58,237,0.015); }
-    .section--alt { background: rgba(6,182,212,0.015); }
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .section--subtle {
+      background: rgba(124, 58, 237, 0.015);
+    }
 
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-8); }
-    @media (max-width: 1024px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr; } }
+    .section--alt {
+      background: rgba(6, 182, 212, 0.015);
+    }
 
-    .step { text-align: center; padding: var(--sp-6); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-8);
+    }
+
+    @media (max-width: 1024px) {
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step {
+      text-align: center;
+      padding: var(--sp-6);
+    }
+
     .step-number {
-      display: flex; width: 52px; height: 52px;
-      align-items: center; justify-content: center;
-      background: var(--gradient-brand); border-radius: 50%;
-      font-weight: 800; font-size: var(--text-xl);
+      display: flex;
+      width: 52px;
+      height: 52px;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-brand);
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: var(--text-xl);
       margin: 0 auto var(--sp-4);
-      box-shadow: 0 6px 24px rgba(124,58,237,0.3); color: white;
-    }
-    .step h3 { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--sp-2); color: var(--text-primary); }
-    .step p { color: var(--text-muted); font-size: var(--text-sm); }
-    .step code {
-      font-family: var(--font-mono); font-size: var(--text-sm);
-      color: var(--violet-400); background: var(--violet-dim);
-      padding: 2px 6px; border-radius: 4px;
+      box-shadow: 0 6px 24px rgba(124, 58, 237, 0.3);
+      color: white;
     }
 
-    /* ════════════════════════════════════════════════════════════════════════
-       INTEGRATIONS
-       ════════════════════════════════════════════════════════════════════════ */
-    .integrations-grid {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: var(--sp-4); max-width: 900px; margin: 0 auto;
+    .step h3 {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: var(--sp-2);
+      color: var(--text-primary);
     }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .step code {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--violet-400);
+      background: var(--violet-dim);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       INTEGRATIONS
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .integrations-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--sp-4);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     .int-badge {
-      display: flex; align-items: center; gap: var(--sp-3);
-      padding: var(--sp-3) var(--sp-6); border-radius: var(--radius-md);
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      font-size: var(--text-sm); font-weight: 600; color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text-secondary);
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .int-badge:hover { border-color: rgba(124,58,237,0.35); transform: translateY(-2px); }
-    .int-badge-icon { font-size: var(--text-xl); line-height: 1; }
 
-    /* ════════════════════════════════════════════════════════════════════════
-       INSTALL CARDS
-       ════════════════════════════════════════════════════════════════════════ */
-    .install-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: var(--sp-5); max-width: 960px; margin: 0 auto;
+    .int-badge:hover {
+      border-color: rgba(124, 58, 237, 0.35);
+      transform: translateY(-2px);
     }
-    @media (max-width: 768px) { .install-grid { grid-template-columns: 1fr; } }
+
+    .int-badge-icon {
+      font-size: var(--text-xl);
+      line-height: 1;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       INSTALL CARDS
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-5);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .install-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .install-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: var(--sp-7); backdrop-filter: blur(8px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-7);
+      backdrop-filter: blur(8px);
     }
+
     .install-card h3 {
-      font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--sp-4);
-      display: flex; align-items: center; gap: var(--sp-3); color: var(--text-primary);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: var(--sp-4);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      color: var(--text-primary);
     }
-    .install-card h3 .platform-icon { font-size: var(--text-xl); line-height: 1; }
-    .install-card .install-note { color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--sp-3); line-height: 1.5; }
+
+    .install-card h3 .platform-icon {
+      font-size: var(--text-xl);
+      line-height: 1;
+    }
+
+    .install-card .install-note {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      margin-top: var(--sp-3);
+      line-height: 1.5;
+    }
 
     .cmd-block {
-      position: relative; background: var(--bg-terminal);
-      border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: var(--sp-3) var(--sp-4); padding-right: 72px;
-      font-family: var(--font-mono); font-size: var(--text-sm);
-      color: var(--violet-400); margin-bottom: var(--sp-3);
-      overflow-x: auto; white-space: nowrap; line-height: 1.6;
+      position: relative;
+      background: var(--bg-terminal);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-3) var(--sp-4);
+      padding-right: 72px;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--violet-400);
+      margin-bottom: var(--sp-3);
+      overflow-x: auto;
+      white-space: nowrap;
+      line-height: 1.6;
     }
-    .cmd-block:last-of-type { margin-bottom: 0; }
+
+    .cmd-block:last-of-type {
+      margin-bottom: 0;
+    }
 
     .copy-btn {
-      position: absolute; top: 50%; right: var(--sp-2); transform: translateY(-50%);
-      background: rgba(26,26,58,0.8); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text-muted);
-      padding: var(--sp-1) var(--sp-3); font-size: var(--text-xs); font-weight: 500;
-      cursor: pointer; font-family: var(--font-sans);
-      transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;
+      position: absolute;
+      top: 50%;
+      right: var(--sp-2);
+      transform: translateY(-50%);
+      background: rgba(26, 26, 58, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      padding: var(--sp-1) var(--sp-3);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .copy-btn:hover { color: var(--text-primary); border-color: var(--violet-600); }
-    .copy-btn.copied { color: var(--green-500); border-color: var(--green-500); }
 
-    /* ════════════════════════════════════════════════════════════════════════
-       ABOUT SECTION
-       ════════════════════════════════════════════════════════════════════════ */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--sp-16); align-items: start; max-width: 1080px; margin: 0 auto;
+    .copy-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--violet-600);
     }
-    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: var(--sp-10); } }
+
+    .copy-btn.copied {
+      color: var(--green-500);
+      border-color: var(--green-500);
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       ABOUT SECTION
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--sp-12);
+      align-items: start;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-10);
+      }
+    }
+
+    .about-text {
+      max-width: 700px;
+    }
 
     .about-text h3 {
-      font-size: var(--text-2xl); font-weight: 800;
-      letter-spacing: -0.02em; margin-bottom: var(--sp-4); color: var(--text-primary);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--sp-4);
+      color: var(--text-primary);
     }
-    .about-text p { color: var(--text-muted); font-size: var(--text-base); line-height: 1.75; margin-bottom: var(--sp-4); }
 
-    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+    .about-text p {
+      color: var(--text-muted);
+      font-size: var(--text-base);
+      line-height: 1.75;
+      margin-bottom: var(--sp-4);
+    }
+
+    .about-points {
+      margin-top: var(--sp-5);
+      display: grid;
+      gap: var(--sp-3);
+    }
+
+    .about-point {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+      line-height: 1.6;
+    }
+
+    .about-point strong {
+      color: var(--text-primary);
+    }
+
+    .about-point-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gradient-brand);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-3);
+      align-content: start;
+      position: sticky;
+      top: 92px;
+    }
+
+    @media (max-width: 1024px) {
+      .about-values {
+        position: static;
+      }
+    }
+
     .about-value {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: var(--sp-6); text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5);
+      text-align: left;
       transition: border-color 0.3s ease, transform 0.2s ease;
     }
-    .about-value:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-2px); }
-    .about-value-icon { font-size: var(--text-3xl); margin-bottom: var(--sp-3); display: block; }
-    .about-value h4 { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--sp-1); color: var(--text-primary); }
-    .about-value p { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .about-value:hover {
+      border-color: rgba(124, 58, 237, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .about-value-icon {
+      font-size: var(--text-xl);
+      margin-bottom: var(--sp-2);
+      display: block;
+    }
+
+    .about-value h4 {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: var(--text-primary);
+    }
+
+    .about-value p {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        RELEASES
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .releases-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-xl); padding: var(--sp-12);
-      max-width: 800px; margin: 0 auto; text-align: center;
-      position: relative; overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-12);
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
+
     .releases-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; background: var(--gradient-brand);
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-brand);
     }
-    .releases-icon { font-size: 3rem; margin-bottom: var(--sp-5); display: block; }
-    .releases-card h3 { font-size: var(--text-2xl); font-weight: 800; margin-bottom: var(--sp-3); color: var(--text-primary); }
-    .releases-card > p { color: var(--text-muted); font-size: var(--text-base); max-width: 520px; margin: 0 auto var(--sp-8); line-height: 1.7; }
+
+    .releases-icon {
+      font-size: 3rem;
+      margin-bottom: var(--sp-5);
+      display: block;
+    }
+
+    .releases-card h3 {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      margin-bottom: var(--sp-3);
+      color: var(--text-primary);
+    }
+
+    .releases-card>p {
+      color: var(--text-muted);
+      font-size: var(--text-base);
+      max-width: 520px;
+      margin: 0 auto var(--sp-8);
+      line-height: 1.7;
+    }
 
     .releases-steps {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: var(--sp-5); margin-bottom: var(--sp-8); text-align: left;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-8);
+      text-align: left;
     }
-    @media (max-width: 640px) { .releases-steps { grid-template-columns: 1fr; } }
+
+    @media (max-width: 640px) {
+      .releases-steps {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .release-step {
-      background: rgba(5,5,16,0.6); border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md); padding: var(--sp-5);
+      background: rgba(5, 5, 16, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5);
     }
+
     .release-step-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--violet-dim); color: var(--violet-400);
-      font-weight: 700; font-size: var(--text-sm); margin-bottom: var(--sp-3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--violet-dim);
+      color: var(--violet-400);
+      font-weight: 700;
+      font-size: var(--text-sm);
+      margin-bottom: var(--sp-3);
     }
-    .release-step h4 { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--sp-1); color: var(--text-primary); }
-    .release-step p { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.55; }
+
+    .release-step h4 {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      margin-bottom: var(--sp-1);
+      color: var(--text-primary);
+    }
+
+    .release-step p {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
 
     .btn-primary {
-      display: inline-flex; align-items: center; gap: var(--sp-2);
-      padding: var(--sp-3) var(--sp-7); border-radius: var(--radius-sm);
-      background: var(--gradient-brand); color: white !important;
-      font-weight: 600; font-size: var(--text-sm); font-family: var(--font-sans);
-      border: none; cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: var(--sp-3) var(--sp-7);
+      border-radius: var(--radius-sm);
+      background: var(--gradient-brand);
+      color: white !important;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      font-family: var(--font-sans);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.35); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+    }
 
     .btn-secondary {
-      display: inline-flex; align-items: center; gap: var(--sp-2);
-      padding: var(--sp-3) var(--sp-7); border-radius: var(--radius-sm);
-      background: transparent; color: var(--text-secondary) !important;
-      font-weight: 600; font-size: var(--text-sm); font-family: var(--font-sans);
-      border: 1px solid var(--border); cursor: pointer;
-      transition: all 0.2s ease; text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: var(--sp-3) var(--sp-7);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-secondary) !important;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      font-family: var(--font-sans);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
     }
-    .btn-secondary:hover { border-color: var(--violet-400); color: var(--text-primary) !important; transform: translateY(-1px); }
 
-    .releases-buttons { display: flex; gap: var(--sp-4); justify-content: center; flex-wrap: wrap; }
+    .btn-secondary:hover {
+      border-color: var(--violet-400);
+      color: var(--text-primary) !important;
+      transform: translateY(-1px);
+    }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .releases-buttons {
+      display: flex;
+      gap: var(--sp-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        API EXAMPLES
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .api-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: var(--sp-5); max-width: 920px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-5);
+      max-width: 920px;
+      margin: 0 auto;
     }
-    @media (max-width: 768px) { .api-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 768px) {
+      .api-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .api-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: var(--sp-7);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-7);
     }
-    .api-card h3 {
-      font-size: var(--text-base); font-weight: 700; margin-bottom: var(--sp-4);
-      color: var(--text-primary); display: flex; align-items: center; gap: var(--sp-2);
-    }
-    .code-block {
-      background: var(--bg-terminal); border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm); padding: var(--sp-5);
-      font-family: var(--font-mono); font-size: var(--text-xs); line-height: 1.75;
-      color: var(--text-muted); overflow-x: auto; position: relative; white-space: pre;
-    }
-    .code-block .kw { color: var(--violet-400); }
-    .code-block .str { color: var(--green-500); }
-    .code-block .cm { color: var(--text-dim); }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .api-card h3 {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: var(--sp-4);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+
+    .code-block {
+      background: var(--bg-terminal);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: var(--sp-5);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.75;
+      color: var(--text-muted);
+      overflow-x: auto;
+      position: relative;
+      white-space: pre;
+    }
+
+    .code-block .kw {
+      color: var(--violet-400);
+    }
+
+    .code-block .str {
+      color: var(--green-500);
+    }
+
+    .code-block .cm {
+      color: var(--text-dim);
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        TESTIMONIALS
-       ════════════════════════════════════════════════════════════════════════ */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
-    @media (max-width: 1024px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .testimonials-grid { grid-template-columns: 1fr; } }
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+
+    @media (max-width: 1024px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .testimonial-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: var(--sp-7);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-7);
       transition: border-color 0.3s ease;
     }
-    .testimonial-card:hover { border-color: rgba(6,182,212,0.35); }
-    .testimonial-stars { color: var(--amber-500); font-size: var(--text-sm); margin-bottom: var(--sp-3); letter-spacing: 2px; }
-    .testimonial-text { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.7; margin-bottom: var(--sp-5); font-style: italic; }
-    .testimonial-author { display: flex; align-items: center; gap: var(--sp-3); }
+
+    .testimonial-card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+    }
+
+    .testimonial-stars {
+      color: var(--amber-500);
+      font-size: var(--text-sm);
+      margin-bottom: var(--sp-3);
+      letter-spacing: 2px;
+    }
+
+    .testimonial-text {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      margin-bottom: var(--sp-5);
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
     .testimonial-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       background: var(--gradient-brand);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: var(--text-sm); color: white; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: var(--text-sm);
+      color: white;
+      flex-shrink: 0;
     }
-    .testimonial-name { font-weight: 600; font-size: var(--text-sm); color: var(--text-primary); }
-    .testimonial-role { font-size: var(--text-xs); color: var(--text-dim); }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .testimonial-name {
+      font-weight: 600;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+    }
+
+    .testimonial-role {
+      font-size: var(--text-xs);
+      color: var(--text-dim);
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        PRICING
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .pricing-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-xl); padding: var(--sp-14);
-      text-align: center; max-width: 760px; margin: 0 auto;
-      position: relative; overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-14);
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
     }
-    .pricing-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; background: var(--gradient-brand);
-    }
-    .pricing-card h3 { font-size: var(--text-3xl); font-weight: 800; margin-bottom: var(--sp-3); color: var(--text-primary); }
-    .pricing-card > p { color: var(--text-muted); max-width: 480px; margin: 0 auto var(--sp-7); font-size: var(--text-base); }
-    .price-badge {
-      display: inline-block; padding: var(--sp-3) var(--sp-6);
-      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
-      border-radius: var(--radius-full); color: var(--green-500);
-      font-weight: 700; font-size: var(--text-base);
-    }
-    .price-note {
-      color: var(--text-muted); font-size: var(--text-sm);
-      margin-top: var(--sp-5); line-height: 1.7;
-      max-width: 520px; margin-left: auto; margin-right: auto;
-    }
-    .price-note strong { color: var(--text-primary); }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-brand);
+    }
+
+    .pricing-card h3 {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      margin-bottom: var(--sp-3);
+      color: var(--text-primary);
+    }
+
+    .pricing-card>p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto var(--sp-7);
+      font-size: var(--text-base);
+    }
+
+    .price-badge {
+      display: inline-block;
+      padding: var(--sp-3) var(--sp-6);
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: var(--radius-full);
+      color: var(--green-500);
+      font-weight: 700;
+      font-size: var(--text-base);
+    }
+
+    .price-note {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      margin-top: var(--sp-5);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .price-note strong {
+      color: var(--text-primary);
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        COMMUNITY
-       ════════════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .community-grid {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: var(--sp-5); margin-bottom: var(--sp-16);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-16);
     }
+
     .community-link {
-      display: flex; align-items: center; gap: var(--sp-3);
-      padding: var(--sp-5) var(--sp-7); border-radius: var(--radius-md);
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      font-weight: 600; font-size: var(--text-sm); color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-5) var(--sp-7);
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
       transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
-      min-width: 180px; justify-content: center;
+      min-width: 180px;
+      justify-content: center;
     }
-    .community-link:hover { border-color: rgba(124,58,237,0.35); transform: translateY(-2px); color: var(--text-primary); }
-    .community-link-icon { font-size: var(--text-xl); line-height: 1; }
+
+    .community-link:hover {
+      border-color: rgba(124, 58, 237, 0.35);
+      transform: translateY(-2px);
+      color: var(--text-primary);
+    }
+
+    .community-link-icon {
+      font-size: var(--text-xl);
+      line-height: 1;
+    }
 
     .newsletter {
-      max-width: 540px; margin: 0 auto; text-align: center;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-xl); padding: var(--sp-12);
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-12);
     }
-    .newsletter h3 { font-size: var(--text-2xl); font-weight: 800; margin-bottom: var(--sp-2); color: var(--text-primary); }
-    .newsletter p { color: var(--text-muted); margin-bottom: var(--sp-6); font-size: var(--text-sm); }
-    .newsletter-form { display: flex; gap: var(--sp-3); max-width: 400px; margin: 0 auto; }
+
+    .newsletter h3 {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      margin-bottom: var(--sp-2);
+      color: var(--text-primary);
+    }
+
+    .newsletter p {
+      color: var(--text-muted);
+      margin-bottom: var(--sp-6);
+      font-size: var(--text-sm);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: var(--sp-3);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
     .newsletter-input {
-      flex: 1; padding: var(--sp-3) var(--sp-5); border-radius: var(--radius-sm);
-      border: 1px solid var(--border); background: var(--bg-elevated);
-      color: var(--text-primary); font-family: var(--font-sans); font-size: var(--text-sm);
-      outline: none; transition: border-color 0.2s ease;
+      flex: 1;
+      padding: var(--sp-3) var(--sp-5);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      outline: none;
+      transition: border-color 0.2s ease;
     }
-    .newsletter-input:focus { border-color: var(--violet-600); }
-    .newsletter-input::placeholder { color: var(--text-dim); }
+
+    .newsletter-input:focus {
+      border-color: var(--violet-600);
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--text-dim);
+    }
+
     .newsletter-btn {
-      padding: var(--sp-3) var(--sp-6); border-radius: var(--radius-sm);
-      border: none; background: var(--gradient-brand); color: white;
-      font-weight: 600; font-family: var(--font-sans); font-size: var(--text-sm);
-      cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; white-space: nowrap;
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--gradient-brand);
+      color: white;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
     }
-    .newsletter-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.3); }
-    .newsletter-msg { margin-top: var(--sp-3); font-size: var(--text-sm); color: var(--green-500); display: none; }
-    @media (max-width: 480px) { .newsletter-form { flex-direction: column; } }
 
-    /* ════════════════════════════════════════════════════════════════════════
+    .newsletter-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+    }
+
+    .newsletter-msg {
+      margin-top: var(--sp-3);
+      font-size: var(--text-sm);
+      color: var(--green-500);
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        FOOTER
-       ════════════════════════════════════════════════════════════════════════ */
-    footer { padding: var(--sp-16) 0 var(--sp-8); border-top: 1px solid var(--border-subtle); position: relative; z-index: 1; }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr repeat(3, 1fr);
-      gap: var(--sp-12); margin-bottom: var(--sp-12);
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    footer {
+      padding: var(--sp-16) 0 var(--sp-8);
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+      z-index: 1;
     }
-    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    .footer-brand p { color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--sp-4); max-width: 280px; line-height: 1.65; }
-    .footer-col h4 { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 2px; color: var(--text-primary); margin-bottom: var(--sp-4); font-weight: 700; }
-    .footer-col a { display: block; color: var(--text-muted); font-size: var(--text-sm); padding: 3px 0; transition: color 0.2s ease; }
-    .footer-col a:hover { color: var(--text-primary); }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: var(--sp-12);
+      margin-bottom: var(--sp-12);
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      margin-top: var(--sp-4);
+      max-width: 280px;
+      line-height: 1.65;
+    }
+
+    .footer-col h4 {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-4);
+      font-weight: 700;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      font-size: var(--text-sm);
+      padding: 3px 0;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--text-primary);
+    }
 
     .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: var(--sp-8); border-top: 1px solid var(--border-subtle);
-      font-size: var(--text-xs); color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--sp-8);
+      border-top: 1px solid var(--border-subtle);
+      font-size: var(--text-xs);
+      color: var(--text-dim);
     }
-    .footer-bottom a { color: var(--text-dim); }
-    .footer-bottom a:hover { color: var(--text-secondary); }
+
+    .footer-bottom a {
+      color: var(--text-dim);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--text-secondary);
+    }
+
     @media (max-width: 480px) {
-      .footer-bottom { flex-direction: column; gap: var(--sp-2); text-align: center; }
-      section { padding: var(--sp-20) 0; }
-      .stats-bar { gap: var(--sp-6); }
-      .terminal-body { font-size: var(--text-xs); padding: var(--sp-4); }
+      .footer-bottom {
+        flex-direction: column;
+        gap: var(--sp-2);
+        text-align: center;
+      }
+
+      section {
+        padding: var(--sp-20) 0;
+      }
+
+      .stats-bar {
+        gap: var(--sp-6);
+      }
+
+      .terminal-body {
+        font-size: var(--text-xs);
+        padding: var(--sp-4);
+      }
     }
 
-    /* ── Animations ── */
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* â”€â”€ Animations â”€â”€ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-body); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--violet-600); }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* â”€â”€ Scrollbar â”€â”€ */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-body);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--violet-600);
+    }
   </style>
 </head>
 
 <body>
   <div class="starfield" aria-hidden="true"></div>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        NAVIGATION
-       ══════════════════════════════════════════════════════════════════════ -->
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-brand" aria-label="TuTu Engine Home">
         <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><linearGradient id="nav-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs>
-          <circle cx="90" cy="90" r="36" fill="url(#nav-g)"/>
-          <text x="90" y="102" font-size="36" font-weight="bold" fill="white" text-anchor="middle" font-family="system-ui">T</text>
+          <defs>
+            <linearGradient id="nav-g" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7C3AED" />
+              <stop offset="100%" stop-color="#06B6D4" />
+            </linearGradient>
+          </defs>
+          <circle cx="90" cy="90" r="36" fill="url(#nav-g)" />
+          <text x="90" y="102" font-size="36" font-weight="bold" fill="white" text-anchor="middle"
+            font-family="system-ui">T</text>
         </svg>
         TuTu Engine
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
+        <a href="#mcp">MCP</a>
+        <a href="#credits">Credits</a>
         <a href="#install">Install</a>
-        <a href="#about">About</a>
         <a href="#releases">Releases</a>
         <a href="docs.html">Docs</a>
-        <a href="https://github.com/NikeGunn/tutu" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/Tutu-Engine/tutuengine" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="#install" class="nav-cta">Get Started</a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
       </button>
     </div>
   </nav>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        HERO
-       ══════════════════════════════════════════════════════════════════════ -->
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section class="hero" id="hero">
     <div class="hero-logo" aria-hidden="true">
       <div class="logo-glow"></div>
       <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" width="160" height="160">
         <defs>
-          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="50%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient>
-          <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#7C3AED"/></linearGradient>
-          <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7C3AED" />
+            <stop offset="50%" stop-color="#A78BFA" />
+            <stop offset="100%" stop-color="#06B6D4" />
+          </linearGradient>
+          <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#06B6D4" />
+            <stop offset="100%" stop-color="#7C3AED" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
         <g class="logo-ring-outer" filter="url(#glow)">
-          <circle cx="90" cy="90" r="80" fill="none" stroke="url(#lg)" stroke-width="1" stroke-dasharray="8 12" opacity="0.4"/>
-          <circle class="logo-node" cx="90" cy="10" r="4" fill="#A78BFA"/><circle class="logo-node" cx="159" cy="50" r="4" fill="#22D3EE"/>
-          <circle class="logo-node" cx="159" cy="130" r="4" fill="#A78BFA"/><circle class="logo-node" cx="90" cy="170" r="4" fill="#22D3EE"/>
-          <circle class="logo-node" cx="21" cy="130" r="4" fill="#A78BFA"/><circle class="logo-node" cx="21" cy="50" r="4" fill="#22D3EE"/>
+          <circle cx="90" cy="90" r="80" fill="none" stroke="url(#lg)" stroke-width="1" stroke-dasharray="8 12"
+            opacity="0.4" />
+          <circle class="logo-node" cx="90" cy="10" r="4" fill="#A78BFA" />
+          <circle class="logo-node" cx="159" cy="50" r="4" fill="#22D3EE" />
+          <circle class="logo-node" cx="159" cy="130" r="4" fill="#A78BFA" />
+          <circle class="logo-node" cx="90" cy="170" r="4" fill="#22D3EE" />
+          <circle class="logo-node" cx="21" cy="130" r="4" fill="#A78BFA" />
+          <circle class="logo-node" cx="21" cy="50" r="4" fill="#22D3EE" />
         </g>
         <g class="logo-ring-inner" filter="url(#glow)">
-          <circle cx="90" cy="90" r="56" fill="none" stroke="url(#lg2)" stroke-width="0.8" stroke-dasharray="6 10" opacity="0.3"/>
-          <circle class="logo-node" cx="90" cy="34" r="3" fill="#A78BFA" opacity="0.8"/><circle class="logo-node" cx="138" cy="62" r="3" fill="#22D3EE" opacity="0.8"/>
-          <circle class="logo-node" cx="138" cy="118" r="3" fill="#A78BFA" opacity="0.8"/><circle class="logo-node" cx="90" cy="146" r="3" fill="#22D3EE" opacity="0.8"/>
-          <circle class="logo-node" cx="42" cy="118" r="3" fill="#A78BFA" opacity="0.8"/><circle class="logo-node" cx="42" cy="62" r="3" fill="#22D3EE" opacity="0.8"/>
+          <circle cx="90" cy="90" r="56" fill="none" stroke="url(#lg2)" stroke-width="0.8" stroke-dasharray="6 10"
+            opacity="0.3" />
+          <circle class="logo-node" cx="90" cy="34" r="3" fill="#A78BFA" opacity="0.8" />
+          <circle class="logo-node" cx="138" cy="62" r="3" fill="#22D3EE" opacity="0.8" />
+          <circle class="logo-node" cx="138" cy="118" r="3" fill="#A78BFA" opacity="0.8" />
+          <circle class="logo-node" cx="90" cy="146" r="3" fill="#22D3EE" opacity="0.8" />
+          <circle class="logo-node" cx="42" cy="118" r="3" fill="#A78BFA" opacity="0.8" />
+          <circle class="logo-node" cx="42" cy="62" r="3" fill="#22D3EE" opacity="0.8" />
         </g>
-        <line class="logo-connection" x1="90" y1="10" x2="90" y2="54" stroke="#A78BFA" stroke-width="0.6"/>
-        <line class="logo-connection" x1="159" y1="130" x2="126" y2="108" stroke="#22D3EE" stroke-width="0.6"/>
-        <line class="logo-connection" x1="21" y1="50" x2="54" y2="72" stroke="#A78BFA" stroke-width="0.6"/>
-        <line class="logo-connection" x1="159" y1="50" x2="126" y2="72" stroke="#22D3EE" stroke-width="0.6"/>
-        <circle cx="90" cy="90" r="38" fill="url(#lg)" opacity="0.95"/>
-        <circle cx="90" cy="90" r="38" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <text x="90" y="104" font-size="40" font-weight="900" fill="white" text-anchor="middle" font-family="Inter, system-ui, sans-serif">T</text>
+        <line class="logo-connection" x1="90" y1="10" x2="90" y2="54" stroke="#A78BFA" stroke-width="0.6" />
+        <line class="logo-connection" x1="159" y1="130" x2="126" y2="108" stroke="#22D3EE" stroke-width="0.6" />
+        <line class="logo-connection" x1="21" y1="50" x2="54" y2="72" stroke="#A78BFA" stroke-width="0.6" />
+        <line class="logo-connection" x1="159" y1="50" x2="126" y2="72" stroke="#22D3EE" stroke-width="0.6" />
+        <circle cx="90" cy="90" r="38" fill="url(#lg)" opacity="0.95" />
+        <circle cx="90" cy="90" r="38" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+        <text x="90" y="104" font-size="40" font-weight="900" fill="white" text-anchor="middle"
+          font-family="Inter, system-ui, sans-serif">T</text>
       </svg>
     </div>
 
-    <div class="hero-badge"><span class="badge-dot"></span> Open Source &middot; Built for Everyone</div>
+    <div class="hero-badge"><span class="badge-dot"></span> Private AI First &middot; Optional Global Scale</div>
 
-    <h1>Run AI Locally.<br><span class="grad">Power a Global Supercomputer.</span></h1>
-    <p class="hero-sub">One command. Zero accounts. Zero network.<br>Your idle GPU silently becomes part of the world's largest distributed AI supercomputer.</p>
+    <h1>Your Private AI in 30 Seconds.<br><span class="grad">Then Scale to a Global Supercomputer.</span></h1>
+    <p class="hero-sub">Install once. Run fully offline. No accounts. No lock-in.<br>When you want more power, TuTu can
+      tap distributed compute â€” on your terms.</p>
 
     <div class="os-tabs">
       <button class="os-tab active" data-os="mac" aria-pressed="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.99 2.97 12.5 4.7 9.56C5.56 8.09 7.09 7.17 8.75 7.15C10.05 7.13 11.28 8.04 12.07 8.04C12.86 8.04 14.38 6.94 15.92 7.11C16.57 7.14 18.38 7.38 19.56 9.08C19.47 9.14 17.52 10.26 17.54 12.62C17.57 15.44 20.07 16.37 20.1 16.38C20.08 16.44 19.72 17.72 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.09 6.72 11.95 6.62C11.8 5.49 12.36 4.3 13 3.5Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.99 2.97 12.5 4.7 9.56C5.56 8.09 7.09 7.17 8.75 7.15C10.05 7.13 11.28 8.04 12.07 8.04C12.86 8.04 14.38 6.94 15.92 7.11C16.57 7.14 18.38 7.38 19.56 9.08C19.47 9.14 17.52 10.26 17.54 12.62C17.57 15.44 20.07 16.37 20.1 16.38C20.08 16.44 19.72 17.72 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.09 6.72 11.95 6.62C11.8 5.49 12.36 4.3 13 3.5Z" />
+        </svg>
         macOS
       </button>
       <button class="os-tab" data-os="linux" aria-pressed="false">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+        </svg>
         Linux
       </button>
       <button class="os-tab" data-os="windows" aria-pressed="false">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+        </svg>
         Windows
       </button>
     </div>
@@ -787,12 +1838,14 @@
       <div class="terminal-body">
         <div class="install-panel active" id="cmd-mac">
           <div class="terminal-line"><span class="t-comment"># Install TuTu (macOS)</span></div>
-          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">brew install tutu-network/tap/tutu</span></div>
+          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">brew install
+              tutu-network/tap/tutu</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-comment"># Run your first AI model</span></div>
           <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">tutu run llama3.2</span></div>
           <div class="terminal-line"><span class="t-output">pulling manifest... done</span></div>
-          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% ████████████ 750 MB</span></div>
+          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 750 MB</span>
+          </div>
           <div class="terminal-line"><span class="t-success">success</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-output">&gt;&gt;&gt; Hello!</span></div>
@@ -800,12 +1853,14 @@
         </div>
         <div class="install-panel" id="cmd-linux">
           <div class="terminal-line"><span class="t-comment"># Install TuTu (Linux)</span></div>
-          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">curl -fsSL https://tutuengine.tech/install | sh</span></div>
+          <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">curl -fsSL
+              https://tutuengine.tech/install | sh</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-comment"># Run your first AI model</span></div>
           <div class="terminal-line"><span class="t-prompt">$ </span><span class="t-cmd">tutu run llama3.2</span></div>
           <div class="terminal-line"><span class="t-output">pulling manifest... done</span></div>
-          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% ████████████ 750 MB</span></div>
+          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 750 MB</span>
+          </div>
           <div class="terminal-line"><span class="t-success">success</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-output">&gt;&gt;&gt; Hello!</span></div>
@@ -813,12 +1868,15 @@
         </div>
         <div class="install-panel" id="cmd-windows">
           <div class="terminal-line"><span class="t-comment"># Install TuTu (Windows PowerShell)</span></div>
-          <div class="terminal-line"><span class="t-prompt">PS&gt; </span><span class="t-cmd">irm tutuengine.tech/install.ps1 | iex</span></div>
+          <div class="terminal-line"><span class="t-prompt">PS&gt; </span><span class="t-cmd">irm
+              tutuengine.tech/install.ps1 | iex</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-comment"># Run your first AI model</span></div>
-          <div class="terminal-line"><span class="t-prompt">PS&gt; </span><span class="t-cmd">tutu run llama3.2</span></div>
+          <div class="terminal-line"><span class="t-prompt">PS&gt; </span><span class="t-cmd">tutu run llama3.2</span>
+          </div>
           <div class="terminal-line"><span class="t-output">pulling manifest... done</span></div>
-          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% ████████████ 750 MB</span></div>
+          <div class="terminal-line"><span class="t-output">pulling 8934d96d3f08... 100% â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 750 MB</span>
+          </div>
           <div class="terminal-line"><span class="t-success">success</span></div>
           <div class="terminal-line terminal-line--blank"></div>
           <div class="terminal-line"><span class="t-output">&gt;&gt;&gt; Hello!</span></div>
@@ -828,36 +1886,89 @@
     </div>
 
     <div class="stats-bar">
-      <div class="stat"><div class="stat-value">30s</div><div class="stat-label">Time to First AI Response</div></div>
-      <div class="stat"><div class="stat-value">&lt;50MB</div><div class="stat-label">Idle Memory Usage</div></div>
-      <div class="stat"><div class="stat-value">42</div><div class="stat-label">Packages, All Tested</div></div>
-      <div class="stat"><div class="stat-value">0</div><div class="stat-label">External Deps Required</div></div>
+      <div class="stat">
+        <div class="stat-value">30s</div>
+        <div class="stat-label">From Install to First Reply</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">&lt;50MB</div>
+        <div class="stat-label">Idle Runtime Footprint</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Accounts or API Keys Needed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">You Control Data + Compute</div>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ FEATURES ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FEATURES â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="features">
     <div class="container">
       <div class="section-header">
         <span class="section-label">What It Does</span>
-        <h2>Everything You Need. Nothing You Don't.</h2>
-        <p>Local AI that just works, with a hidden superpower: your idle GPU contributes to the world's largest distributed AI network.</p>
+        <h2>Built to Make You Faster, Smarter, and Independent.</h2>
+        <p>TuTu removes friction at every step: instant local AI, zero cloud lock-in, and optional distributed scale
+          when you need it.</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card fade-up"><div class="feature-icon">&#9889;</div><h3>Instant Local AI</h3><p>Run Llama 3.2, Phi-3, Mistral, Gemma 2 and more. One command, auto-download, optimized for your hardware.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#128274;</div><h3>100% Offline</h3><p>Zero network required. No accounts, no license servers, no phone-home. Your data stays on your machine.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#127760;</div><h3>OpenAI-Compatible API</h3><p>Drop-in replacement for OpenAI's API on localhost:11434. Works with LangChain, LlamaIndex, every SDK.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#128230;</div><h3>TuTufile Packaging</h3><p>Create custom models with a TuTufile — set system prompts, parameters, and adapters. Like Dockerfile for AI.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#128640;</div><h3>Distributed Supercomputer</h3><p>Your idle GPU silently joins the network. Earn credits when your machine powers AI for the world.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#128737;</div><h3>Enterprise-Grade Security</h3><p>Ed25519 identity, gVisor sandbox, supply chain verification, Byzantine fault tolerance. Built for trust.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#129302;</div><h3>MCP Gateway</h3><p>Enterprise AI tool access via Model Context Protocol. SLA tiers, usage metering, rate limiting built-in.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#127942;</div><h3>Engagement Engine</h3><p>XP levels, achievements, weekly quests, passive earning. Max 1 notification/day. Respect-first design.</p></div>
-        <div class="feature-card fade-up"><div class="feature-icon">&#127757;</div><h3>Planet-Scale Architecture</h3><p>Built for 10M+ nodes across 7 continents. Hierarchical gossip, regional sharding, ML-driven scheduling.</p></div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Instant Local AI</h3>
+          <p>Go from install to answers in under a minute. TuTu auto-downloads and optimizes top models for your
+            hardware.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128274;</div>
+          <h3>100% Offline by Default</h3>
+          <p>No accounts, no cloud calls, no hidden telemetry. Sensitive prompts and data stay on your machine.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127760;</div>
+          <h3>OpenAI-Compatible API</h3>
+          <p>Drop-in replacement for OpenAI's API on localhost:11434. Works with LangChain, LlamaIndex, every SDK.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128230;</div>
+          <h3>TuTufile Packaging</h3>
+          <p>Create custom models with a TuTufile â€” set system prompts, parameters, and adapters. Like Dockerfile for
+            AI.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128640;</div>
+          <h3>Distributed Supercomputer</h3>
+          <p>Need more throughput? Opt in and unlock shared compute. Contribute idle GPU cycles and earn credits.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128737;</div>
+          <h3>Enterprise-Grade Security</h3>
+          <p>Ed25519 identity, gVisor sandbox, supply chain verification, Byzantine fault tolerance. Built for trust.
+          </p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#129302;</div>
+          <h3>MCP Gateway</h3>
+          <p>Enterprise AI tool access via Model Context Protocol. SLA tiers, usage metering, rate limiting built-in.
+          </p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127942;</div>
+          <h3>Engagement Engine</h3>
+          <p>XP levels, achievements, weekly quests, passive earning. Max 1 notification/day. Respect-first design.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127757;</div>
+          <h3>Planet-Scale Architecture</h3>
+          <p>Built for 10M+ nodes across 7 continents. Hierarchical gossip, regional sharding, ML-driven scheduling.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ HOW IT WORKS ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HOW IT WORKS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="how-it-works" class="section--subtle">
     <div class="container">
       <div class="section-header">
@@ -866,21 +1977,37 @@
         <p>No configuration. No accounts. No PhD required.</p>
       </div>
       <div class="steps-grid">
-        <div class="step fade-up"><div class="step-number">1</div><h3>Install TuTu</h3><p>One command on macOS, Linux, or Windows. Single binary, zero dependencies.</p></div>
-        <div class="step fade-up"><div class="step-number">2</div><h3>Run a Model</h3><p><code>tutu run llama3.2</code> — auto-downloads and starts chatting instantly.</p></div>
-        <div class="step fade-up"><div class="step-number">3</div><h3>Build with the API</h3><p>Use the OpenAI-compatible API at <code>localhost:11434</code> with any SDK.</p></div>
-        <div class="step fade-up"><div class="step-number">4</div><h3>Join the Network</h3><p>Your idle GPU earns credits. Every node makes AI faster and cheaper for everyone.</p></div>
+        <div class="step fade-up">
+          <div class="step-number">1</div>
+          <h3>Install TuTu</h3>
+          <p>One command on macOS, Linux, or Windows. Single binary, zero dependencies.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number">2</div>
+          <h3>Run a Model</h3>
+          <p><code>tutu run llama3.2</code> â€” auto-downloads and starts chatting instantly.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number">3</div>
+          <h3>Build with the API</h3>
+          <p>Use the OpenAI-compatible API at <code>localhost:11434</code> with any SDK.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number">4</div>
+          <h3>Join the Network</h3>
+          <p>Your idle GPU earns credits. Every node makes AI faster and cheaper for everyone.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ INTEGRATIONS ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• INTEGRATIONS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="integrations">
     <div class="container">
       <div class="section-header">
         <span class="section-label">Works With Everything</span>
         <h2>Drop-in Compatible</h2>
-        <p>TuTu speaks OpenAI's protocol. Every tool that works with OpenAI works with TuTu — just change the URL.</p>
+        <p>TuTu speaks OpenAI's protocol. Every tool that works with OpenAI works with TuTu â€” just change the URL.</p>
       </div>
       <div class="integrations-grid">
         <div class="int-badge fade-up"><span class="int-badge-icon">&#129302;</span> OpenAI SDK</div>
@@ -899,7 +2026,7 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ INSTALL GUIDE ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• INSTALL GUIDE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="install" class="section--subtle">
     <div class="container">
       <div class="section-header">
@@ -910,60 +2037,91 @@
       <div class="install-grid">
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#127822;</span> macOS</h3>
-          <div class="cmd-block"><span>brew install tutu-network/tap/tutu</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
-          <div class="cmd-block"><span>curl -fsSL https://tutuengine.tech/install | sh</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>brew install tutu-network/tap/tutu</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>curl -fsSL https://tutuengine.tech/install | sh</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
           <p class="install-note">Homebrew recommended. Supports Intel &amp; Apple Silicon.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#128039;</span> Linux</h3>
-          <div class="cmd-block"><span>curl -fsSL https://tutuengine.tech/install | sh</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>curl -fsSL https://tutuengine.tech/install | sh</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
           <p class="install-note">Supports x86_64 and ARM64. APT/RPM repos coming soon.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#127759;</span> Windows</h3>
-          <div class="cmd-block"><span>irm tutuengine.tech/install.ps1 | iex</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
-          <div class="cmd-block"><span>winget install tutu-network.tutu</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>irm tutuengine.tech/install.ps1 | iex</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>winget install tutu-network.tutu</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
           <p class="install-note">PowerShell or WinGet. Requires Windows 10+.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#128736;</span> Build from Source</h3>
-          <div class="cmd-block"><span>git clone https://github.com/NikeGunn/tutu.git</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
-          <div class="cmd-block"><span>cd tutu &amp;&amp; go build -o tutu ./cmd/tutu</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>git clone https://github.com/Tutu-Engine/tutuengine.git</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
+          <div class="cmd-block"><span>cd tutu &amp;&amp; go build -o tutu ./cmd/tutu</span><button class="copy-btn"
+              aria-label="Copy">Copy</button></div>
           <p class="install-note">Requires Go 1.22+. Single binary, no CGO required.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ ABOUT ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ABOUT â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="about">
     <div class="container">
       <div class="section-header">
         <span class="section-label">About TuTu Network</span>
         <h2>Building the World's AI Supercomputer</h2>
-        <p>We believe AI should be accessible to everyone — not locked behind expensive cloud APIs and corporate gatekeepers.</p>
+        <p>AI should be a utility, not a tax. TuTu gives developers private local intelligence first, then optional
+          distributed scale.</p>
       </div>
       <div class="about-grid">
         <div class="about-text fade-up">
           <h3>Our Mission</h3>
-          <p>TuTu Network is building the world's first truly distributed AI supercomputer — powered by the collective idle compute of millions of everyday devices. We're making AI free, private, and universally accessible.</p>
-          <p>Founded on the belief that artificial intelligence is a public utility, not a premium product. TuTu lets anyone run powerful AI models locally with a single command — no accounts, no subscriptions, no data leaving your machine.</p>
-          <p>When your machine is idle, it can optionally contribute compute to the global network, earning credits while making AI faster and cheaper for the entire world. It's the sharing economy applied to intelligence itself.</p>
-          <h3 style="margin-top: 32px;">Why TuTu?</h3>
-          <p>The AI industry charges billions for cloud compute that sits idle 70% of the time. Meanwhile, millions of powerful GPUs in homes and offices worldwide are underutilized. TuTu bridges this gap — turning wasted compute into shared intelligence.</p>
-          <p>Our open-source engine is written in Go for maximum performance and minimal resource usage. A single binary, under 50MB of RAM when idle, supporting every major AI model. Enterprise features like MCP Gateway, OpenTelemetry observability, and multi-region scheduling — all free and open forever.</p>
+          <p>TuTu Network is building a distributed AI supercomputer powered by real-world idle devices. We make
+            advanced AI accessible without forcing users into expensive cloud contracts.</p>
+          <p>Start local in one command, keep full privacy, and stay productive with an OpenAI-compatible API that drops
+            into your existing stack.</p>
+          <p>When extra capacity matters, opt into the network to access shared compute and contribute your idle GPU for
+            credits. You keep control over when, how, and why your machine participates.</p>
+          <h3 style="margin-top: 32px;">Why Teams Switch to TuTu</h3>
+          <div class="about-points">
+            <div class="about-point"><span class="about-point-dot"></span><span><strong>Ship faster:</strong> no account
+                setup, no API billing setup, no integration rewrite.</span></div>
+            <div class="about-point"><span class="about-point-dot"></span><span><strong>Reduce risk:</strong>
+                offline-first runtime keeps sensitive prompts and customer data local.</span></div>
+            <div class="about-point"><span class="about-point-dot"></span><span><strong>Escape lock-in:</strong>
+                OpenAI-compatible interfaces let you keep your current tools.</span></div>
+            <div class="about-point"><span class="about-point-dot"></span><span><strong>Scale on demand:</strong> add
+                distributed compute only when you need more throughput.</span></div>
+          </div>
         </div>
         <div class="about-values fade-up">
-          <div class="about-value"><span class="about-value-icon">&#128274;</span><h4>Privacy First</h4><p>Zero telemetry. Your data never leaves your machine. Period.</p></div>
-          <div class="about-value"><span class="about-value-icon">&#127760;</span><h4>Open Source</h4><p>MIT licensed. Fully transparent. Community-driven development.</p></div>
-          <div class="about-value"><span class="about-value-icon">&#9889;</span><h4>Performance</h4><p>Written in Go. Single binary. Sub-50MB idle footprint.</p></div>
-          <div class="about-value"><span class="about-value-icon">&#129309;</span><h4>Community</h4><p>Every contributor matters. Building together for everyone.</p></div>
+          <div class="about-value"><span class="about-value-icon">&#128274;</span>
+            <h4>Privacy First</h4>
+            <p>Zero telemetry. Your data never leaves your machine. Period.</p>
+          </div>
+          <div class="about-value"><span class="about-value-icon">&#127760;</span>
+            <h4>Open Source</h4>
+            <p>MIT licensed. Fully transparent. Community-driven development.</p>
+          </div>
+          <div class="about-value"><span class="about-value-icon">&#9889;</span>
+            <h4>Performance</h4>
+            <p>Written in Go. Single binary. Sub-50MB idle footprint.</p>
+          </div>
+          <div class="about-value"><span class="about-value-icon">&#129309;</span>
+            <h4>Community</h4>
+            <p>Every contributor matters. Building together for everyone.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ RELEASES ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• RELEASES â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="releases" class="section--subtle">
     <div class="container">
       <div class="section-header">
@@ -974,24 +2132,42 @@
       <div class="releases-card fade-up">
         <span class="releases-icon">&#128230;</span>
         <h3>Follow Our Releases on GitHub</h3>
-        <p>Every release includes pre-built binaries for macOS, Linux, and Windows, detailed changelogs, and upgrade instructions.</p>
+        <p>Every release includes pre-built binaries for macOS, Linux, and Windows, detailed changelogs, and upgrade
+          instructions.</p>
         <div class="releases-steps">
-          <div class="release-step"><div class="release-step-num">1</div><h4>Visit Releases Page</h4><p>Go to our GitHub releases page to see all versions, release notes, and download assets.</p></div>
-          <div class="release-step"><div class="release-step-num">2</div><h4>Watch the Repository</h4><p>Click "Watch" &rarr; "Custom" &rarr; "Releases" on GitHub to get notified of every new version.</p></div>
-          <div class="release-step"><div class="release-step-num">3</div><h4>Upgrade Anytime</h4><p>Run the install command again or download the latest binary. TuTu handles migrations automatically.</p></div>
+          <div class="release-step">
+            <div class="release-step-num">1</div>
+            <h4>Visit Releases Page</h4>
+            <p>Go to our GitHub releases page to see all versions, release notes, and download assets.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">2</div>
+            <h4>Watch the Repository</h4>
+            <p>Click "Watch" &rarr; "Custom" &rarr; "Releases" on GitHub to get notified of every new version.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">3</div>
+            <h4>Upgrade Anytime</h4>
+            <p>Run the install command again or download the latest binary. TuTu handles migrations automatically.</p>
+          </div>
         </div>
         <div class="releases-buttons">
-          <a href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener noreferrer" class="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+          <a href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener noreferrer"
+            class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
+            </svg>
             View All Releases
           </a>
-          <a href="https://github.com/NikeGunn/tutu/releases/latest" target="_blank" rel="noopener noreferrer" class="btn-secondary">Download Latest</a>
+          <a href="https://github.com/Tutu-Engine/tutuengine/releases/latest" target="_blank" rel="noopener noreferrer"
+            class="btn-secondary">Download Latest</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ API ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• API â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="api">
     <div class="container">
       <div class="section-header">
@@ -1002,40 +2178,234 @@
       <div class="api-grid">
         <div class="api-card fade-up">
           <h3>&#128013; Python</h3>
-          <div class="code-block"><button class="copy-btn" aria-label="Copy Python example">Copy</button><span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+          <div class="code-block"><button class="copy-btn" aria-label="Copy Python example">Copy</button><span
+              class="kw">from</span> openai <span class="kw">import</span> OpenAI
 
-client = OpenAI(
-    base_url=<span class="str">"http://localhost:11434/v1"</span>,
-    api_key=<span class="str">"tutu"</span>  <span class="cm"># any string works</span>
-)
+            client = OpenAI(
+            base_url=<span class="str">"http://localhost:11434/v1"</span>,
+            api_key=<span class="str">"tutu"</span> <span class="cm"># any string works</span>
+            )
 
-resp = client.chat.completions.create(
-    model=<span class="str">"llama3.2"</span>,
-    messages=[{
-        <span class="str">"role"</span>: <span class="str">"user"</span>,
-        <span class="str">"content"</span>: <span class="str">"Hello!"</span>
-    }]
-)
+            resp = client.chat.completions.create(
+            model=<span class="str">"llama3.2"</span>,
+            messages=[{
+            <span class="str">"role"</span>: <span class="str">"user"</span>,
+            <span class="str">"content"</span>: <span class="str">"Hello!"</span>
+            }]
+            )
 
-<span class="kw">print</span>(resp.choices[0].message.content)</div>
+            <span class="kw">print</span>(resp.choices[0].message.content)
+          </div>
         </div>
         <div class="api-card fade-up">
           <h3>&#128268; curl</h3>
-          <div class="code-block"><button class="copy-btn" aria-label="Copy curl example">Copy</button>curl http://localhost:11434/v1/chat/completions \
-  -H <span class="str">"Content-Type: application/json"</span> \
-  -d <span class="str">'{
-    "model": "llama3.2",
-    "messages": [{
-      "role": "user",
-      "content": "Hello!"
-    }]
-  }'</span></div>
+          <div class="code-block"><button class="copy-btn" aria-label="Copy curl example">Copy</button>curl
+            http://localhost:11434/v1/chat/completions \
+            -H <span class="str">"Content-Type: application/json"</span> \
+            -d <span class="str">'{
+              "model": "llama3.2",
+              "messages": [{
+              "role": "user",
+              "content": "Hello!"
+              }]
+              }'</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ TESTIMONIALS ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MCP SERVER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="mcp" class="section--subtle">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">MCP Gateway</span>
+        <h2>Model Context Protocol â€” USB-C for AI</h2>
+        <p>TuTu implements the MCP 2025-03-26 specification. Connect any AI client to any tool through one universal protocol.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128268;</div>
+          <h3>Universal AI Connector</h3>
+          <p>MCP is an open standard that lets AI models interact with databases, APIs, file systems, and any external service â€” through one consistent interface.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127959;</div>
+          <h3>Enterprise Use Cases</h3>
+          <p>AI coding assistants connected to your CI/CD. Support bots with CRM access. Data pipelines with SQL tools. DevOps agents managing Kubernetes â€” all via MCP.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128200;</div>
+          <h3>Metered &amp; SLA-Backed</h3>
+          <p>4 SLA tiers (Free to Enterprise). Rate limiting, usage metering, and latency targets built-in. Scale from prototype to production without changing code.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Streamable HTTP Transport</h3>
+          <p>JSON-RPC 2.0 over Streamable HTTP. Real-time tool execution, resource access, and prompt serving with session management and progress notifications.</p>
+        </div>
+      </div>
+      <div class="releases-card fade-up" style="margin-top: var(--sp-8);">
+        <h3 style="color: var(--text-primary); margin-bottom: var(--sp-4);">How Companies Use TuTu's MCP Gateway</h3>
+        <div class="releases-steps">
+          <div class="release-step">
+            <div class="release-step-num">1</div>
+            <h4>Start TuTu Engine</h4>
+            <p>Run <code>tutu serve</code> â€” the MCP endpoint is live at <code>/mcp</code> automatically.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">2</div>
+            <h4>Connect Your AI Client</h4>
+            <p>Point Claude, ChatGPT, or any MCP-compatible client to <code>http://localhost:11434/mcp</code>.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">3</div>
+            <h4>AI Uses Your Tools</h4>
+            <p>The AI can now run models (<code>tutu_run</code>), list models (<code>tutu_list</code>), pull new models (<code>tutu_pull</code>), and check status (<code>tutu_status</code>).</p>
+          </div>
+        </div>
+        <div class="cmd-block" style="margin-top: var(--sp-4);"><span>curl -X POST http://localhost:11434/mcp -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","clientInfo":{"name":"my-app","version":"1.0"}}}'</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+      </div>
+      <div style="overflow-x: auto; margin-top: var(--sp-8);">
+        <table style="width:100%; border-collapse: collapse; font-size: var(--text-sm); color: var(--text-secondary);">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <th style="text-align:left; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">SLA Tier</th>
+              <th style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Rate Limit</th>
+              <th style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Latency</th>
+              <th style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Free</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">10 req/min</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Best effort</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--green-500); font-weight:600;">$0</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Pro</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">100 req/min</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">&lt; 500ms</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Credits</td></tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Business</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">1,000 req/min</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">&lt; 200ms</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Credits</td></tr>
+            <tr><td style="padding: var(--sp-3) var(--sp-4);">Enterprise</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">10,000 req/min</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">&lt; 100ms</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Credits</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CREDIT SYSTEM â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="credits">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Credit Economy</span>
+        <h2>Earn Credits. Use AI. No Blockchain.</h2>
+        <p>Contribute GPU time, earn credits. Spend credits on network AI, fine-tuning, and priority access. Simple, fair, transparent.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128176;</div>
+          <h3>Earn by Contributing</h3>
+          <p>Your idle GPU earns credits automatically. High-end GPUs earn 2.5Ã— more. 99%+ uptime? 1.3Ã— reliability bonus. Early adopters get 1.5Ã— for the first 30 days.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128184;</div>
+          <h3>Spend on AI</h3>
+          <p>Use credits for network inference (0.001/token), fine-tuning jobs (10/hour), MCP Pro tier (50/month), and priority queue access (5/request).</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Anti-Fraud Protection</h3>
+          <p>Double-entry bookkeeping, velocity checks, Benford's Law analysis, and full audit trails. Every transaction is balanced and verifiable.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128178;</div>
+          <h3>Buy Credits (Optional)</h3>
+          <p>Don't want to contribute GPU? Buy credits starting at $9.99/mo for 5,000 credits. Enterprise packages available for organizations.</p>
+        </div>
+      </div>
+      <div class="releases-card fade-up" style="margin-top: var(--sp-8);">
+        <h3 style="color: var(--text-primary); margin-bottom: var(--sp-4);">Credit Pricing</h3>
+        <div style="overflow-x: auto;">
+          <table style="width:100%; border-collapse: collapse; font-size: var(--text-sm); color: var(--text-secondary);">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <th style="text-align:left; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Package</th>
+                <th style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Credits</th>
+                <th style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Price</th>
+                <th style="text-align:left; padding: var(--sp-3) var(--sp-4); color: var(--text-primary);">Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Starter</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">500</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4); color: var(--green-500); font-weight:600;">Free</td><td style="padding: var(--sp-3) var(--sp-4);">Everyone. Included automatically.</td></tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Developer</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">5,000</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">$9.99/mo</td><td style="padding: var(--sp-3) var(--sp-4);">Individual developers</td></tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Team</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">25,000</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">$39.99/mo</td><td style="padding: var(--sp-3) var(--sp-4);">Small teams</td></tr>
+              <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: var(--sp-3) var(--sp-4);">Enterprise</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">100,000</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">$149.99/mo</td><td style="padding: var(--sp-3) var(--sp-4);">Organizations</td></tr>
+              <tr><td style="padding: var(--sp-3) var(--sp-4);">Custom</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Unlimited</td><td style="text-align:center; padding: var(--sp-3) var(--sp-4);">Contact us</td><td style="padding: var(--sp-3) var(--sp-4);">Large-scale deployments</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top: var(--sp-4); font-size: var(--text-sm); color: var(--text-muted);">Local AI is always 100% free. Credits are only for distributed network features. 500 free credits included for every user. No surprise charges.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• AI FINE-TUNING â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section id="finetune" class="section--subtle">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">AI Fine-Tuning</span>
+        <h2>Fine-Tune AI Models â€” Locally or Distributed</h2>
+        <p>Customize any model for your use case. Use your own hardware or leverage the distributed network's GPU power with credits.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127919;</div>
+          <h3>Local Fine-Tuning</h3>
+          <p>Fine-tune models on your own hardware using TuTufile. Define adapters, system prompts, and training parameters â€” all in one declarative file. Zero cost.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#127760;</div>
+          <h3>Distributed Fine-Tuning</h3>
+          <p>Submit LoRA/QLoRA jobs to the network. Tasks are distributed across capable peers. Pay with credits. Get results faster than training alone.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128202;</div>
+          <h3>LoRA &amp; QLoRA Support</h3>
+          <p>Full fine-tune (48GB+), LoRA (8GB+), or QLoRA (4GB+). Choose the method that fits your hardware and budget. Adapter merging lets you combine results.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">&#128176;</div>
+          <h3>Earn While Training</h3>
+          <p>Contribute GPU time for other users' fine-tuning jobs and earn credits. Your hardware works for you even when you're not using it.</p>
+        </div>
+      </div>
+      <div class="releases-card fade-up" style="margin-top: var(--sp-8);">
+        <h3 style="color: var(--text-primary); margin-bottom: var(--sp-4);">Fine-Tuning &amp; Credits: How It Works</h3>
+        <div class="releases-steps">
+          <div class="release-step">
+            <div class="release-step-num">1</div>
+            <h4>Create a TuTufile</h4>
+            <p>Define your base model, training data, system prompt, and adapter parameters in a simple <code>Tutufile</code>.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">2</div>
+            <h4>Train Locally or Submit to Network</h4>
+            <p>Run <code>tutu create my-model -f Tutufile</code> locally, or <code>tutu agent finetune --budget 100</code> to distribute across the network using credits.</p>
+          </div>
+          <div class="release-step">
+            <div class="release-step-num">3</div>
+            <h4>Run Your Custom Model</h4>
+            <p>Your fine-tuned model is ready. Run it with <code>tutu run my-model</code>. Share it on the marketplace if you want.</p>
+          </div>
+        </div>
+        <div class="cmd-block" style="margin-top: var(--sp-4);"><span># Local fine-tuning (free)</span></div>
+        <div class="cmd-block"><span>cat &gt; Tutufile &lt;&lt;EOF
+FROM llama3
+SYSTEM "You are an expert customer support agent."
+ADAPTER ./my-lora-weights
+PARAMETER temperature 0.7
+EOF</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+        <div class="cmd-block"><span>tutu create support-bot -f Tutufile</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+        <div class="cmd-block" style="margin-top: var(--sp-3);"><span># Distributed fine-tuning (with credits)</span></div>
+        <div class="cmd-block"><span>tutu agent finetune --base-model llama3 --dataset ./data.jsonl --method lora --budget 100</span><button class="copy-btn" aria-label="Copy">Copy</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TESTIMONIALS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section class="section--alt">
     <div class="container">
       <div class="section-header">
@@ -1044,41 +2414,87 @@ resp = client.chat.completions.create(
         <p>From solo hackers to enterprise teams, TuTu makes AI accessible to everyone.</p>
       </div>
       <div class="testimonials-grid">
-        <div class="testimonial-card fade-up"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">"Finally, an AI runtime that respects my privacy. Installed in 10 seconds, running Llama 3.2 offline. No accounts, no telemetry. This is how software should be."</p><div class="testimonial-author"><div class="testimonial-avatar">SK</div><div><div class="testimonial-name">Sarah K.</div><div class="testimonial-role">ML Engineer</div></div></div></div>
-        <div class="testimonial-card fade-up"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">"The OpenAI-compatible API is seamless. Switched my entire LangChain pipeline from GPT-4 to local Mistral by just changing the URL. Zero code changes."</p><div class="testimonial-author"><div class="testimonial-avatar">MR</div><div><div class="testimonial-name">Marcus R.</div><div class="testimonial-role">Full-Stack Developer</div></div></div></div>
-        <div class="testimonial-card fade-up"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">"The distributed compute vision is incredible. My gaming rig earns credits overnight while I sleep. It's like mining but actually useful — powering AI inference."</p><div class="testimonial-author"><div class="testimonial-avatar">JL</div><div><div class="testimonial-name">Jason L.</div><div class="testimonial-role">Open Source Contributor</div></div></div></div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Finally, an AI runtime that respects my privacy. Installed in 10 seconds, running
+            Llama 3.2 offline. No accounts, no telemetry. This is how software should be."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SK</div>
+            <div>
+              <div class="testimonial-name">Sarah K.</div>
+              <div class="testimonial-role">ML Engineer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"The OpenAI-compatible API is seamless. Switched my entire LangChain pipeline from
+            GPT-4 to local Mistral by just changing the URL. Zero code changes."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MR</div>
+            <div>
+              <div class="testimonial-name">Marcus R.</div>
+              <div class="testimonial-role">Full-Stack Developer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"The distributed compute vision is incredible. My gaming rig earns credits
+            overnight while I sleep. It's like mining but actually useful â€” powering AI inference."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JL</div>
+            <div>
+              <div class="testimonial-name">Jason L.</div>
+              <div class="testimonial-role">Open Source Contributor</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ PRICING ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PRICING â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section id="pricing" class="section--subtle">
     <div class="container">
-      <div class="section-header"><span class="section-label">Pricing</span><h2>Free. Forever. For Local AI.</h2></div>
+      <div class="section-header"><span class="section-label">Pricing</span>
+        <h2>Free. Forever. For Local AI.</h2>
+      </div>
       <div class="pricing-card fade-up">
         <h3>Local AI is 100% Free</h3>
-        <p>Run any model locally without limits. No accounts, no subscriptions, no token meters. Open source forever.</p>
+        <p>Run any model locally without limits. No accounts, no subscriptions, no token meters. Open source forever.
+        </p>
         <div class="price-badge">Free &amp; Open Source</div>
-        <div class="price-note"><strong>Coming Soon:</strong> The distributed network uses a credit system for compute sharing. Credits are earned by contributing idle GPU time. You'll get <strong>500 free credits</strong> + 30 days before any prompt to contribute. No surprise charges. No paywalls for local features. Ever.</div>
+        <div class="price-note"><strong>Coming Soon:</strong> The distributed network uses a credit system for compute
+          sharing. Credits are earned by contributing idle GPU time. You'll get <strong>500 free credits</strong> + 30
+          days before any prompt to contribute. No surprise charges. No paywalls for local features. Ever.</div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ COMMUNITY ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• COMMUNITY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <section class="section--alt">
     <div class="container">
-      <div class="section-header"><span class="section-label">Community</span><h2>Join the Movement</h2><p>Be part of building the world's largest distributed AI supercomputer.</p></div>
+      <div class="section-header"><span class="section-label">Community</span>
+        <h2>Join the Movement</h2>
+        <p>Be part of building the world's largest distributed AI supercomputer.</p>
+      </div>
       <div class="community-grid">
-        <a href="https://github.com/NikeGunn/tutu" target="_blank" rel="noopener noreferrer" class="community-link fade-up"><span class="community-link-icon">&#128187;</span> GitHub</a>
-        <a href="https://github.com/NikeGunn/tutu/discussions" target="_blank" rel="noopener noreferrer" class="community-link fade-up"><span class="community-link-icon">&#128172;</span> Discussions</a>
-        <a href="docs.html" class="community-link fade-up"><span class="community-link-icon">&#128214;</span> Documentation</a>
-        <a href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener noreferrer" class="community-link fade-up"><span class="community-link-icon">&#128230;</span> Releases</a>
+        <a href="https://github.com/Tutu-Engine/tutuengine" target="_blank" rel="noopener noreferrer"
+          class="community-link fade-up"><span class="community-link-icon">&#128187;</span> GitHub</a>
+        <a href="https://github.com/Tutu-Engine/tutuengine/discussions" target="_blank" rel="noopener noreferrer"
+          class="community-link fade-up"><span class="community-link-icon">&#128172;</span> Discussions</a>
+        <a href="docs.html" class="community-link fade-up"><span class="community-link-icon">&#128214;</span>
+          Documentation</a>
+        <a href="https://github.com/Tutu-Engine/tutuengine/releases" target="_blank" rel="noopener noreferrer"
+          class="community-link fade-up"><span class="community-link-icon">&#128230;</span> Releases</a>
       </div>
       <div class="newsletter fade-up">
         <h3>Stay in the Loop</h3>
         <p>Get notified about new releases, network launches, and community events. No spam, ever.</p>
         <form class="newsletter-form" id="nlForm" action="#" method="POST">
-          <input type="email" class="newsletter-input" id="nlEmail" placeholder="your@email.com" required autocomplete="email" aria-label="Email address" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+          <input type="email" class="newsletter-input" id="nlEmail" placeholder="your@email.com" required
+            autocomplete="email" aria-label="Email address" maxlength="254" pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
           <button type="submit" class="newsletter-btn">Subscribe</button>
         </form>
         <div class="newsletter-msg" id="nlMsg">Thanks for subscribing! We'll keep you posted.</div>
@@ -1086,53 +2502,75 @@ resp = client.chat.completions.create(
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ FOOTER ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" class="nav-brand" style="margin-bottom:4px;">
             <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-              <defs><linearGradient id="fg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs>
-              <circle cx="90" cy="90" r="36" fill="url(#fg2)"/><text x="90" y="102" font-size="36" font-weight="bold" fill="white" text-anchor="middle" font-family="system-ui">T</text>
+              <defs>
+                <linearGradient id="fg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7C3AED" />
+                  <stop offset="100%" stop-color="#06B6D4" />
+                </linearGradient>
+              </defs>
+              <circle cx="90" cy="90" r="36" fill="url(#fg2)" /><text x="90" y="102" font-size="36" font-weight="bold"
+                fill="white" text-anchor="middle" font-family="system-ui">T</text>
             </svg>
             TuTu Engine
           </a>
-          <p>The easiest way to run AI locally. Your idle GPU powers the world's largest distributed AI supercomputer.</p>
+          <p>The easiest way to run AI locally. Your idle GPU powers the world's largest distributed AI supercomputer.
+          </p>
         </div>
-        <div class="footer-col"><h4>Product</h4><a href="#features">Features</a><a href="#install">Install</a><a href="#api">API</a><a href="#about">About</a><a href="#pricing">Pricing</a></div>
-        <div class="footer-col"><h4>Resources</h4><a href="docs.html">Documentation</a><a href="https://github.com/NikeGunn/tutu" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://github.com/NikeGunn/tutu/releases" target="_blank" rel="noopener noreferrer">Releases</a><a href="https://github.com/NikeGunn/tutu/issues" target="_blank" rel="noopener noreferrer">Issues</a></div>
-        <div class="footer-col"><h4>Community</h4><a href="https://github.com/NikeGunn/tutu/discussions" target="_blank" rel="noopener noreferrer">Discussions</a><a href="https://github.com/NikeGunn/tutu/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">License (MIT)</a><a href="https://github.com/NikeGunn/tutu/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contributing</a></div>
+        <div class="footer-col">
+          <h4>Product</h4><a href="#features">Features</a><a href="#mcp">MCP Gateway</a><a href="#credits">Credits</a><a href="#finetune">Fine-Tuning</a><a href="#install">Install</a><a href="#api">API</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4><a href="docs.html">Documentation</a><a href="https://github.com/Tutu-Engine/tutuengine"
+            target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://github.com/Tutu-Engine/tutuengine/releases"
+            target="_blank" rel="noopener noreferrer">Releases</a><a href="https://github.com/Tutu-Engine/tutuengine/issues"
+            target="_blank" rel="noopener noreferrer">Issues</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4><a href="https://github.com/Tutu-Engine/tutuengine/discussions" target="_blank"
+            rel="noopener noreferrer">Discussions</a><a href="https://github.com/Tutu-Engine/tutuengine/blob/main/LICENSE"
+            target="_blank" rel="noopener noreferrer">License (MIT)</a><a
+            href="https://github.com/Tutu-Engine/tutuengine/blob/main/CONTRIBUTING.md" target="_blank"
+            rel="noopener noreferrer">Contributing</a>
+        </div>
       </div>
       <div class="footer-bottom">
         <span>&copy; 2026 TuTu Network, Inc. Open source under MIT License.</span>
-        <span><a href="https://tutuengine.tech">tutuengine.tech</a> &middot; <a href="https://github.com/NikeGunn/tutu" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+        <span><a href="https://tutuengine.tech">tutuengine.tech</a> &middot; <a href="https://github.com/Tutu-Engine/tutuengine"
+            target="_blank" rel="noopener noreferrer">GitHub</a></span>
       </div>
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════════════════════════════════ JS ══════════════════════════════════════════════════════════════════════ -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• JS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <script>
     /* OS Tab Switching */
-    function switchOS(os){var v=['mac','linux','windows'];if(v.indexOf(os)===-1)os='mac';document.querySelectorAll('.os-tab').forEach(function(t){t.classList.remove('active');t.setAttribute('aria-pressed','false')});document.querySelectorAll('.install-panel').forEach(function(c){c.classList.remove('active')});var tab=document.querySelector('.os-tab[data-os="'+os+'"]');var cmd=document.getElementById('cmd-'+os);if(tab){tab.classList.add('active');tab.setAttribute('aria-pressed','true')}if(cmd){cmd.classList.add('active')}}
-    document.querySelectorAll('.os-tab').forEach(function(tab){tab.addEventListener('click',function(){switchOS(this.dataset.os)})});
-    (function(){var ua=navigator.userAgent.toLowerCase();if(ua.indexOf('win')!==-1)switchOS('windows');else if(ua.indexOf('mac')!==-1)switchOS('mac');else switchOS('linux')})();
+    function switchOS(os) { var v = ['mac', 'linux', 'windows']; if (v.indexOf(os) === -1) os = 'mac'; document.querySelectorAll('.os-tab').forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false') }); document.querySelectorAll('.install-panel').forEach(function (c) { c.classList.remove('active') }); var tab = document.querySelector('.os-tab[data-os="' + os + '"]'); var cmd = document.getElementById('cmd-' + os); if (tab) { tab.classList.add('active'); tab.setAttribute('aria-pressed', 'true') } if (cmd) { cmd.classList.add('active') } }
+    document.querySelectorAll('.os-tab').forEach(function (tab) { tab.addEventListener('click', function () { switchOS(this.dataset.os) }) });
+    (function () { var ua = navigator.userAgent.toLowerCase(); if (ua.indexOf('win') !== -1) switchOS('windows'); else if (ua.indexOf('mac') !== -1) switchOS('mac'); else switchOS('linux') })();
 
     /* Mobile Menu */
-    document.getElementById('mobileToggle').addEventListener('click',function(){var l=document.getElementById('navLinks');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o?'true':'false')});
+    document.getElementById('mobileToggle').addEventListener('click', function () { var l = document.getElementById('navLinks'); var o = l.classList.toggle('open'); this.setAttribute('aria-expanded', o ? 'true' : 'false') });
 
     /* Copy Buttons */
-    document.querySelectorAll('.copy-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();var block=this.parentElement;var spans=block.querySelectorAll('span');var text='';if(spans.length>0){spans.forEach(function(n){text+=n.textContent})}else{text=block.textContent.replace(/Copy|Copied!/g,'').trim()}text=text.trim();if(navigator.clipboard&&navigator.clipboard.writeText){var b=this;navigator.clipboard.writeText(text).then(function(){b.textContent='Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='Copy';b.classList.remove('copied')},2000)})}})});
+    document.querySelectorAll('.copy-btn').forEach(function (btn) { btn.addEventListener('click', function (e) { e.stopPropagation(); var block = this.parentElement; var spans = block.querySelectorAll('span'); var text = ''; if (spans.length > 0) { spans.forEach(function (n) { text += n.textContent }) } else { text = block.textContent.replace(/Copy|Copied!/g, '').trim() } text = text.trim(); if (navigator.clipboard && navigator.clipboard.writeText) { var b = this; navigator.clipboard.writeText(text).then(function () { b.textContent = 'Copied!'; b.classList.add('copied'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('copied') }, 2000) }) } }) });
 
     /* Newsletter */
-    document.getElementById('nlForm').addEventListener('submit',function(e){e.preventDefault();var input=document.getElementById('nlEmail');var email=input.value.trim().replace(/[<>"'&]/g,'');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254){input.setCustomValidity('Please enter a valid email address');input.reportValidity();return}input.setCustomValidity('');document.getElementById('nlMsg').style.display='block';input.value='';setTimeout(function(){document.getElementById('nlMsg').style.display='none'},5000)});
+    document.getElementById('nlForm').addEventListener('submit', function (e) { e.preventDefault(); var input = document.getElementById('nlEmail'); var email = input.value.trim().replace(/[<>"'&]/g, ''); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) { input.setCustomValidity('Please enter a valid email address'); input.reportValidity(); return } input.setCustomValidity(''); document.getElementById('nlMsg').style.display = 'block'; input.value = ''; setTimeout(function () { document.getElementById('nlMsg').style.display = 'none' }, 5000) });
 
     /* Scroll Animations */
-    var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.fade-up').forEach(function(el){io.observe(el)});
+    var io = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible') }) }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(function (el) { io.observe(el) });
 
     /* Nav scroll */
-    var nav=document.querySelector('.nav');window.addEventListener('scroll',function(){nav.style.background=(window.scrollY||window.pageYOffset)>80?'rgba(5,5,16,0.92)':'rgba(5,5,16,0.72)'},{ passive:true});
+    var nav = document.querySelector('.nav'); window.addEventListener('scroll', function () { nav.style.background = (window.scrollY || window.pageYOffset) > 80 ? 'rgba(5,5,16,0.92)' : 'rgba(5,5,16,0.72)' }, { passive: true });
   </script>
 </body>
+
 </html>

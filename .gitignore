@@ -35,3 +35,11 @@ desktop.ini
 models/
 blobs/
 manifests/
+
+# Build artifacts
+bin/
+coverage.out
+coverage.html
+
+# Node modules (website)
+website/node_modules/
