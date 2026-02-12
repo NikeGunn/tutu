@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -124,21 +125,54 @@ func (s *Server) Handler() http.Handler {
 		r.Get("/api/earnings/live", s.earningsHub.HandleEarningsSSE)
 	}
 
-	// Serve static website files for all other routes
+	// Root route - serve API status for backend subdomain, website for main domain
 	websiteDir := findWebsiteDir()
-	if websiteDir != "" {
-		fileServer := http.FileServer(http.Dir(websiteDir))
-		r.Handle("/*", fileServer)
-	} else {
-		// Fallback if website directory not found
-		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/", func(w http.ResponseWriter, req *http.Request) {
+		// Check if request is from backend subdomain
+		host := req.Host
+		if isBackendDomain(host) {
+			// Backend subdomain: serve API status
 			writeJSON(w, http.StatusOK, map[string]string{
 				"status": "TuTu is running",
 			})
+		} else if websiteDir != "" {
+			// Main domain: serve website
+			http.ServeFile(w, req, filepath.Join(websiteDir, "index.html"))
+		} else {
+			// Fallback if website not found
+			writeJSON(w, http.StatusOK, map[string]string{
+				"status": "TuTu is running",
+			})
+		}
+	})
+
+	// Serve static assets (CSS, JS, images) only for non-backend domains
+	if websiteDir != "" {
+		fileServer := http.FileServer(http.Dir(websiteDir))
+		r.Get("/*", func(w http.ResponseWriter, req *http.Request) {
+			// Only serve files for non-backend domains
+			if !isBackendDomain(req.Host) {
+				fileServer.ServeHTTP(w, req)
+			} else {
+				// Backend domain: return 404 for non-API paths
+				http.NotFound(w, req)
+			}
 		})
 	}
 
 	return r
+}
+
+// isBackendDomain checks if the host is a backend API domain.
+func isBackendDomain(host string) bool {
+	// Strip port if present
+	if idx := strings.LastIndex(host, ":"); idx > 0 {
+		host = host[:idx]
+	}
+	// Check for backend subdomain
+	return host == "backend.tutuengine.tech" || 
+		   host == "tutu-production-d402.up.railway.app" ||
+		   strings.HasPrefix(host, "backend.")
 }
 
 // findWebsiteDir locates the website directory in various contexts.
