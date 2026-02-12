@@ -4,13 +4,13 @@
 # ──────────────────────────────────────────────────────────────────────────────
 
 # Stage 1: Build
-FROM golang:1.23-bookworm AS builder
+FROM golang:1.24-bookworm AS builder
 
 WORKDIR /src
 
 # Cache dependencies first
 COPY go.mod go.sum ./
-RUN go mod download
+RUN GOTOOLCHAIN=auto go mod download
 
 # Copy source and build
 COPY . .
