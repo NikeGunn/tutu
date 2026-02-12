@@ -23,8 +23,7 @@ FROM gcr.io/distroless/static-debian12:nonroot
 
 COPY --from=builder /app/tutu /app/tutu
 
-# TuTu data directory
-VOLUME ["/data"]
+# TuTu data directory (Railway manages volumes separately)
 ENV TUTU_HOME=/data
 
 # API server port
