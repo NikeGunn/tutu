@@ -1020,6 +1020,7 @@
       font-weight: 500;
       letter-spacing: 0.01em;
       display: block;
+      white-space: pre;
     }
 
     .copy-btn {
@@ -2121,36 +2122,30 @@
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#127822;</span> macOS</h3>
           <div class="cmd-blocks-wrapper">
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>curl -fsSL
-                https://tutuengine.tech/install.sh | sh</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>curl -fsSL https://tutuengine.tech/install.sh | sh</span></div>
           </div>
           <p class="install-note">Supports Intel &amp; Apple Silicon.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#128039;</span> Linux</h3>
           <div class="cmd-blocks-wrapper">
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>curl -fsSL
-                https://tutuengine.tech/install.sh | sh</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>curl -fsSL https://tutuengine.tech/install.sh | sh</span></div>
           </div>
           <p class="install-note">Supports x86_64 and ARM64. APT/RPM repos coming soon.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#127759;</span> Windows</h3>
           <div class="cmd-blocks-wrapper">
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>irm
-                tutuengine.tech/install.ps1 | iex</span></div>
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>winget install
-                tutu-network.tutu</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>irm tutuengine.tech/install.ps1 | iex</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>winget install tutu-network.tutu</span></div>
           </div>
           <p class="install-note">PowerShell or WinGet. Requires Windows 10+.</p>
         </div>
         <div class="install-card fade-up">
           <h3><span class="platform-icon">&#128736;</span> Build from Source</h3>
           <div class="cmd-blocks-wrapper">
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>git clone
-                https://github.com/NikeGunn/tutu.git</span></div>
-            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>cd tutu &amp;&amp; go
-                build -o tutu ./cmd/tutu</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>git clone https://github.com/NikeGunn/tutu.git</span></div>
+            <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>cd tutu &amp;&amp; go build -o tutu ./cmd/tutu</span></div>
           </div>
           <p class="install-note">Requires Go 1.24+. Single binary, no CGO required.</p>
         </div>
@@ -2267,45 +2262,37 @@
       <div class="api-grid">
         <div class="api-card fade-up">
           <h3>&#128013; Python</h3>
-          <div class="code-block" data-lang="Python"><button class="copy-btn"
-              aria-label="Copy Python example">Copy</button><span class="kw">from</span> <span class="var">openai</span>
-            <span class="kw">import</span> <span class="var">OpenAI</span>
+          <div class="code-block" data-lang="Python"><button class="copy-btn" aria-label="Copy Python example">Copy</button>
+<span class="kw">from</span> <span class="var">openai</span> <span class="kw">import</span> <span class="var">OpenAI</span>
 
-            <span class="var">client</span> <span class="op">=</span> <span class="fn">OpenAI</span>(
-            <span class="var">base_url</span><span class="op">=</span><span
-              class="str">"http://localhost:11434/v1"</span>,
-            <span class="var">api_key</span><span class="op">=</span><span class="str">"tutu"</span> <span class="cm">#
-              any string works</span>
-            )
+<span class="var">client</span> <span class="op">=</span> <span class="fn">OpenAI</span>(
+    <span class="var">base_url</span><span class="op">=</span><span class="str">"http://localhost:11434/v1"</span>,
+    <span class="var">api_key</span><span class="op">=</span><span class="str">"tutu"</span>  <span class="cm"># any string works</span>
+)
 
-            <span class="var">resp</span> <span class="op">=</span> <span class="var">client</span>.<span
-              class="var">chat</span>.<span class="var">completions</span>.<span class="fn">create</span>(
-            <span class="var">model</span><span class="op">=</span><span class="str">"llama3.2"</span>,
-            <span class="var">messages</span><span class="op">=</span>[{
-            <span class="str">"role"</span>: <span class="str">"user"</span>,
-            <span class="str">"content"</span>: <span class="str">"Hello!"</span>
-            }]
-            )
+<span class="var">resp</span> <span class="op">=</span> <span class="var">client</span>.<span class="var">chat</span>.<span class="var">completions</span>.<span class="fn">create</span>(
+    <span class="var">model</span><span class="op">=</span><span class="str">"llama3.2"</span>,
+    <span class="var">messages</span><span class="op">=</span>[{
+        <span class="str">"role"</span>: <span class="str">"user"</span>,
+        <span class="str">"content"</span>: <span class="str">"Hello!"</span>
+    }]
+)
 
-            <span class="kw">print</span>(<span class="var">resp</span>.<span class="var">choices</span>[<span
-              class="num">0</span>].<span class="var">message</span>.<span class="var">content</span>)
-          </div>
+<span class="kw">print</span>(<span class="var">resp</span>.<span class="var">choices</span>[<span class="num">0</span>].<span class="var">message</span>.<span class="var">content</span>)</div>
         </div>
         <div class="api-card fade-up">
           <h3>&#128268; curl</h3>
-          <div class="code-block" data-lang="Bash"><button class="copy-btn"
-              aria-label="Copy curl example">Copy</button><span class="kw">curl</span> <span class="op">\</span>
-            <span class="var">http://localhost:11434/v1/chat/completions</span> <span class="op">\</span>
-            <span class="op">-H</span> <span class="str">"Content-Type: application/json"</span> <span
-              class="op">\</span>
-            <span class="op">-d</span> <span class="str">'{
-              "model": "llama3.2",
-              "messages": [{
-              "role": "user",
-              "content": "Hello!"
-              }]
-              }'</span>
-          </div>
+          <div class="code-block" data-lang="Bash"><button class="copy-btn" aria-label="Copy curl example">Copy</button>
+<span class="kw">curl</span> <span class="op">\</span>
+  <span class="var">http://localhost:11434/v1/chat/completions</span> <span class="op">\</span>
+  <span class="op">-H</span> <span class="str">"Content-Type: application/json"</span> <span class="op">\</span>
+  <span class="op">-d</span> <span class="str">'{
+    "model": "llama3.2",
+    "messages": [{
+      "role": "user",
+      "content": "Hello!"
+    }]
+  }'</span></div>
         </div>
       </div>
     </div>
@@ -2367,9 +2354,7 @@
           </div>
         </div>
         <div class="cmd-block" style="margin-top: var(--sp-4);"><button class="copy-btn"
-            aria-label="Copy">Copy</button><span>curl -X POST http://localhost:11434/mcp -H
-            "Content-Type: application/json" -d
-            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","clientInfo":{"name":"my-app","version":"1.0"}}}'</span>
+            aria-label="Copy">Copy</button><span>curl -X POST http://localhost:11434/mcp -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","clientInfo":{"name":"my-app","version":"1.0"}}}'</span>
         </div>
       </div>
       <div style="overflow-x: auto; margin-top: var(--sp-8);">
@@ -2569,20 +2554,16 @@
           </div>
         </div>
         <div class="cmd-block" style="margin-top: var(--sp-4);"><span># Local fine-tuning (free)</span></div>
-        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>cat &gt; Tutufile
-            &lt;&lt;EOF
-            FROM llama3
-            SYSTEM "You are an expert customer support agent."
-            ADAPTER ./my-lora-weights
-            PARAMETER temperature 0.7
-            EOF</span></div>
-        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>tutu create support-bot -f
-            Tutufile</span></div>
+        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>cat &gt; Tutufile &lt;&lt;EOF
+FROM llama3
+SYSTEM "You are an expert customer support agent."
+ADAPTER ./my-lora-weights
+PARAMETER temperature 0.7
+EOF</span></div>
+        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>tutu create support-bot -f Tutufile</span></div>
         <div class="cmd-block" style="margin-top: var(--sp-3);"><span># Distributed fine-tuning (with credits)</span>
         </div>
-        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>tutu agent finetune
-            --base-model llama3 --dataset ./data.jsonl --method lora
-            --budget 100</span></div>
+        <div class="cmd-block"><button class="copy-btn" aria-label="Copy">Copy</button><span>tutu agent finetune --base-model llama3 --dataset ./data.jsonl --method lora --budget 100</span></div>
       </div>
     </div>
   </section>
