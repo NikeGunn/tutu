@@ -2,8 +2,8 @@
 
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuengine.png?raw=true">
-        <img src="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuengine.png?raw=true" alt="TuTu Engine - Distributed AI Supercomputer" width="500">
+        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuenginelogo.png?raw=true">
+        <img src="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuenginelogo.png?raw=true" alt="TuTu Engine - Distributed AI Supercomputer" width="650">
     </picture>
 </p>
 
@@ -19,9 +19,6 @@
   <img src="https://img.shields.io/github/v/release/Tutu-Engine/tutuengine?style=for-the-badge&color=F59E0B" alt="Release">
 </p>
 
-<p align="center">
-  <strong>Run AI Locally. Power a Global Supercomputer.</strong>
-</p>
 
 <p align="center">
   <a href="https://tutuengine.tech">Website</a> ·
