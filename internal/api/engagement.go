@@ -48,12 +48,12 @@ func (e *EngagementAPI) HandleStreak(w http.ResponseWriter, r *http.Request) {
 	mult := e.Streak.CreditMultiplier()
 
 	writeJSON(w, http.StatusOK, map[string]interface{}{
-		"current_days":    streak.CurrentDays,
-		"longest_days":    streak.LongestDays,
-		"last_date":       streak.LastDate.Format(time.DateOnly),
-		"freeze_used":     streak.FreezeUsed,
-		"multiplier":      mult,
-		"bonus_percent":   int((mult - 1.0) * 100),
+		"current_days":  streak.CurrentDays,
+		"longest_days":  streak.LongestDays,
+		"last_date":     streak.LastDate.Format(time.DateOnly),
+		"freeze_used":   streak.FreezeUsed,
+		"multiplier":    mult,
+		"bonus_percent": int((mult - 1.0) * 100),
 	})
 }
 
@@ -87,12 +87,12 @@ func (e *EngagementAPI) HandleLevel(w http.ResponseWriter, r *http.Request) {
 	nextUnlocks := engagement.UnlocksForLevel(lvl.Level + 1)
 
 	writeJSON(w, http.StatusOK, map[string]interface{}{
-		"level":         lvl.Level,
-		"current_xp":    lvl.CurrentXP,
-		"xp_to_next":    toNext,
-		"progress_pct":  pct,
-		"unlocks":       unlocks,
-		"next_unlocks":  nextUnlocks,
+		"level":        lvl.Level,
+		"current_xp":   lvl.CurrentXP,
+		"xp_to_next":   toNext,
+		"progress_pct": pct,
+		"unlocks":      unlocks,
+		"next_unlocks": nextUnlocks,
 	})
 }
 
@@ -149,10 +149,10 @@ func (e *EngagementAPI) HandleAchievements(w http.ResponseWriter, r *http.Reques
 	total := e.Achievement.TotalCount()
 
 	writeJSON(w, http.StatusOK, map[string]interface{}{
-		"achievements":    all,
-		"unlocked_count":  count,
-		"total_count":     total,
-		"completion_pct":  float64(count) / float64(total) * 100,
+		"achievements":   all,
+		"unlocked_count": count,
+		"total_count":    total,
+		"completion_pct": float64(count) / float64(total) * 100,
 	})
 }
 
@@ -388,11 +388,11 @@ func (h *EarningsHub) ClientCount() int {
 
 // EarningsEvent represents a single credit earning event.
 type EarningsEvent struct {
-	Type      string  `json:"type"`       // "credit_earned"
-	Amount    float64 `json:"amount"`     // Credits earned
-	TaskType  string  `json:"task_type"`  // "inference", "embedding", "training"
-	Model     string  `json:"model"`      // Model used
-	Timestamp int64   `json:"timestamp"`  // Unix epoch
+	Type      string  `json:"type"`      // "credit_earned"
+	Amount    float64 `json:"amount"`    // Credits earned
+	TaskType  string  `json:"task_type"` // "inference", "embedding", "training"
+	Model     string  `json:"model"`     // Model used
+	Timestamp int64   `json:"timestamp"` // Unix epoch
 }
 
 // HandleEarningsSSE serves the live earnings feed via Server-Sent Events.

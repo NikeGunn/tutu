@@ -39,6 +39,14 @@ issues:
       linters:
         - govet
       text: "fieldalignment"
+    # API handlers: w.Write/enc.Encode errors are rarely actionable
+    - path: internal/api/
+      linters:
+        - errcheck
+    # Prealloc is advisory, not a correctness issue
+    - linters:
+        - prealloc
+      text: "Consider pre-allocating"
 
 run:
   timeout: 5m
