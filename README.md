@@ -1,3 +1,16 @@
+# ⚡ TuTu Engine
+
+<p align="center">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuengine.png?raw=true">
+        <img src="https://github.com/NikeGunn/admin_-their_assets/blob/master/TUTU%20ENGINE/tutuengine.png?raw=true" alt="TuTu Engine - Distributed AI Supercomputer" width="500">
+    </picture>
+</p>
+
+<p align="center">
+  <strong>Run AI Locally. Power a Global Agentic Supercomputer!</strong>
+</p>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go">
   <img src="https://img.shields.io/badge/License-MIT-7C3AED?style=for-the-badge" alt="License">
