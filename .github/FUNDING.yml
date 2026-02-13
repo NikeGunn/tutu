@@ -1,0 +1,33 @@
+# These are supported funding model platforms
+
+# GitHub Sponsors — Support TuTu Engine development
+github: [Tutu-Engine]
+
+# Patreon — Monthly support for the project
+# patreon: tutu-engine
+
+# Open Collective — Transparent funding for open source
+# open_collective: tutu-engine
+
+# Ko-fi — One-time donations
+# ko_fi: tutuengine
+
+# Custom funding URLs
+# custom: ['https://tutuengine.tech/sponsor', 'https://tutuengine.tech/donate']
+
+# ─── About TuTu Engine ──────────────────────────────────────────────────────
+#
+# TuTu Engine is building the world's largest distributed AI supercomputer —
+# a peer-to-peer network that transforms idle GPUs worldwide into a unified
+# inference and fine-tuning platform.
+#
+# Your sponsorship helps us:
+#   • Maintain infrastructure (relay servers, bootstrap nodes)
+#   • Expand model catalog (GGUF conversions, quantizations)
+#   • Develop enterprise features (SLA enforcement, distributed fine-tuning)
+#   • Support community (documentation, tutorials, support channels)
+#   • Research & innovation (MCP protocol, federated learning, P2P algorithms)
+#
+# Every contribution powers the decentralized AI revolution. Thank you!
+#
+# ────────────────────────────────────────────────────────────────────────────
