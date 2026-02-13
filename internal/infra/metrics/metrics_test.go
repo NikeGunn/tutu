@@ -18,7 +18,7 @@ func TestInferenceLatency_Registered(t *testing.T) {
 	InferenceLatency.WithLabelValues("llama3.2").Observe(1.5)
 
 	// Verify the histogram records
-	families, _ = prometheus.DefaultGatherer.Gather()
+	families, _ := prometheus.DefaultGatherer.Gather()
 	found := false
 	for _, f := range families {
 		if f.GetName() == "tutu_inference_latency_seconds" {
