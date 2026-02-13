@@ -227,7 +227,7 @@ func TestPool_IdleReaper(t *testing.T) {
 	}
 	pool := NewPool(backend, 1024*1024*1024, resolver)
 	pool.idleTimeout = 150 * time.Millisecond // Short for testing but safe for Windows CI
-	pool.reapInterval = 50 * time.Millisecond  // Tick fast enough to catch it
+	pool.reapInterval = 50 * time.Millisecond // Tick fast enough to catch it
 
 	h, err := pool.Acquire("test-model", LoadOptions{})
 	if err != nil {
