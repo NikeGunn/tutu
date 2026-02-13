@@ -392,9 +392,9 @@ func TestScenario_MeteringAccuracy(t *testing.T) {
 
 	// Simulate a realistic workload: mixed SLA tiers
 	calls := []struct {
-		tool     string
-		args     any
-		tier     domain.SLATier
+		tool string
+		args any
+		tier domain.SLATier
 	}{
 		{"tutu_inference", domain.InferenceParams{Model: "m", Prompt: "short", Priority: domain.SLARealtime}, domain.SLARealtime},
 		{"tutu_inference", domain.InferenceParams{Model: "m", Prompt: strings.Repeat("a", 1000), Priority: domain.SLAStandard}, domain.SLAStandard},

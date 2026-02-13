@@ -190,7 +190,7 @@ type RetryStats struct {
 	PendingRetries int   `json:"pending_retries"`
 	TotalRetries   int64 `json:"total_retries"`
 	TotalExhausted int64 `json:"total_exhausted"` // Exceeded MaxRetries
-	RetryNodes     int   `json:"retry_nodes"`      // Nodes in hash ring
+	RetryNodes     int   `json:"retry_nodes"`     // Nodes in hash ring
 }
 
 // RetryStats returns current retry queue statistics.

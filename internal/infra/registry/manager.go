@@ -25,7 +25,7 @@ import (
 type Manager struct {
 	dir         string // Root models directory (contains blobs/ and manifests/)
 	db          *sqlite.DB
-	urlOverride string          // If set, use this base URL instead of HuggingFace (for testing)
+	urlOverride string           // If set, use this base URL instead of HuggingFace (for testing)
 	bloom       *dsa.BloomFilter // DSA: O(1) probabilistic model existence check
 }
 
