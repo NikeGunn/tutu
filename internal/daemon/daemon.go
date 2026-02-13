@@ -213,6 +213,7 @@ func NewWithConfig(cfg Config) (*Daemon, error) {
 	if nodeID == "" {
 		nodeID = "node-local"
 	}
+	_ = nodeID // TODO: wire into peer identity in Phase 2
 
 	// Idle detector
 	d.Idle = resource.NewIdleDetector()
@@ -456,7 +457,7 @@ func (d *Daemon) Close() {
 func parseStorageSize(s string) uint64 {
 	var val uint64
 	var unit string
-	fmt.Sscanf(s, "%d%s", &val, &unit)
+	_, _ = fmt.Sscanf(s, "%d%s", &val, &unit)
 	if val == 0 {
 		return 50 * 1024 * 1024 * 1024 // Default 50GB
 	}

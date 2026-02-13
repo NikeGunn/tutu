@@ -22,6 +22,7 @@ linters-settings:
     enable-all: true
     disable:
       - fieldalignment  # Too strict for clean domain types
+      - shadow          # Too noisy — flags common `if err := ...; err != nil` idiom
   goimports:
     local-prefixes: github.com/tutu-network/tutu
   misspell:

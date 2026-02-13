@@ -122,8 +122,8 @@ func (e *Executor) execute(ctx context.Context, task domain.Task) {
 	}()
 
 	// Transition: QUEUED → ASSIGNED → EXECUTING
-	e.db.UpdateTaskStatus(task.ID, domain.TaskAssigned)
-	e.db.UpdateTaskStatus(task.ID, domain.TaskExecuting)
+	_ = e.db.UpdateTaskStatus(task.ID, domain.TaskAssigned)
+	_ = e.db.UpdateTaskStatus(task.ID, domain.TaskExecuting)
 
 	log.Printf("[executor] executing task %s type=%s", task.ID, task.Type)
 
@@ -154,7 +154,7 @@ func (e *Executor) execute(ctx context.Context, task domain.Task) {
 	resultHash := hex.EncodeToString(hash[:])
 
 	// Complete the task
-	e.db.UpdateTaskStatus(task.ID, domain.TaskCompleted)
+	_ = e.db.UpdateTaskStatus(task.ID, domain.TaskCompleted)
 
 	log.Printf("[executor] task %s completed, hash=%s", task.ID, resultHash[:16])
 

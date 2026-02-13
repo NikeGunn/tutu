@@ -8,11 +8,12 @@ import (
 	"strings"
 	"testing"
 
+	"os"
+	"path/filepath"
+
 	"github.com/tutu-network/tutu/internal/infra/engine"
 	"github.com/tutu-network/tutu/internal/infra/registry"
 	"github.com/tutu-network/tutu/internal/infra/sqlite"
-	"os"
-	"path/filepath"
 )
 
 func newTestServer(t *testing.T) (*Server, func()) {
