@@ -1,12 +1,13 @@
 # These are supported funding model platforms
 
 # GitHub Sponsors — Support TuTu Engine development
-github: [NikeGunn]
+# Uncomment after enrolling in GitHub Sponsors with Open Collective as fiscal host
+# github: [NikeGunn]
 
 # Patreon — Monthly support for the project
 # patreon: tutu-engine
 
-# Open Collective — Transparent funding
+# Open Collective — Transparent funding for open source
 open_collective: tutu-engine
 
 # Ko-fi — One-time donations
