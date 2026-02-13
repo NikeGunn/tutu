@@ -8,7 +8,9 @@
       "internal/**",
       "go.mod",
       "go.sum",
-      "Dockerfile"
+      "Dockerfile",
+      "website/**",
+      "README.md"
     ]
   },
   "deploy": {
