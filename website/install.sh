@@ -1,13 +1,14 @@
 #!/bin/sh
 # ─────────────────────────────────────────────────────────────────────────────
-# TuTu Installer — Linux & macOS
-# Enterprise-grade installer with retry, verification, service management.
+# TuTu Engine Installer — Linux & macOS
+# Enterprise-grade installer with multi-source version detection, retry,
+# verification, service management, and intelligent fallback.
 #
 # Usage: curl -fsSL https://tutuengine.tech/install.sh | sh
 #        wget -qO- https://tutuengine.tech/install.sh | sh
 #
 # Environment variables:
-#   TUTU_VERSION          Override version (e.g., "v0.2.0")
+#   TUTU_VERSION          Override version (e.g., "v0.9.4")
 #   TUTU_INSTALL_DIR      Override install directory (default: /usr/local/bin)
 #   TUTU_NO_MODIFY_PATH   Set to 1 to skip PATH modifications
 #   TUTU_HOME             Override TuTu home directory (default: ~/.tutu)
@@ -15,7 +16,7 @@
 set -e
 
 # ─── Constants ───────────────────────────────────────────────────────────────
-REPO="Tutu-Engine/tutuengine"
+REPO="NikeGunn/tutu"
 BINARY="tutu"
 DEFAULT_INSTALL_DIR="/usr/local/bin"
 MAX_RETRIES=3
@@ -72,7 +73,7 @@ detect_platform() {
         armv7l)         ARCH="arm" ;;
         *)
             error "Unsupported architecture: $ARCH"
-            error "TuTu supports: x86_64 (amd64), aarch64 (arm64), armv7l (arm)"
+            error "TuTu supports: x86_64 (amd64), aarch64 (arm64)"
             exit 1
             ;;
     esac
@@ -125,8 +126,7 @@ check_dependencies() {
     fi
 }
 
-# ─── HTTP GET with Exponential Backoff & Jitter ─────────────────────────────
-# DSA: exponential backoff prevents thundering herd on retry storms
+# ─── HTTP GET with Retry ────────────────────────────────────────────────────
 http_get() {
     url="$1"
     output="$2"
@@ -139,21 +139,21 @@ http_get() {
             if [ "$HAS_CURL" = true ]; then
                 curl -fSL --connect-timeout "$CONNECT_TIMEOUT" \
                     --max-time "$DOWNLOAD_TIMEOUT" --retry 2 --retry-delay 1 \
-                    -H "User-Agent: TuTu-Installer/2.0" \
+                    -H "User-Agent: TuTu-Installer/3.0" \
                     "$url" -o "$output" 2>/dev/null && return 0
             elif [ "$HAS_WGET" = true ]; then
                 wget -q --timeout="$CONNECT_TIMEOUT" --tries=2 --wait=1 \
-                    --header="User-Agent: TuTu-Installer/2.0" \
+                    --header="User-Agent: TuTu-Installer/3.0" \
                     "$url" -O "$output" 2>/dev/null && return 0
             fi
         else
             if [ "$HAS_CURL" = true ]; then
                 result=$(curl -fsSL --connect-timeout "$CONNECT_TIMEOUT" \
-                    --max-time 30 -H "User-Agent: TuTu-Installer/2.0" \
+                    --max-time 30 -H "User-Agent: TuTu-Installer/3.0" \
                     "$url" 2>/dev/null) && { printf "%s" "$result"; return 0; }
             elif [ "$HAS_WGET" = true ]; then
                 result=$(wget -qO- --timeout="$CONNECT_TIMEOUT" \
-                    --header="User-Agent: TuTu-Installer/2.0" \
+                    --header="User-Agent: TuTu-Installer/3.0" \
                     "$url" 2>/dev/null) && { printf "%s" "$result"; return 0; }
             fi
         fi
@@ -177,24 +177,24 @@ download_with_progress() {
             curl -fSL --connect-timeout "$CONNECT_TIMEOUT" \
                 --max-time "$DOWNLOAD_TIMEOUT" \
                 --retry "$MAX_RETRIES" --retry-delay "$RETRY_DELAY" \
-                -H "User-Agent: TuTu-Installer/2.0" \
+                -H "User-Agent: TuTu-Installer/3.0" \
                 --progress-bar "$url" -o "$output" 2>&1
         else
             curl -fSL --connect-timeout "$CONNECT_TIMEOUT" \
                 --max-time "$DOWNLOAD_TIMEOUT" \
                 --retry "$MAX_RETRIES" --retry-delay "$RETRY_DELAY" \
-                -H "User-Agent: TuTu-Installer/2.0" \
+                -H "User-Agent: TuTu-Installer/3.0" \
                 "$url" -o "$output" 2>/dev/null
         fi
     elif [ "$HAS_WGET" = true ]; then
         wget --timeout="$CONNECT_TIMEOUT" \
             --tries="$MAX_RETRIES" --wait="$RETRY_DELAY" \
-            --header="User-Agent: TuTu-Installer/2.0" \
+            --header="User-Agent: TuTu-Installer/3.0" \
             -q "$url" -O "$output" 2>/dev/null
     fi
 }
 
-# ─── Version Resolution ─────────────────────────────────────────────────────
+# ─── Version Resolution (3-strategy fallback) ───────────────────────────────
 resolve_version() {
     if [ -n "${TUTU_VERSION:-}" ]; then
         VERSION="$TUTU_VERSION"
@@ -204,19 +204,57 @@ resolve_version() {
 
     step "Resolving latest version..."
 
-    api_response=$(http_get "https://api.github.com/repos/${REPO}/releases/latest" "" || echo "")
+    # Strategy 1: GitHub API (most reliable, but rate-limited)
+    api_response=$(http_get "https://api.github.com/repos/${REPO}/releases/latest" "" 2>/dev/null || echo "")
     VERSION=""
     if [ -n "$api_response" ]; then
         VERSION=$(printf "%s" "$api_response" | grep '"tag_name"' | head -1 \
             | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/' || echo "")
     fi
 
-    if [ -z "$VERSION" ]; then
-        VERSION="v0.1.0"
-        warn "Could not reach GitHub API — using default: ${VERSION}"
-    else
+    if [ -n "$VERSION" ]; then
         info "Latest version: ${GREEN}${VERSION}${RESET}"
+        return
     fi
+
+    # Strategy 2: GitHub redirect (follows 302 → extract tag from Location header)
+    warn "API failed, trying redirect detection..."
+    if [ "$HAS_CURL" = true ]; then
+        redirect_url=$(curl -fsSI --connect-timeout "$CONNECT_TIMEOUT" \
+            -H "User-Agent: TuTu-Installer/3.0" \
+            "https://github.com/${REPO}/releases/latest" 2>/dev/null \
+            | grep -i '^location:' | head -1 | tr -d '\r' || echo "")
+        if [ -n "$redirect_url" ]; then
+            VERSION=$(printf "%s" "$redirect_url" | sed -E 's|.*/tag/(v[0-9]+\.[0-9]+\.[0-9]+.*)|\1|' || echo "")
+            if [ -n "$VERSION" ]; then
+                info "Latest version (redirect): ${GREEN}${VERSION}${RESET}"
+                return
+            fi
+        fi
+    fi
+
+    # Strategy 3: Scrape releases page
+    warn "Redirect failed, trying releases page..."
+    page_content=$(http_get "https://github.com/${REPO}/releases" "" 2>/dev/null || echo "")
+    if [ -n "$page_content" ]; then
+        VERSION=$(printf "%s" "$page_content" | grep -oE '/releases/tag/v[0-9]+\.[0-9]+\.[0-9]+[^"]*' \
+            | head -1 | sed 's|.*/tag/||' || echo "")
+        if [ -n "$VERSION" ]; then
+            info "Latest version (page): ${GREEN}${VERSION}${RESET}"
+            return
+        fi
+    fi
+
+    # Fatal: Cannot determine version
+    error "Could not detect latest version."
+    error ""
+    error "Possible causes:"
+    error "  - No internet connection"
+    error "  - GitHub API rate limited"
+    error ""
+    error "Fix: Set version manually:"
+    error "  TUTU_VERSION=v0.9.4 curl -fsSL https://tutuengine.tech/install.sh | sh"
+    exit 1
 }
 
 # ─── Existing Installation Detection ────────────────────────────────────────
@@ -241,6 +279,7 @@ download_binary() {
     URL="https://github.com/${REPO}/releases/download/${VERSION}/tutu-${PLATFORM}-${ARCH}"
 
     step "Downloading TuTu ${VERSION} for ${PLATFORM}/${ARCH}..."
+    info "${URL}"
 
     TMPDIR_CLEANUP=$(mktemp -d 2>/dev/null || mktemp -d -t tutu)
     TMPFILE="${TMPDIR_CLEANUP}/tutu-download"
@@ -264,6 +303,7 @@ download_binary() {
                 info "Binary format: valid" ;;
             *HTML*|*text*|*ASCII*)
                 error "Download returned HTML (likely 404)."
+                error "Check releases: https://github.com/${REPO}/releases"
                 show_build_instructions
                 exit 1 ;;
             *)
@@ -294,7 +334,7 @@ download_binary() {
     # Layer 3: SHA-256 checksum verification
     CHECKSUM_URL="https://github.com/${REPO}/releases/download/${VERSION}/checksums.txt"
     if [ "$HAS_SHA256" = true ]; then
-        checksums=$(http_get "$CHECKSUM_URL" "" || echo "")
+        checksums=$(http_get "$CHECKSUM_URL" "" 2>/dev/null || echo "")
         if [ -n "$checksums" ]; then
             expected_hash=$(printf "%s" "$checksums" | grep "tutu-${PLATFORM}-${ARCH}" | awk '{print $1}')
             if [ -n "$expected_hash" ]; then
@@ -367,7 +407,7 @@ configure_path() {
     esac
 
     if [ -n "$SHELL_RC" ] && ! grep -q "TUTU" "$SHELL_RC" 2>/dev/null; then
-        printf '\n# TuTu — Local-First AI Runtime\nexport PATH="%s:$PATH"\n' "$INSTALL_DIR" >> "$SHELL_RC"
+        printf '\n# TuTu Engine — Local-First AI Runtime\nexport PATH="%s:$PATH"\n' "$INSTALL_DIR" >> "$SHELL_RC"
         info "Updated ${SHELL_RC}"
     fi
 }
@@ -394,7 +434,7 @@ offer_service_install() {
             TUTU_USER=$(whoami)
             cat > /tmp/tutu.service << SVCEOF
 [Unit]
-Description=TuTu — Local-First AI Runtime
+Description=TuTu Engine — Local-First AI Runtime
 After=network.target
 Documentation=https://tutuengine.tech/docs.html
 
@@ -423,7 +463,7 @@ SVCEOF
     esac
 }
 
-# ─── Post-Install Verification (with waiting) ───────────────────────────────
+# ─── Post-Install Verification ──────────────────────────────────────────────
 verify_installation() {
     step "Verifying installation..."
 
@@ -454,7 +494,7 @@ show_build_instructions() {
     warn "Pre-built binary not available for ${PLATFORM}/${ARCH} (${VERSION})."
     printf "\n"
     printf "    git clone https://github.com/${REPO}.git\n"
-    printf "    cd tutuengine\n"
+    printf "    cd tutu\n"
     printf "    go build -o tutu ./cmd/tutu\n"
     printf "    sudo mv tutu ${INSTALL_DIR:-/usr/local/bin}/tutu\n"
     printf "\n"
@@ -465,7 +505,7 @@ show_build_instructions() {
 show_success() {
     printf "\n"
     printf "  ${GREEN}${BOLD}═══════════════════════════════════════════${RESET}\n"
-    printf "  ${GREEN}${BOLD}  TuTu installed successfully!${RESET}\n"
+    printf "  ${GREEN}${BOLD}  TuTu Engine installed successfully!${RESET}\n"
     printf "  ${GREEN}${BOLD}═══════════════════════════════════════════${RESET}\n"
     printf "\n"
     printf "  ${BOLD}Get started:${RESET}\n"

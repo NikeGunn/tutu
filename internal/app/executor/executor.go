@@ -30,7 +30,7 @@ type Backend interface {
 
 // Config controls executor behavior.
 type Config struct {
-	MaxConcurrent int           // Maximum concurrent tasks (default: 4)
+	MaxConcurrent  int           // Maximum concurrent tasks (default: 4)
 	DefaultTimeout time.Duration // Default task timeout (default: 5m)
 }
 
@@ -180,11 +180,11 @@ func (e *Executor) failTask(taskID, errMsg string) {
 
 // Stats returns executor statistics.
 type Stats struct {
-	Active     int   `json:"active"`
-	Completed  int64 `json:"completed"`
-	Failed     int64 `json:"failed"`
-	MaxSlots   int   `json:"max_slots"`
-	FreeSlots  int   `json:"free_slots"`
+	Active    int   `json:"active"`
+	Completed int64 `json:"completed"`
+	Failed    int64 `json:"failed"`
+	MaxSlots  int   `json:"max_slots"`
+	FreeSlots int   `json:"free_slots"`
 }
 
 // Stats returns current executor statistics.

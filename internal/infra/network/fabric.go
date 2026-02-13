@@ -42,13 +42,13 @@ func DefaultFabricConfig() FabricConfig {
 
 // NodeStatus represents the node's current operational state.
 type NodeStatus struct {
-	IsOnline     bool          `json:"is_online"`
-	NodeID       string        `json:"node_id"`
-	Region       string        `json:"region"`
-	Uptime       time.Duration `json:"uptime"`
-	ActiveTasks  int           `json:"active_tasks"`
-	PeerCount    int           `json:"peer_count"`
-	IdleLevel    string        `json:"idle_level"`
+	IsOnline    bool          `json:"is_online"`
+	NodeID      string        `json:"node_id"`
+	Region      string        `json:"region"`
+	Uptime      time.Duration `json:"uptime"`
+	ActiveTasks int           `json:"active_tasks"`
+	PeerCount   int           `json:"peer_count"`
+	IdleLevel   string        `json:"idle_level"`
 }
 
 // Fabric manages the node's network connections.
@@ -227,8 +227,8 @@ func (f *Fabric) sendHeartbeat(ctx context.Context) {
 	budget := f.governor.Budget()
 	status := f.Status()
 
-	_ = budget  // Will be sent in heartbeat payload
-	_ = status  // Will be sent in heartbeat payload
+	_ = budget // Will be sent in heartbeat payload
+	_ = status // Will be sent in heartbeat payload
 
 	// Phase 1: Heartbeat stub
 	// When implemented, sends: NodeID, CPUUsage, GPUUsage, MemoryAvailable,

@@ -42,9 +42,9 @@ func newTestManager(t *testing.T) *Manager {
 
 func TestParseRef(t *testing.T) {
 	tests := []struct {
-		input   string
-		name    string
-		tag     string
+		input string
+		name  string
+		tag   string
 	}{
 		{"llama3", "llama3", "latest"},
 		{"llama3:7b", "llama3", "7b"},

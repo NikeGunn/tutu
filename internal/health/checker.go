@@ -14,8 +14,8 @@ import (
 
 // Check defines a single health check with optional recovery action.
 type Check struct {
-	Name    string
-	CheckFn func(ctx context.Context) error
+	Name      string
+	CheckFn   func(ctx context.Context) error
 	RecoverFn func(ctx context.Context) error
 }
 

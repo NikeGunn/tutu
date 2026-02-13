@@ -30,7 +30,7 @@ type Transport struct {
 
 // session tracks a connected MCP client session.
 type session struct {
-	ID        string
+	ID         string
 	ClientName string
 	// SSE channel for server-initiated notifications
 	notify chan []byte

@@ -76,7 +76,7 @@ func TestResourceMetrics(t *testing.T) {
 	GPUUsage.Set(80.0)
 	GPUTemperature.Set(72.0)
 	MemoryUsage.Set(4 * 1024 * 1024 * 1024) // 4GB
-	IdleLevel.Set(2)                          // Deep
+	IdleLevel.Set(2)                        // Deep
 
 	families, _ := prometheus.DefaultGatherer.Gather()
 	names := make(map[string]bool)

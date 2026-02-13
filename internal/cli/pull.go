@@ -15,10 +15,10 @@ func init() {
 var pullCmd = &cobra.Command{
 	Use:   "pull MODEL",
 	Short: "Download a model from the TuTu registry",
-	Long:  `Pull a model to run locally. Downloads the GGUF file from HuggingFace.
+	Long: `Pull a model to run locally. Downloads the GGUF file from HuggingFace.
 Supports resume — if a download is interrupted, run pull again to continue.`,
-	Args:  cobra.ExactArgs(1),
-	RunE:  runPull,
+	Args: cobra.ExactArgs(1),
+	RunE: runPull,
 }
 
 func runPull(cmd *cobra.Command, args []string) error {

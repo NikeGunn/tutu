@@ -27,9 +27,9 @@ type ModelInfo struct {
 
 // Manifest describes a model's layers in OCI-like content-addressed format.
 type Manifest struct {
-	SchemaVersion int    `json:"schemaVersion"`
-	MediaType     string `json:"mediaType"`
-	Config        Layer  `json:"config"`
+	SchemaVersion int     `json:"schemaVersion"`
+	MediaType     string  `json:"mediaType"`
+	Config        Layer   `json:"config"`
 	Layers        []Layer `json:"layers"`
 }
 

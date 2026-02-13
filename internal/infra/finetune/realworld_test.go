@@ -172,12 +172,12 @@ func TestScenario_QLoRAFourBit(t *testing.T) {
 		DatasetURI: "gs://training/sentiment-1m.jsonl",
 		Method:     MethodQLoRA,
 		Config: LoRAConfig{
-			Rank:          8,
-			Alpha:         16,
-			Dropout:       0.1,
-			TargetModules: []string{"q_proj", "k_proj", "v_proj", "o_proj"},
-			LearningRate:  1e-4,
-			BatchSize:     2, // Smaller batch for 4-bit
+			Rank:           8,
+			Alpha:          16,
+			Dropout:        0.1,
+			TargetModules:  []string{"q_proj", "k_proj", "v_proj", "o_proj"},
+			LearningRate:   1e-4,
+			BatchSize:      2, // Smaller batch for 4-bit
 			GradAccumSteps: 8,
 		},
 		Epochs:   3,
@@ -352,7 +352,7 @@ func TestScenario_CreditTracking(t *testing.T) {
 	for epoch := 1; epoch <= 3; epoch++ {
 		c.RecordGradient(GradientUpdate{
 			JobID: "credit-test", NodeID: "node-1",
-			Epoch: epoch, Loss: float64(3-epoch), Samples: 100,
+			Epoch: epoch, Loss: float64(3 - epoch), Samples: 100,
 		})
 		c.AggregateEpoch("credit-test", epoch)
 	}

@@ -217,10 +217,10 @@ func TestLevelForXP(t *testing.T) {
 		{0, 1},
 		{100, 1},
 		{119, 1},
-		{120, 2},   // Exactly L2 threshold
-		{143, 2},   // Just below L3
-		{144, 3},   // Exactly L3 threshold
-		{500, 9},   // Between L9 (429) and L10 (515)
+		{120, 2}, // Exactly L2 threshold
+		{143, 2}, // Just below L3
+		{144, 3}, // Exactly L3 threshold
+		{500, 9}, // Between L9 (429) and L10 (515)
 	}
 	for _, tt := range tests {
 		got := engagement.LevelForXP(tt.xp)

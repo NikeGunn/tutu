@@ -15,9 +15,9 @@ type ReferralInfo struct {
 type ReferralReward struct {
 	ReferrerCredits int64 `json:"referrer_credits"` // 500 credits
 	ReferrerXP      int64 `json:"referrer_xp"`      // 200 XP
-	RefereeCredits  int64 `json:"referee_credits"`   // 200 bonus credits on install
-	ChainBonus      int64 `json:"chain_bonus"`       // 100 credits if referee refers someone
-	MaxPerMonth     int   `json:"max_per_month"`     // 50 referral rewards/month cap
+	RefereeCredits  int64 `json:"referee_credits"`  // 200 bonus credits on install
+	ChainBonus      int64 `json:"chain_bonus"`      // 100 credits if referee refers someone
+	MaxPerMonth     int   `json:"max_per_month"`    // 50 referral rewards/month cap
 }
 
 // DefaultReferralReward returns the architecture-defined referral rewards.
@@ -65,13 +65,13 @@ const (
 
 // LeaderboardEntry represents a user's position on a leaderboard.
 type LeaderboardEntry struct {
-	Rank            int     `json:"rank"`
-	AnonymizedName  string  `json:"name"`      // Privacy: anonymized username
-	Score           float64 `json:"score"`
-	CreditsEarned   int64   `json:"credits_earned"`
-	TasksCompleted  int64   `json:"tasks_completed"`
-	UptimeHours     float64 `json:"uptime_hours"`
-	StreakLength     int     `json:"streak_length"`
+	Rank           int     `json:"rank"`
+	AnonymizedName string  `json:"name"` // Privacy: anonymized username
+	Score          float64 `json:"score"`
+	CreditsEarned  int64   `json:"credits_earned"`
+	TasksCompleted int64   `json:"tasks_completed"`
+	UptimeHours    float64 `json:"uptime_hours"`
+	StreakLength   int     `json:"streak_length"`
 }
 
 // LeaderboardScore calculates the weighted score for ranking.
@@ -82,9 +82,9 @@ func LeaderboardScore(credits int64, tasks int64, uptimeHrs float64, streak int)
 
 // LeaderboardConfig controls leaderboard behavior.
 type LeaderboardConfig struct {
-	OptIn       bool `json:"opt_in"`       // v3.0: opt-in only
-	TopN        int  `json:"top_n"`        // Display top N (default 100)
-	Anonymized  bool `json:"anonymized"`   // No real names shown
+	OptIn      bool `json:"opt_in"`     // v3.0: opt-in only
+	TopN       int  `json:"top_n"`      // Display top N (default 100)
+	Anonymized bool `json:"anonymized"` // No real names shown
 }
 
 // DefaultLeaderboardConfig returns the v3.0 leaderboard policy.
@@ -102,13 +102,13 @@ func DefaultLeaderboardConfig() LeaderboardConfig {
 type OnboardingStep string
 
 const (
-	OnboardInstall       OnboardingStep = "install"        // Minute 0
-	OnboardFirstChat     OnboardingStep = "first_chat"     // Minute 1
-	OnboardFirstTask     OnboardingStep = "first_task"     // Minute 2
-	OnboardCreditsShown  OnboardingStep = "credits_shown"  // Minute 3
-	OnboardIdleDetected  OnboardingStep = "idle_detected"  // Minute 4
-	OnboardFirstAchieve  OnboardingStep = "first_achieve"  // Minute 5
-	OnboardComplete      OnboardingStep = "complete"
+	OnboardInstall      OnboardingStep = "install"       // Minute 0
+	OnboardFirstChat    OnboardingStep = "first_chat"    // Minute 1
+	OnboardFirstTask    OnboardingStep = "first_task"    // Minute 2
+	OnboardCreditsShown OnboardingStep = "credits_shown" // Minute 3
+	OnboardIdleDetected OnboardingStep = "idle_detected" // Minute 4
+	OnboardFirstAchieve OnboardingStep = "first_achieve" // Minute 5
+	OnboardComplete     OnboardingStep = "complete"
 )
 
 // OnboardingProgress tracks which onboarding steps are complete.

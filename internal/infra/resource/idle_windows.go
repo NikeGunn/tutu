@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	user32              = syscall.NewLazyDLL("user32.dll")
-	kernel32            = syscall.NewLazyDLL("kernel32.dll")
+	user32               = syscall.NewLazyDLL("user32.dll")
+	kernel32             = syscall.NewLazyDLL("kernel32.dll")
 	procGetLastInputInfo = user32.NewProc("GetLastInputInfo")
 	procGetTickCount     = kernel32.NewProc("GetTickCount")
 )

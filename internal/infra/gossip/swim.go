@@ -56,19 +56,19 @@ const (
 
 // Message is a SWIM protocol message sent over UDP.
 type Message struct {
-	Type      MessageType    `json:"type"`
-	SeqNo     uint64         `json:"seq"`
-	From      string         `json:"from"`
-	Target    string         `json:"target,omitempty"`
-	State     []StateUpdate  `json:"state,omitempty"` // Piggybacked
-	Signature []byte         `json:"sig,omitempty"`
+	Type      MessageType   `json:"type"`
+	SeqNo     uint64        `json:"seq"`
+	From      string        `json:"from"`
+	Target    string        `json:"target,omitempty"`
+	State     []StateUpdate `json:"state,omitempty"` // Piggybacked
+	Signature []byte        `json:"sig,omitempty"`
 }
 
 // StateUpdate is a piggybacked membership state change.
 type StateUpdate struct {
-	NodeID     string           `json:"node_id"`
-	State      domain.PeerState `json:"state"`
-	Incarnation uint64          `json:"incarnation"`
+	NodeID      string           `json:"node_id"`
+	State       domain.PeerState `json:"state"`
+	Incarnation uint64           `json:"incarnation"`
 }
 
 // member tracks internal membership state.
@@ -91,8 +91,8 @@ type SWIM struct {
 	members   map[string]*member
 	seqNo     uint64
 	keypair   *security.Keypair
-	broadcast []StateUpdate // Pending piggybacked state changes
-	bcastLeft map[string]int  // nodeID → remaining retransmissions
+	broadcast []StateUpdate  // Pending piggybacked state changes
+	bcastLeft map[string]int // nodeID → remaining retransmissions
 
 	// Callbacks
 	onJoin  func(nodeID string)

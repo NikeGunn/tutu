@@ -46,16 +46,16 @@ type MCPClient struct {
 
 // MCPTool represents an MCP tool definition exposed to clients.
 type MCPTool struct {
-	Name        string              `json:"name"`
-	Description string              `json:"description"`
-	InputSchema MCPToolInputSchema  `json:"inputSchema"`
+	Name        string             `json:"name"`
+	Description string             `json:"description"`
+	InputSchema MCPToolInputSchema `json:"inputSchema"`
 }
 
 // MCPToolInputSchema is the JSON Schema for tool inputs.
 type MCPToolInputSchema struct {
-	Type       string                     `json:"type"` // always "object"
+	Type       string                       `json:"type"` // always "object"
 	Properties map[string]MCPSchemaProperty `json:"properties"`
-	Required   []string                   `json:"required"`
+	Required   []string                     `json:"required"`
 }
 
 // MCPSchemaProperty defines a single property in a JSON Schema.
