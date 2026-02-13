@@ -159,6 +159,12 @@
       flex-shrink: 0;
     }
 
+    .nav-brand img {
+      height: 28px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -640,17 +646,7 @@
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-brand" aria-label="TuTu Engine Home">
-        <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#7C3AED" />
-              <stop offset="100%" stop-color="#06B6D4" />
-            </linearGradient>
-          </defs>
-          <circle cx="90" cy="90" r="36" fill="url(#ng)" /><text x="90" y="102" font-size="36" font-weight="bold"
-            fill="white" text-anchor="middle" font-family="system-ui">T</text>
-        </svg>
-        TuTu Docs
+        <img src="logo/tutuengine.png" alt="TuTu Engine" loading="eager" />
       </a>
       <div class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
