@@ -298,29 +298,35 @@ func TestManager_CreateFromTuTufile(t *testing.T) {
 // ─── BlobPath / ManifestPath Tests ──────────────────────────────────────────
 
 func TestManager_BlobPath(t *testing.T) {
-	mgr := NewManager("/root/models", nil)
+	tmpDir := t.TempDir()
+	modelsDir := filepath.Join(tmpDir, "models")
+	mgr := NewManager(modelsDir, nil)
 	got := mgr.BlobPath("sha256:abc123")
-	want := filepath.Join("/root/models", "blobs", "sha256-abc123")
+	want := filepath.Join(modelsDir, "blobs", "sha256-abc123")
 	if got != want {
 		t.Errorf("BlobPath() = %q, want %q", got, want)
 	}
 }
 
 func TestManager_ManifestPath(t *testing.T) {
-	mgr := NewManager("/root/models", nil)
+	tmpDir := t.TempDir()
+	modelsDir := filepath.Join(tmpDir, "models")
+	mgr := NewManager(modelsDir, nil)
 	ref := domain.ModelRef{Name: "llama3", Tag: "7b"}
 	got := mgr.ManifestPath(ref)
-	want := filepath.Join("/root/models", "manifests", "llama3", "7b")
+	want := filepath.Join(modelsDir, "manifests", "llama3", "7b")
 	if got != want {
 		t.Errorf("ManifestPath() = %q, want %q", got, want)
 	}
 }
 
 func TestManager_ManifestPath_DefaultTag(t *testing.T) {
-	mgr := NewManager("/root/models", nil)
+	tmpDir := t.TempDir()
+	modelsDir := filepath.Join(tmpDir, "models")
+	mgr := NewManager(modelsDir, nil)
 	ref := domain.ModelRef{Name: "llama3"}
 	got := mgr.ManifestPath(ref)
-	want := filepath.Join("/root/models", "manifests", "llama3", "latest")
+	want := filepath.Join(modelsDir, "manifests", "llama3", "latest")
 	if got != want {
 		t.Errorf("ManifestPath() = %q, want %q", got, want)
 	}

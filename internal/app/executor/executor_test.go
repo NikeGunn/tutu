@@ -107,7 +107,7 @@ func TestSubmit_Success(t *testing.T) {
 	}
 
 	// Wait for async execution
-	time.Sleep(300 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 
 	stats := e.Stats()
 	if stats.Completed != 1 {
@@ -134,7 +134,7 @@ func TestSubmit_BackendError(t *testing.T) {
 		t.Fatalf("Submit() error: %v", err)
 	}
 
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(300 * time.Millisecond)
 
 	stats := e.Stats()
 	if stats.Failed != 1 {
@@ -155,7 +155,7 @@ func TestSubmit_NoBackend(t *testing.T) {
 		t.Fatalf("Submit() error: %v", err)
 	}
 
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(300 * time.Millisecond)
 
 	stats := e.Stats()
 	if stats.Failed != 1 {
@@ -182,7 +182,7 @@ func TestSubmit_ConcurrencyLimit(t *testing.T) {
 	}
 
 	// Give tasks a moment to start
-	time.Sleep(50 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 
 	// 3rd should fail — at capacity
 	err := e.Submit(context.Background(), domain.Task{

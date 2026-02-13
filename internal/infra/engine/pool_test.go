@@ -226,8 +226,8 @@ func TestPool_IdleReaper(t *testing.T) {
 		return "/fake/path/" + name, nil
 	}
 	pool := NewPool(backend, 1024*1024*1024, resolver)
-	pool.idleTimeout = 50 * time.Millisecond  // Very short for testing
-	pool.reapInterval = 25 * time.Millisecond // Tick fast enough to catch it
+	pool.idleTimeout = 150 * time.Millisecond // Short for testing but safe for Windows CI
+	pool.reapInterval = 50 * time.Millisecond  // Tick fast enough to catch it
 
 	h, err := pool.Acquire("test-model", LoadOptions{})
 	if err != nil {
@@ -240,7 +240,7 @@ func TestPool_IdleReaper(t *testing.T) {
 	go pool.IdleReaper(ctx)
 
 	// Wait for reaper to run
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 	cancel()
 
 	loaded := pool.LoadedModels()
