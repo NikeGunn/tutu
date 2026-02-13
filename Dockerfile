@@ -1,6 +1,7 @@
 # ──────────────────────────────────────────────────────────────────────────────
-# TuTu Network — Production Dockerfile
+# TuTu Engine — Production Dockerfile
 # Multi-stage build: Compile Go binary → minimal runtime image
+# Serves both API and website from single container
 # ──────────────────────────────────────────────────────────────────────────────
 
 # Stage 1: Build
