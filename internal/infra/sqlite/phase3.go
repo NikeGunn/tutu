@@ -138,16 +138,6 @@ func (db *DB) ListRegionStatuses() ([]struct {
 	}
 	defer rows.Close()
 
-	type RegionRow struct {
-		Region       string
-		Healthy      bool
-		NodeCount    int
-		ActiveTasks  int
-		QueueDepth   int
-		AvgLatencyMs float64
-		UpdatedAt    time.Time
-	}
-
 	var result []struct {
 		Region       string
 		Healthy      bool

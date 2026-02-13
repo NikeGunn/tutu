@@ -8,7 +8,7 @@ import (
 
 func TestInferenceLatency_Registered(t *testing.T) {
 	// Verify the metric is registered with the default registry
-	families, err := prometheus.DefaultGatherer.Gather()
+	_, err := prometheus.DefaultGatherer.Gather()
 	if err != nil {
 		t.Fatalf("Gather() error: %v", err)
 	}

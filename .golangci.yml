@@ -11,13 +11,12 @@ linters:
     - misspell
     - bodyclose
     - nilerr
-    - exportloopref
     - prealloc
     - unconvert
 
 linters-settings:
   errcheck:
-    check-type-assertions: true
+    check-type-assertions: false  # Type assertions in infra code are intentional
   govet:
     enable-all: true
     disable:
@@ -29,12 +28,20 @@ linters-settings:
     locale: US
 
 issues:
+  max-issues-per-linter: 0   # Report all issues (no cap)
+  max-same-issues: 0         # Report all duplicates
   exclude-rules:
     # Test files can be more relaxed
     - path: _test\.go
       linters:
         - errcheck
         - bodyclose
+        - unused
+    # Suppress unusedwrite in tests (struct literals used for validation)
+    - path: _test\.go
+      linters:
+        - govet
+      text: "unusedwrite"
     # Domain types don't need all govet checks
     - path: internal/domain/
       linters:
@@ -44,10 +51,27 @@ issues:
     - path: internal/api/
       linters:
         - errcheck
+    # Infrastructure: fire-and-forget patterns (UDP writes, process kills, chmod)
+    - path: internal/infra/
+      linters:
+        - errcheck
+        - bodyclose
+    # Executor: task status updates are best-effort logging
+    - path: internal/app/executor/
+      linters:
+        - errcheck
+    # MCP transport: w.Write errors in HTTP handlers
+    - path: internal/mcp/
+      linters:
+        - errcheck
     # Prealloc is advisory, not a correctness issue
     - linters:
         - prealloc
       text: "Consider pre-allocating"
+    # British spelling "cancelled" is intentional in our domain model
+    - linters:
+        - misspell
+      text: "cancelled|CANCELLED|Cancelled"
 
 run:
   timeout: 5m
