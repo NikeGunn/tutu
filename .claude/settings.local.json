@@ -8,7 +8,10 @@
       "Bash(go vet:*)",
       "Bash(go install:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(xargs:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)"
     ]
   }
 }
