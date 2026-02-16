@@ -43,3 +43,7 @@ coverage.html
 
 # Node modules (website)
 website/node_modules/
+
+COMPREHENSIVE-CODEBASE-ANALYSIS.md
+final-end-to-end-architecture.md
+phases.md
